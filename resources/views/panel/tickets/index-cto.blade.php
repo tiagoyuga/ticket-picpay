@@ -143,7 +143,7 @@
                                                                 <td style="text-align: center">
 
 
-                                                                    <a class="btn btn-sm btn-default" title="Details"
+                                                                    <a class="btn btn-sm btn-default" title="Change status"
                                                                        href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
                                                                             class="fa fa-list"></i>
                                                                     </a>

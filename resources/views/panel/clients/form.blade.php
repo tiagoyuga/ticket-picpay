@@ -96,20 +96,7 @@
 
                             </div>
 
-                            <div class="form-row">
 
-
-                                <div class="form-group col-md-4 @if ($errors->has('status')) has-error @endif">
-                                    <label for="status">Status</label>
-                                    <select name="status" id="status" class="form-control">
-                                        @foreach(config('enums.boolean') as $i => $v)
-                                            <option
-                                                value="{{ $i }}" {{ old('status', (isset($item) ? $item->status : '1')) == $i ? 'selected' : '' }}>{{ $v }} </option>
-                                        @endforeach
-                                    </select>
-                                    {!! $errors->first('status','<span class="help-block m-b-none">:message</span>') !!}
-                                </div>
-                            </div>
 
                             <!-- fim dos campos -->
 
