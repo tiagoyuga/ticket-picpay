@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class TicketStatus extends Model
 {
+
+    const UNDER_DEVELOPMENT = 3;
+    const CLIENT_REVIEW = 2;
+    const CTO_REVIEW = 1;
+    const ONHOLD = 0;
+    const COMPLETED = 4;
+
     use SoftDeletes;
 
     /**

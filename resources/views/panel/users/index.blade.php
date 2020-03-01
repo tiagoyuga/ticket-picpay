@@ -43,9 +43,9 @@
 
                                     <thead>
                                     <tr>
-                                        <th>Group</th>
                                         <th>Name</th>
                                         <th>E-mail</th>
+                                        <th>Group</th>
                                         <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
                                         <th style="width: 290px; text-align: center">Actions</th>
                                     </tr>
@@ -56,9 +56,9 @@
                                         @foreach($data as $item)
                                             <tr id="tr-{{ $item->id }}">
 
-                                                <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
+                                                <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
 
                                                 <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
 

@@ -31,7 +31,7 @@
 {{--                    </a>--}}
 {{--                </li>--}}
 
-                @if(\Auth::user()->group_id != '3')
+                @if(\Auth::user()->group_id == \App\Models\Group::ADMIN)
 
                     <li class="dropdown {{ isActiveRoute([
     'groups.*', 'users.*']) }}">
@@ -41,13 +41,8 @@
                         </a>
                         <ul role="menu" class="dropdown-menu">
 
-                            <li>
-                                <a href="{{ route('groups.index') }}">Groups</a>
-                            </li>
-
-                            {{--                            @endif--}}
+                            <li><a href="{{ route('groups.index') }}">Groups</a></li>
                             <li><a href="{{ route('users.index') }}">Users</a></li>
-
                             <li><a href="{{ route('clients.index') }}">Clients</a></li>
 
                         </ul>

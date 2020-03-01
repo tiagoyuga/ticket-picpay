@@ -8,10 +8,17 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>@yield('_titulo_pagina_')</h5>
+
+                        <div class="ibox-tools">
+                            <a class="collapse-link ui-sortable">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="ibox-content">
 
@@ -26,6 +33,7 @@
                         @endif
 
                         <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
+                              enctype="multipart/form-data"
                               action="{{ isset($item) ? route('tickets.update', $item->id) : route('tickets.store') }}">
                         {{ method_field(isset($item) ? 'PUT' : 'POST') }}
                         {{ csrf_field() }}
@@ -51,7 +59,6 @@
                                 <div class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
                                     <label for="priority">Priority</label>
 
-
                                     <select name="priority" id="priority" class="form-control">
                                         @foreach(config('enums.priorities') as $i => $v)
                                             <option
@@ -68,7 +75,7 @@
 
                                 <div class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
                                     <label for="image">File</label>
-                                    <input id="resume" name="resume" type="file"
+                                    <input id="file" name="file" type="file"
                                            class="form-control required"
                                            accept="image/gif, image/jpeg, image/png, application/pdf"
                                     >

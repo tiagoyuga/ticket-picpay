@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\CreationDataTrait;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Ticket extends Model
 {
     use SoftDeletes;
@@ -92,6 +91,36 @@ class Ticket extends Model
     function status()
     {
         return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'id');
+    }
+
+    function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
+
+    function cto()
+    {
+        return $this->belongsTo(User::class, 'cto_id', 'id');
+    }
+
+    function dev()
+    {
+        return $this->belongsTo(User::class, 'dev_id', 'id');
+    }
+
+    function comments()
+    {
+        return $this->hasMany(TicketComment::class);
+    }
+
+    function activities()
+    {
+        return $this->hasMany(TicketActivity::class);
+    }
+
+    function files()
+    {
+        return $this->hasMany(TicketFile::class);
     }
 
     # Accessors & Mutators

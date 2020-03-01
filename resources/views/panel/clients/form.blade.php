@@ -32,9 +32,9 @@
 
                         <!-- inicio dos campos -->
                             <div class="form-row">
-                                <div class="form-group col-md-6 @if ($errors->has('user_id')) has-error @endif">
-                                    <label for="group_id">Client <i class="text-danger">*</i></label>
-                                    <select class="form-control form-control-lg" style="width: 100%"
+                                <div class="form-group col-md-4 @if ($errors->has('user_id')) has-error @endif">
+                                    <label for="group_id">User responsible for the company <i class="text-danger">*</i></label>
+                                    <select  class="select2 form-control form-control-lg" style="width: 100%"
                                             name="user_id"
                                             id="user_id">
                                         <option value="">Select</option>
@@ -48,18 +48,27 @@
                                     </select>
                                     {!! $errors->first('user_id','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
+
+                                <div class="form-group col-md-4 @if ($errors->has('email')) has-error @endif">
+                                    <label for="email">Company e-mail</label>
+                                    <input type="text" name="email" id="email" class="form-control"
+                                           value="{{ old('email', (isset($item) ? $item->email : '')) }}">
+                                    {!! $errors->first('email','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
+
+
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-4 @if ($errors->has('company_name')) has-error @endif">
-                                    <label for="company_name">Company Name</label>
+                                    <label for="company_name">Company name</label>
                                     <input type="text" name="company_name" id="company_name" class="form-control"
                                            value="{{ old('company_name', (isset($item) ? $item->company_name : '')) }}">
                                     {!! $errors->first('company_name','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
                                 <div class="form-group col-md-4 @if ($errors->has('contact_name')) has-error @endif">
-                                    <label for="contact_name">Contact Name</label>
+                                    <label for="contact_name">Company contact name</label>
                                     <input type="text" name="contact_name" id="contact_name" class="form-control"
                                            value="{{ old('contact_name', (isset($item) ? $item->contact_name : '')) }}">
                                     {!! $errors->first('contact_name','<span class="help-block m-b-none">:message</span>') !!}
@@ -78,7 +87,7 @@
                                     {!! $errors->first('additional_phone','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
-                                <div class="form-group col-md-3 @if ($errors->has('cell_phone')) has-error @endif">
+                                <div class="form-group col-md-4 @if ($errors->has('cell_phone')) has-error @endif">
                                     <label for="cell_phone">Cell phone</label>
                                     <input type="text" name="cell_phone" id="cell_phone" class="form-control"
                                            value="{{ old('cell_phone', (isset($item) ? $item->cell_phone : '')) }}">
@@ -88,17 +97,9 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-3 @if ($errors->has('email')) has-error @endif">
-                                    <label for="email">E-mail</label>
-                                    <input type="text" name="email" id="email" class="form-control"
-                                           value="{{ old('email', (isset($item) ? $item->email : '')) }}">
-                                    {!! $errors->first('email','<span class="help-block m-b-none">:message</span>') !!}
-                                </div>
-                            </div>
 
 
-                            <div class="form-row">
-                                <div class="form-group col-md-3 @if ($errors->has('status')) has-error @endif">
+                                <div class="form-group col-md-4 @if ($errors->has('status')) has-error @endif">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control">
                                         @foreach(config('enums.boolean') as $i => $v)
@@ -147,5 +148,6 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
+    <script type="text/javascript" src="{{ asset('js/custom-select2.js')}}"></script>
     {!! $validator->selector('#frm_save') !!}
 @endsection

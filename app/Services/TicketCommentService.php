@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\TicketActivity;
 use App\Models\TicketComment;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,10 +63,20 @@ class TicketCommentService
         return DB::transaction(function () use ($data) {
 
             $model = new TicketComment();
+            $data['user_id'] = \Auth::id();
             $model->fill($data);
             #$model->user_creator_id = \Auth::id();
             #$model->user_updater_id = \Auth::id();
             $model->save();
+
+            $activity = new TicketActivity();
+            $activity->user_id = \Auth::id();
+            $activity->ticket_id = $data['ticket_id'];
+            $activity->activity = "Leave comment in ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
+            $activity->before = json_encode($model->ticket->toArray());
+            $activity->after = json_encode($model->ticket->toArray());
+            $activity->save();
+
 
             return $model;
         });

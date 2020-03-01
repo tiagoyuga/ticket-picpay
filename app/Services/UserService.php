@@ -81,15 +81,6 @@ class UserService
 
             $model->save();
 
-            if(!empty($data['file'])){
-                $path = GenericUpload::store(request()->file('file'), 'tickets');
-                $attach = new TicketFile();
-                $attach->file = $path;
-                $attach->user_id = \Auth::id();
-                $attach->ticket_id = $model->id;
-                $attach->save();
-            }
-
             return $model;
 
         });
@@ -177,6 +168,17 @@ class UserService
 
         return User::orderBy('name')
             ->whereGroupId(3)
+            ->pluck('name', 'id')
+            ->toArray();
+        //});
+    }
+
+    public function listsDevs(): array
+    {
+        //return Cache::remember('User_lists', config('cache.cache_time'), function () {
+
+        return User::orderBy('name')
+            ->whereGroupId(5)
             ->pluck('name', 'id')
             ->toArray();
         //});

@@ -35,21 +35,7 @@ class TicketCommentController extends ApiBaseController
         $this->label = 'TicketComment';
     }
 
-    public function index(): View
-    {
 
-        $this->log(__METHOD__);
-
-        $this->authorize('viewAny', TicketComment::class);
-
-        $data = $this->service->paginate(20);
-
-        return view('panel.ticket_comments.index')
-            ->with([
-                'data' => $data,
-                'label' => $this->label,
-            ]);
-    }
 
     public function create(): View
     {
@@ -71,32 +57,15 @@ class TicketCommentController extends ApiBaseController
     public function store(TicketCommentStoreRequest $ticketCommentStoreRequest)
     {
 
-        $this->service->create($ticketCommentStoreRequest->all());
+        $message = $this->service->create($ticketCommentStoreRequest->all());
 
-        return redirect()->route('ticket_comments.' . request('routeTo'))
+        return redirect()->route('tickets.detail', $message->ticket_id)
             ->with([
                 'message' => 'Successfully created',
                 'messageType' => 's',
             ]);
     }
 
-    public function edit(TicketComment $ticketComment): View
-    {
-
-        $this->log(__METHOD__);
-
-        $this->authorize('update', $ticketComment);
-
-        $validatorRequest = new TicketCommentUpdateRequest();
-        $validator = JsValidator::make($validatorRequest->rules(), $validatorRequest->messages());
-
-        return view('panel.ticket_comments.form')
-            ->with([
-                'item' => $ticketComment,
-                'label' => $this->label,
-                'validator' => $validator,
-            ]);
-    }
 
     public function update(TicketCommentUpdateRequest $request, TicketComment $ticketComment): RedirectResponse
     {
@@ -134,12 +103,5 @@ class TicketCommentController extends ApiBaseController
         }
     }
 
-    public function show(TicketComment $ticketComment): JsonResponse
-    {
 
-        $this->log(__METHOD__);
-        $this->authorize('update', $ticketComment);
-
-        return response()->json($ticketComment, 200, [], JSON_PRETTY_PRINT);
-    }
 }

@@ -80,6 +80,11 @@
                                                                             class="fa fa-pencil"></i>
                                                                     </a>
 
+                                                                    <a class="btn btn-sm btn-default" title="Details"
+                                                                       href="{{ route('tickets.detail', [$item->id]) }}"><i
+                                                                            class="fa fa-history"></i>
+                                                                    </a>
+
                                                                     {{--                    <link-destroy-component--}}
                                                                     {{--                        line-id="{{ 'tr-'.$item->id }}"--}}
                                                                     {{--                        link="{{ route('tickets.destroy', [$item->id]) }}">--}}

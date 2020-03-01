@@ -80,6 +80,10 @@ Route::namespace('Panel')
         $panel->resource('ticket_status', TicketStatusController::class);
 
     /* panel/tickets */
+        $panel->get('tickets/{ticket}/details', 'TicketController@details')->name('tickets.detail');
+        $panel->get('tickets/{ticket}/change-status', 'TicketController@changeStatus')->name('tickets.changeStatus');
+        $panel->get('tickets/files/{attachment}/download', 'TicketController@download')->name('tickets.download');
+
         $panel->resource('tickets', TicketController::class);
 
     /* panel/ticket_comments */

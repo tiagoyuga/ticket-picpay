@@ -19,18 +19,27 @@ class TicketStatusSeeder extends Seeder
 
         $itens = [
             [
+                'id' => 3,
                 'name' => 'Under development',
-                'order' => 1
-            ],
-            [
-                'name' => 'Under development',
-                'order' => 2
-            ],
-            [
-                'name' => 'Onhold',
                 'order' => 3
             ],
             [
+                'id' => 2,
+                'name' => 'Ready for Client review',
+                'order' => 2
+            ],
+            [
+                'id' => 1,
+                'name' => 'Ready for CTO review',
+                'order' => 1
+            ],
+            [
+                'id' => 5,
+                'name' => 'Onhold',
+                'order' => 0
+            ],
+            [
+                'id' => 4,
                 'name' => 'Completed',
                 'order' => 4
             ],

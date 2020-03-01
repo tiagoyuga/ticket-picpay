@@ -33,7 +33,7 @@ class TicketCommentRule
     {
 
         return [
-            'user_id' => self::$rules['user_id'],
+            //'user_id' => self::$rules['user_id'],
             'ticket_id' => self::$rules['ticket_id'],
             'content' => self::$rules['content'],
         ];

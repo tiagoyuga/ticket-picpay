@@ -13,7 +13,7 @@ use App\Traits\CreationDataTrait;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-class TicketComment extends Model
+class TicketActivity extends Model
 {
     use SoftDeletes;
 
@@ -29,7 +29,7 @@ class TicketComment extends Model
      *
      * @var string
      */
-    protected $table = 'ticket_comments';
+    protected $table = 'ticket_activities';
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +39,9 @@ class TicketComment extends Model
     protected $fillable = [
         'user_id',
         'ticket_id',
-        'content',
+        'activity',
+        'before',
+        'after',
     ];
 
     /**

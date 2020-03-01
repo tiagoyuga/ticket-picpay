@@ -15,6 +15,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Group extends Model
 {
+    const CTO = 4;
+    const ADMIN = 1;
+    const DEVELOPER = 5;
+    const CLIENT = 3;
+
     use SoftDeletes;
 
     /**

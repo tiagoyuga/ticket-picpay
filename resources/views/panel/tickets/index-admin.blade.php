@@ -23,7 +23,9 @@
                         <h5>@yield('_titulo_pagina_')</h5>
 
                         <div class="ibox-tools">
-
+                            <a class="collapse-link ui-sortable">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -40,7 +42,6 @@
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
                                     <li><a class="nav-link active" data-toggle="tab" href="#tab-1">All</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">Ready for review</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -75,11 +76,15 @@
 
                                                                     <td style="text-align: center">
 
-                                                                        <a class="btn btn-sm btn-default" title="Edit"
-                                                                           href="{{ route('tickets.edit', [$item->id]) }}"><i
-                                                                                class="fa fa-pencil"></i>
+                                                                        <a class="btn btn-sm btn-default" title="Change Status"
+                                                                           href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
+                                                                                class="fa fa-list"></i>
                                                                         </a>
 
+                                                                        <a class="btn btn-sm btn-default" title="Details"
+                                                                           href="{{ route('tickets.detail', [$item->id]) }}"><i
+                                                                                class="fa fa-history"></i>
+                                                                        </a>
                                                                         {{--                    <link-destroy-component--}}
                                                                         {{--                        line-id="{{ 'tr-'.$item->id }}"--}}
                                                                         {{--                        link="{{ route('tickets.destroy', [$item->id]) }}">--}}
@@ -102,13 +107,6 @@
                                                     </a>
                                                 </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                    <div id="tab-2" class="tab-pane">
-                                        <div class="panel-body">
-                                            <div class="alert alert-danger">
-                                                We have nothing to display.
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

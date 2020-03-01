@@ -12,15 +12,18 @@
     </div>
     <div class="col-lg-4">
         <div class="btn-group pull-right" style="margin-top: 30px;">
+
+
             <a class="btn btn-default" href="{{ route('tickets.index') }}">
                 <i class="fa fa-list-ul"></i>
                 List
             </a>
-            @if(Auth::user()->can('create', \App\Models\Ticket::class))
+
+            @can('create', \App\Models\Ticket::class)
                 <a class="btn btn-primary" id="ln_adicionar" href="{{ route('tickets.create') }}">
                     <i class="fa fa-plus-circle"></i> New
                 </a>
-            @endif
+            @endcan
         </div>
     </div>
 </div>

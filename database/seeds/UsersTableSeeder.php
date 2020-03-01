@@ -17,24 +17,24 @@ class UsersTableSeeder extends Seeder
             array(
                 "is_dev" => true,
                 "name" => "Desenvolvedor",
-                "email" => "desenvolvedor@gmail.com",
+                "email" => "dev@gmail.com",
                 "group_id" => 5
             ),
             array(
                 "is_dev" => true,
                 "name" => "Dyego CTO",
-                "email" => "dyego@gmail.com",
+                "email" => "cto@gmail.com",
                 "group_id" => 4
             ),
             array(
                 "is_dev" => true,
                 "name" => "Gio ADM",
-                "email" => "gio@gmail.com",
+                "email" => "admin@gmail.com",
                 "group_id" => 1
             ),
             array(
                 "is_dev" => false,
-                "name" => "User Client",
+                "name" => "Fulano Client",
                 "email" => "client@gmail.com",
                 "group_id" => 3
             )
