@@ -1,0 +1,737 @@
+@import '_breakpoints.scss';
+@import '_colours.scss';
+
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+
+	@include screen(sm) {
+		overflow: inherit;
+	}
+
+	.page {
+		min-height: 100%;
+
+		.main {
+			min-height: calc(100% - 123px);
+
+			@include screen(sm) {
+				padding-bottom: 90px;
+			}
+		}
+	}
+}
+
+// --> Layout Default
+////////////////////////////////////////////////////////////////////////////////
+body {
+	background-color: $green;
+	background-image: url(../img/background.jpg);
+	background-position: center center;
+	background-size: cover;
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+
+	@include screen(sm) {
+		background-size: inherit;
+		font-size: 16px;
+	}
+
+	.page {
+		&::before {
+			content: '';
+
+			background-color: $gold;
+			background: linear-gradient(to left, $gold 0%, $yellow 10%, $gold 100%);
+
+			height: 10px;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
+
+		// --> Layout brands
+		////////////////////////////////////////////////////////////////////////
+		img {
+			&.ass-teresinashopping {
+				position: absolute;
+				right: 100px;
+				top: 40px;
+				width: 120px;
+
+				@include screen(sm) {
+					display: block;
+					margin: 0 auto 40px;
+					position: relative;
+					right: inherit;
+				}
+			}
+
+			&.ass-institution {
+				position: absolute;
+				left: 100px;
+				top: 40px;
+				width: 120px;
+
+				&.mobile {
+					display: none;
+				}
+			}
+
+			&.brand-padrinhosdobem {
+				display: block;
+				margin: 0 auto 60px;
+				width: 570px;
+				position: relative;
+				z-index: 1;
+
+				@include screen(sm) {
+					width: 100%;
+				}
+			}
+		}
+
+		// --> Layout titles
+		////////////////////////////////////////////////////////////////////////
+		h3.title {
+			color: $gold;
+			font-size: 62px;
+			font-weight: 900;
+			text-align: center;
+
+			@include screen(sm) {
+				font-size: 32px;
+				font-weight: 700;
+			}
+		}
+
+		// --> Layout carousel
+		////////////////////////////////////////////////////////////////////////
+		.carousel-custom {
+			.carousel-inner {
+				.carousel-item-next,
+				.carousel-item-prev,
+				.carousel-item.active {
+					display: flex !important;
+				}
+
+				.carousel-item-right.active,
+				.carousel-item-next {
+					transform: translateX(33.33%);
+
+					@include screen(sm) {
+						transform: translateX(100%);
+					}
+				}
+
+				.carousel-item-left.active,
+				.carousel-item-prev {
+					transform: translateX(-33.33%);
+
+					@include screen(sm) {
+						transform: translateX(-100%);
+					}
+				}
+
+				.carousel-item-right,
+				.carousel-item-left {
+					transform: translateX(0);
+				}
+			}
+
+			.carousel-control-prev,
+			.carousel-control-next {
+				background-color: $white;
+				border-radius: 100px;
+				box-shadow: 0 4px 2px rgba($black, 0.5), 0 -4px 3px rgba($black, 0.2) inset;
+				color: $darkgreen;
+				height: 60px;
+				margin-top: -30px;
+				opacity: 1;
+				top: 50%;
+				width: 60px;
+				transition: all 0.3s ease-in-out;
+
+				.fa {
+					font-size: 28px;
+					font-weight: bold;
+				}
+
+				&:hover {
+					background-color: $darkgreen;
+					color: $white;
+				}
+			}
+
+			.carousel-control-prev {
+				left: -20px;
+			}
+
+			.carousel-control-next {
+				right: -20px;
+			}
+		}
+
+		// --> Layout footer
+		////////////////////////////////////////////////////////////////////////
+		.footer {
+			background-color: $darkgreen;
+			bottom: 0;
+			display: flex;
+			padding: 20px 50px;
+			position: absolute;
+			width: 100%;
+
+			@include screen(sm) {
+				padding: 15px 15px;
+				position: fixed;
+			}
+
+			&::before {
+				content: '';
+
+				background-color: $gold;
+				background: linear-gradient(to left, $gold 0%, $yellow 10%, $gold 100%);
+
+				height: 2px;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+		}
+	}
+}
+
+// --> Layout
+////////////////////////////////////////////////////////////////////////////////
+.page {
+	// --> Layout Index
+	////////////////////////////////////////////////////////////////////////////
+	&.index {
+		.main {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.brand-padrinhosdobem {
+				display: block;
+				margin: 0 auto 80px;
+				width: 670px;
+
+				@include screen(sm) {
+					width: 370px;
+				}
+			}
+
+			.brand-teresinashopping {
+				display: block;
+				margin: 0 auto;
+				width: 180px;
+
+				@include screen(sm) {
+					width: 150px;
+				}
+			}
+		}
+
+		.footer {
+			justify-content: center;
+		}
+	}
+
+	// --> Layout Tour
+	////////////////////////////////////////////////////////////////////////////
+	&.tour {
+		.main {
+			h3.title {
+				margin-bottom: 80px;
+				padding-left: 100px;
+				padding-right: 100px;
+
+				@include screen(sm) {
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+
+			.item {
+				text-align: center;
+
+				@include screen(sm) {
+					margin-bottom: 40px;
+				}
+
+				.icon {
+					height: 120px;
+					margin-bottom: 30px;
+
+					@include screen(sm) {
+						height: 80px;
+					}
+				}
+
+				.title {
+					color: $white;
+					text-align: center;
+
+					@include screen(sm) {
+						font-size: 18px;
+					}
+				}
+			}
+		}
+
+		.footer {
+			justify-content: space-between;
+		}
+	}
+
+	// --> Layout Institution
+	////////////////////////////////////////////////////////////////////////////
+	&.institution {
+		.main {
+			@include screen(sm) {
+				padding-bottom: 110px;
+			}
+
+			.brand-padrinhosdobem {
+				width: 420px;
+
+				@include screen(sm) {
+					margin-bottom: 20px;
+					width: 370px;
+				}
+			}
+
+			h3.title {
+				margin-bottom: 50px;
+
+				@include screen(sm) {
+					margin-bottom: 30px;
+					padding: 0 50px;
+				}
+			}
+
+			.carousel-custom {
+				.carousel-item {
+					padding: 10px;
+
+					.card {
+						border-radius: 10px;
+						border-width: 0;
+						border-bottom-width: 2px;
+						box-shadow: 0 0 10px rgba($black, 0.2);
+						overflow: hidden;
+
+						.card-footer {
+							background: linear-gradient(to top, darken($gold, 10%), $gold);
+							box-shadow: 0 -3px 10px $lightorange inset;
+							color: $darkorange;
+							display: flex;
+							font-weight: 600;
+							justify-content: space-evenly;
+							text-decoration: none;
+							text-transform: uppercase;
+
+							&:hover {
+								background: linear-gradient(to top, darken($orange, 5%), $gold);
+							}
+						}
+
+						&:nth-child(2) {
+							margin: 0 30px;
+						}
+					}
+				}
+			}
+		}
+
+		.footer {
+			justify-content: space-between;
+		}
+
+		// --> Layout Institution Single
+		////////////////////////////////////////////////////////////////////////
+		&.single {
+			.main {
+				.carousel {
+					transform: rotate(-2deg);
+					
+					@include screen(sm) {
+						margin-bottom: 40px;
+					}
+
+					.carousel-inner {
+						.carousel-item {
+							padding: 10px;
+
+							img {
+								border: 8px solid $white;
+								border-radius: 10px;
+								box-shadow: 0 0 10px rgba($black, 0.3);
+							}
+						}
+					}
+
+					.carousel-control-prev,
+					.carousel-control-next {
+						background: $lightgreen;
+						box-shadow: 0 3px 2px rgba($black, 0.3), 0 -3px 2px rgba($black, 0.2) inset;
+						bottom: -8px;
+						height: 42px;
+						opacity: 1;
+						top: auto;
+						width: 80px;
+
+						.fa {
+							color: $darkgreen;
+							font-size: 28px;
+							font-weight: bold;
+							transition: all 0.3s ease-in-out;
+						}
+					}
+
+					.carousel-control-prev {
+						background: linear-gradient(to left, $green 10%, $lightgreen 80%);
+						border-radius: 100px 0 0 100px;
+						left: 50%;
+						margin-left: -79px;
+
+						&:hover {
+							background: linear-gradient(to left, $green 20%, $lightgreen 100%);
+							opacity: 1;
+
+							.fa {
+								color: $white;
+							}
+						}
+					}
+
+					.carousel-control-next {
+						background: linear-gradient(to right, $green 10%, $lightgreen 80%);
+						border-radius: 0 100px 100px 0;
+						margin-right: -79px;
+						right: 50%;
+
+						&:hover {
+							background: linear-gradient(to right, $green 20%, $lightgreen 100%);
+							opacity: 1;
+
+							.fa {
+								color: $white;
+							}
+						}
+					}
+				}
+
+				h3.title {
+					font-size: 42px;
+					margin-bottom: 20px;
+					text-align: left;
+
+					@include screen(sm) {
+						padding: 0 15px;
+					}
+				}
+
+				.text {
+					color: $white;
+
+					@include screen(sm) {
+						padding: 0 15px;
+					}
+				}
+			}
+		}
+
+		// --> Layout Institution Childrens
+		////////////////////////////////////////////////////////////////////////
+		&.childrens {
+
+			.ass-institution {
+				@include screen(sm) {
+					display: none;
+				}
+
+				&.mobile {
+					left: inherit;
+					margin: 20px auto;
+					position: relative;
+					top: inherit;
+
+					@include screen(sm) {
+						display: block;
+					}
+				}
+			}
+
+			.main {
+				.brand-padrinhosdobem {
+					margin-bottom: 30px;
+				}
+
+				.list {
+					height: 590px;
+					overflow: hidden;
+
+					@include screen(sm) {
+						height: inherit;
+						overflow: visible;
+					}
+
+					.item {
+						display: block;
+						margin: 15px 0;
+						position: relative;
+
+						.gift {
+							background: linear-gradient(to left, darken($lightgreen, 10%), $green);
+							border-radius: 0 100px 100px 0;
+							bottom: 20px;
+							color: darken($darkgreen, 5%);
+							display: none;
+							font-size: 14px;
+							font-weight: 700;
+							left: 20px;
+							padding: 3px 15px 3px 30px;
+							position: absolute;
+							text-transform: uppercase;
+							transform: rotate(-3deg);
+							z-index: 1;
+
+							&:before {
+								content: "";
+								background-image: url(../img/gift.png);
+
+								width: 57px;
+								height: 48px;
+								left: -30px;
+								top: -15px;
+								position: absolute;
+							}
+						}
+
+						.image {
+							border: 5px solid $white;
+							border-radius: 5px;
+						}
+
+						&.-disable {
+							cursor: default;
+							pointer-events: none;
+							
+							.gift {
+								display: block;
+							}
+
+							.image {
+								filter: blur(.7px);
+								opacity: .7;
+							}
+						}
+					}
+				}
+			}
+
+			.footer {
+				.scroll-up {
+					margin-left: calc(50% - 498px);
+
+					@include screen(sm) {
+						display: none;
+					}
+				}
+
+				.scroll-down {
+					margin-left: 20px;
+					margin-right: auto;
+
+					@include screen(sm) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	// --> Layout Message
+	////////////////////////////////////////////////////////////////////////////
+	&.message {
+		.main {
+			display: flex;
+			align-items: center;
+
+			h3.title {
+				font-size: 72px;
+			}
+
+			.text {
+				color: $white;
+				font-size: 26px;
+				text-align: center;
+			}
+		}
+
+		.footer {
+			justify-content: center;
+		}
+	}
+}
+
+// --> Layout buttons
+////////////////////////////////////////////////////////////////////////////////
+.btn {
+	align-items: center;
+	border: none;
+	border-radius: 100px;
+	box-shadow: 0 5px 3px rgba($black, 0.3), 0 -5px 2px rgba($black, 0.2) inset;
+	display: inline-flex;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 20px 40px;
+	text-transform: uppercase;
+	transition: all 0.3s ease-in-out;
+
+	@include screen(sm) {
+		font-size: 16px;
+		padding: 15px 30px;
+	}
+
+	&.btn-success {
+		color: $darkgreen;
+		background-color: $green;
+		background: linear-gradient(25deg, lighten($green, 5%) 45%, $lightgreen 100%);
+
+		&:hover {
+		}
+	}
+
+	&.btn-danger {
+		color: darken($darkorange, 7%);
+		background-color: $orange;
+		background: linear-gradient(-45deg, $orange 45%, $lightorange 100%);
+
+		&:hover {
+		}
+	}
+
+	.fa {
+		font-size: 26px;
+		font-weight: bold;
+	}
+}
+
+// --> Modal
+////////////////////////////////////////////////////////////////////////////////
+.modal {
+	.modal-dialog {
+		&.modal-xl {
+			min-width: 970px;
+
+			@include screen(sm) {
+				margin: auto;
+				min-width: 90%;
+				width: 80%;
+			}
+		}
+
+		.modal-content {
+			background-color: transparent;
+			border: none;
+
+			.close {
+				background-color: $lightorange;
+				border-radius: 100px;
+				color: $white;
+				height: 40px;
+				opacity: 1;
+				position: absolute;
+				right: -10px;
+				top: -10px;
+				width: 40px;
+				z-index: 100;
+			}
+
+			.modal-body {
+				padding: 0;
+
+				.row {
+
+					@include screen(sm) {
+						flex-direction: column;
+					}
+				}
+
+				.image {
+					border-radius: 20px;
+					overflow: hidden;
+				}
+
+				.profile {
+					background-color: $white;
+					border-radius: 20px;
+					padding: 50px;
+					position: relative;
+
+					@include screen(sm) {
+						padding: 30px;
+					}
+
+					.tag {
+						text-transform: uppercase;
+						font-size: 16px;
+					}
+
+					h3.title {
+						color: $lightorange;
+						font-size: 32px;
+						font-weight: 900;
+						margin-bottom: 30px;
+					}
+
+					.link {
+						bottom: -30px;
+						position: absolute;
+						right: 40px;
+					}
+				}
+			}
+		}
+	}
+}
+
+// --> Form
+////////////////////////////////////////////////////////////////////////////////
+.form-group {
+	position: relative;
+
+	label {
+		color: lighten($black, 60%);
+		left: 15px;
+		margin: 0;
+		margin-top: -15px;
+		position: absolute;
+		top: 50%;
+		text-transform: uppercase;
+	}
+
+	.form-control {
+		background-color: transparent;
+		position: relative;
+		z-index: 1;
+	}
+
+	.form-control:focus ~ label,
+	.form-control:valid ~ label {
+		background: $white;
+		font-size: 16px;
+		left: 5px;
+		padding: 0 10px;
+		top: 2px;
+		z-index: 2;
+	}
+}
