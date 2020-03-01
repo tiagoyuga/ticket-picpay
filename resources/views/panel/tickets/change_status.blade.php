@@ -77,6 +77,24 @@
 
                                             </div>
 
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 @if ($errors->has('estimated_time')) has-error @endif">
+                                                    <label for="name">Estimated time</label>
+                                                    <input type="text" name="estimated_time" id="estimated_time" class="form-control"
+                                                           value="{{ old('estimated_time', (isset($item) ? $item->estimated_time : '')) }}">
+                                                    {!! $errors->first('estimated_time','<span class="help-block m-b-none">:message</span>') !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3 @if ($errors->has('hour_spent')) has-error @endif">
+                                                    <label for="name">Hour Spent</label>
+                                                    <input type="text" name="hour_spent" id="name" class="form-control"
+                                                           value="{{ old('hour_spent', (isset($item) ? $item->hour_spent : '')) }}">
+                                                    {!! $errors->first('hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                </div>
+                                            </div>
+
 
                                             <div class="form-row">
 

@@ -43,6 +43,9 @@ class CreateTicketsTable extends Migration {
             $table->string('subject');
             $table->text('content');
 
+            $table->string('estimated_time')->nullable();
+            $table->string('hour_spent')->nullable();
+
             $table->enum('priority', array_keys(config('enums.priorities')))->nullable();
 
             $table->timestamps();

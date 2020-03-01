@@ -44,7 +44,10 @@ class Ticket extends Model
         'subject',
         'content',
         'priority',
+        'estimated_time',
+        'hour_spent',
     ];
+
 
     /**
      * The attributes that aren't mass assignable.

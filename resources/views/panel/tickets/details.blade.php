@@ -79,6 +79,24 @@
                                         <dd class="mb-1"> {{ $item->created_at->format('m-d-2020 H:s:i') }}</dd>
                                     </div>
                                 </dl>
+
+                                <dl class="row mb-0">
+                                    <div class="col-sm-4 text-sm-right">
+                                        <dt>Estimated hrs:</dt>
+                                    </div>
+                                    <div class="col-sm-8 text-sm-left">
+                                        <dd class="mb-1"> {{ $item->estimated_time  }}</dd>
+                                    </div>
+                                </dl>
+
+                                <dl class="row mb-0">
+                                    <div class="col-sm-4 text-sm-right">
+                                        <dt>Hour Spent:</dt>
+                                    </div>
+                                    <div class="col-sm-8 text-sm-left">
+                                        <dd class="mb-1"> {{ $item->hour_spent }}</dd>
+                                    </div>
+                                </dl>
                                 <dl class="row mb-0">
                                     <div class="col-sm-4 text-sm-right">
                                         <dt>Participants:</dt>
