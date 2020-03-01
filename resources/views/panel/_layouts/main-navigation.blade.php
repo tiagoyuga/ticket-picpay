@@ -6,7 +6,8 @@
     <nav class="navbar navbar-expand-lg navbar-static-top" role="navigation">
 
         <a href="{{ route('dashboard') }}" class="navbar-brand text-center">
-            CRM
+
+            <img src="{{ asset('assets/img/logo_sem_fundo.png') }}" height="40" alt="webholding">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
                 aria-expanded="false" aria-label="Toggle navigation">

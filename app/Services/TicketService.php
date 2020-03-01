@@ -40,7 +40,8 @@ class TicketService
 
         $query->when(request('search'), function ($query, $search) {
 
-            return $query->where('name', 'LIKE', '%' . $search . '%');
+            return $query->where('subject', 'LIKE', '%' . $search . '%')
+                ->orWhere('uid', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -75,7 +76,7 @@ class TicketService
             $model->fill($data);
             $model->client_id = \Auth::user()->client->id;
             $model->cto_id = User::where('group_id', Group::CTO)->first()->id;
-            $model->uid = strtoupper(substr(uniqid(), 0, 4) . \Carbon\Carbon::now()->format('m-d-Y'));
+            $model->uid = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,4) . \Carbon\Carbon::now()->format('m-d-Y');
             $model->ticket_status_id = 1;
             $model->save();
 

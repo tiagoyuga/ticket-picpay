@@ -50,7 +50,7 @@
 
                                                     <thead>
                                                     <tr>
-                                                        <th>UID</th>
+                                                        <th>Ticket #</th>
                                                         <th>Subject</th>
                                                         <th>Status</th>
                                                         <th>Priority</th>
@@ -69,7 +69,7 @@
                                                                 <td>{{ $item->uid }}</td>
                                                                 <td>{{ $item->subject }}</td>
                                                                 <td>{{  $item->status->name }}</td>
-                                                                <td>{{ $item->priority }}</td>
+                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
                                                                 <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
                                                                 <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m/d/Y g:i A') }}</td>
 
@@ -116,7 +116,7 @@
 
                                                     <thead>
                                                     <tr>
-                                                        <th>UID</th>
+                                                        <th>Ticket #</th>
                                                         <th>Subject</th>
                                                         <th>Status</th>
                                                         <th>Priority</th>
@@ -136,7 +136,7 @@
                                                                 <td>{{ $item->uid }}</td>
                                                                 <td>{{ $item->subject }}</td>
                                                                 <td>{{  $item->status->name }}</td>
-                                                                <td>{{ $item->priority }}</td>
+                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
                                                                 <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
                                                                 <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m/d/Y g:i A') }}</td>
 

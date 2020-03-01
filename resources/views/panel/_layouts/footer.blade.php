@@ -1,8 +1,8 @@
 <div class="footer">
-    <div class="pull-right">
-        {{ date('Y') }}
-    </div>
+
     <div>
-        Powered by <a href="http://www.smartercode.com.br" target="_blank">Smartercode</a>
+        Powered by <a href="https://webholdingusa.com/" target="_blank">
+            Webholdingusa</a> - {{ date('Y') }}
+
     </div>
 </div>

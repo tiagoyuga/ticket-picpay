@@ -19,7 +19,7 @@
 
         .sidenav {
             height: 100%;
-            background-color: #000;
+            background-color: #ccc;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -88,8 +88,8 @@
 </head>
 <body>
 <div class="sidenav">
-    <div class="login-main-text">
-        <h2>CRM</h2>
+    <div class="login-main-text text-center">
+        <img src="{{ asset('assets/img/logo_sem_fundo.png') }}" alt="webholding">
     </div>
 </div>
 <div class="main">
