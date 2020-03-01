@@ -50,7 +50,7 @@
 
                                 <div class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
                                     <label for="content">Content</label>
-                                    <textarea  rows="14" cols="50" name="content" id="content" class="froalaEditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
+                                    <textarea  rows="14" cols="50" name="content" id="content" class="ckeditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
                                     {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
                             </div>
@@ -121,6 +121,48 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
-    @include('panel._assets.scripts-froala')
+    <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ),{
+
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'blockQuote',
+                        'insertTable',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'en',
+                height:300,
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            } )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
     {!! $validator->selector('#frm_save') !!}
 @endsection

@@ -83,6 +83,9 @@
             text-transform: capitalize;
             font-weight: bold;
         }
+        .ck-editor__editable {
+            min-height: 240px;
+        }
     </style>
 
 
