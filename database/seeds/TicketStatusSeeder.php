@@ -21,12 +21,12 @@ class TicketStatusSeeder extends Seeder
             [
                 'id' => 3,
                 'name' => 'Under development',
-                'order' => 3
+                'order' => 2
             ],
             [
                 'id' => 2,
                 'name' => 'Ready for Client review',
-                'order' => 2
+                'order' => 3
             ],
             [
                 'id' => 1,
