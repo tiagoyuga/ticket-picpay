@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Api\ApiBaseController;
+use App\Http\Requests\TicketChangeStatusRequest;
 use App\Http\Requests\TicketStoreRequest;
 use App\Http\Requests\TicketUpdateRequest;
 use App\Models\Client;
@@ -126,15 +127,10 @@ class TicketController extends ApiBaseController
 
         $this->authorize('update', $ticket);
 
-        $validatorRequest = new TicketUpdateRequest();
-        $validator = JsValidator::make($validatorRequest->rules(), $validatorRequest->messages());
-
-
         return view('panel.tickets.change_status')
             ->with([
                 'item' => $ticket,
                 'label' => $this->label,
-                'validator' => $validator,
                 'devs' => $userService->listsDevs(),
                 'status' => TicketStatus::pluck('name','id'),
             ]);

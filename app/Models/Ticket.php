@@ -45,8 +45,9 @@ class Ticket extends Model
         'subject',
         'content',
         'priority',
-        'estimated_time',
-        'hour_spent',
+        'dev_estimated_time',
+        'dev_hour_spent',
+        'cto_hours',
     ];
 
 

@@ -23,6 +23,7 @@ class ClientSeeder extends Seeder
                 'contact_name' => 'Joao',
                 'email' => 'google@google.com',
                 'cell_phone' => '86999028214',
+                'cto_amount' => 0.10,
             ],
         ];
 

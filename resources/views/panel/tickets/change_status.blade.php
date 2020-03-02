@@ -30,7 +30,7 @@
 
                                     <div class="panel-body">
 
-                                        <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
+                                        <form method="post" class="form-horizontal" id="frm_savee" autocomplete="off"
                                               enctype="multipart/form-data"
                                               action="{{ isset($item) ? route('tickets.update', $item->id) : route('tickets.store') }}">
                                         {{ method_field(isset($item) ? 'PUT' : 'POST') }}
@@ -42,10 +42,10 @@
 
                                                 <div
                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                    <label for="content"><h3>Review</h3></label>
-                                                    <textarea required rows="14" cols="50" name="content" id="content"
-                                                              class="froalaEditor form-control">{{ old('content') }}</textarea>
-                                                    {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
+                                                    <label for="content"><h3>Review *</h3></label>
+                                                    <textarea required rows="14" cols="50" name="review" id="review"
+                                                              class=" form-control">{{ old('review') }}</textarea>
+                                                    {!! $errors->first('review','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
 
                                                 <input type="hidden" name="ticket_id" value="{{ $item->id }}">
@@ -78,20 +78,33 @@
                                             </div>
 
                                             <div class="form-row">
-                                                <div class="form-group col-md-3 @if ($errors->has('estimated_time')) has-error @endif">
-                                                    <label for="name">Estimated time</label>
-                                                    <input type="text" name="estimated_time" id="estimated_time" class="form-control"
-                                                           value="{{ old('estimated_time', (isset($item) ? $item->estimated_time : '')) }}">
-                                                    {!! $errors->first('estimated_time','<span class="help-block m-b-none">:message</span>') !!}
+                                                <div class="form-group col-md-2 @if ($errors->has('dev_estimated_time')) has-error @endif">
+                                                    <label for="name">Developer Estimated Hrs</label>
+                                                    <input type="text" name="dev_estimated_time" id="dev_estimated_time" class="form-control mask_hour hour_change"
+                                                           value="{{ old('dev_estimated_time', (isset($item) ? $item->dev_estimated_time : '')) }}">
+                                                    {!! $errors->first('dev_estimated_time','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
+
+                                                <div class="form-group col-md-1 @if ($errors->has('cto_hours')) has-error @endif">
+                                                    <label for="name">CTO time</label>
+                                                    <input type="text" name="cto_hours" id="cto_hours" class="form-control mask_hour"
+                                                           value="{{ old('cto_hours', (isset($item) ? $item->cto_hours : '')) }}" >
+                                                </div>
+
+                                                <div class="form-group col-md-1 ">
+                                                    <label for="name">CTO client %</label>
+                                                    <input type="text" class="form-control "
+                                                           value="{{ $item->client->cto_amount }} " disabled>
+                                                </div>
+
                                             </div>
 
                                             <div class="form-row">
-                                                <div class="form-group col-md-3 @if ($errors->has('hour_spent')) has-error @endif">
-                                                    <label for="name">Hour Spent</label>
-                                                    <input type="text" name="hour_spent" id="name" class="form-control"
-                                                           value="{{ old('hour_spent', (isset($item) ? $item->hour_spent : '')) }}">
-                                                    {!! $errors->first('hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                <div class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
+                                                    <label for="name">Dev hour Spent</label>
+                                                    <input type="text" name="dev_hour_spent" id="dev_hour_spent" class="form-control mask_hour hour_change"
+                                                           value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
+                                                    {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
                                             </div>
 
@@ -138,6 +151,7 @@
             </div>
 
         </div>
+    </div>
 @endsection
 
 
@@ -148,5 +162,41 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
-    @include('panel._assets.scripts-froala')
+    <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
+    <script>
+
+        $(".hour_change").keyup(function () {
+
+            let original_seconds = timestamp_to_seconds($(this).val());
+            let minutes = (original_seconds / 60);
+
+            let cto_hours =  secondsToTime((minutes * (0.10 ))*60)
+            $("#cto_hours").val(cto_hours)
+
+        })
+
+        function timestamp_to_seconds(timestamp) {
+            var [hours, minutes] = timestamp.split(':').map((t) => parseInt(t, 10));
+            return 60 * minutes + 60 * 60 * hours;
+        }
+
+        function secondsToTime(secs)
+        {
+            var hours = Math.floor(secs / (60 * 60));
+
+            var divisor_for_minutes = secs % (60 * 60);
+            var minutes = (Math.floor(divisor_for_minutes / 60));
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            hours = hours < 10 ? '0' + hours : hours;
+
+
+            if(isNaN(hours) || isNaN(minutes))
+                return '00:00';
+
+            return hours+':'+minutes;
+        }
+
+
+    </script>
 @endsection

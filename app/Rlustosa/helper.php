@@ -26,6 +26,8 @@ if (!function_exists('isActiveRoute')) {
     }
 }
 
+
+
 if (!function_exists('getCurrency')) {
 
     function getCurrency($value)

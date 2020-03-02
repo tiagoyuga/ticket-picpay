@@ -119,20 +119,27 @@ class TicketService
     public function update(array $data, Ticket $model): Ticket
     {
         $model_before = $model->toArray();
+
+
+        if($data['dev_hour_spent'] != $model->dev_hour_spent) {
+            $partes = explode(":", $data['dev_hour_spent']);
+
+            $minutes = $partes[0]*60+$partes[1];
+
+            $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $minutes * $model->client->cto_amount ) : $minutes);
+
+        }
         $model->fill($data);
         $model_after = $model->toArray();
 
-        #$model->user_updater_id = \Auth::id();
         $model->save();
-
-
 
         if($model_before != $model_after){
 
             $content = "Updated at ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
 
             if(in_array(\Auth::user()->group_id, [Group::CTO,  Group::ADMIN]) && $model_before['ticket_status_id'] != $model_after['ticket_status_id'] ) {
-                $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . $data['content'];
+                $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . ($data['review'] ? $data['review'] : $data['content']);
             }
 
             $activity = new TicketActivity();
@@ -165,5 +172,16 @@ class TicketService
             ->pluck('name', 'id')
             ->toArray();
         //});
+    }
+
+
+    private function hoursandmins($time, $format = '%02d:%02d')
+    {
+        if ($time < 1) {
+            return;
+        }
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        return sprintf($format, $hours, $minutes);
     }
 }

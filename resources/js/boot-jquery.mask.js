@@ -3,6 +3,7 @@ try {
     $(function () {
         $('.mask_date').mask('00/00/0000', {clearIfNotMatch: true, placeholder: "__/__/____"});
         $('.mask_time').mask('00:00:00', {clearIfNotMatch: true});
+        $('.mask_hour').mask('#0:00', {clearIfNotMatch: true,reverse: true, placeholder: "__:__"});
         $('.mask_date_time').mask('00/00/0000 00:00:00', {clearIfNotMatch: true});
         $('.mask_phone').mask('0000-0000', {clearIfNotMatch: true});
         //$('.mask_phone_with_ddd').mask('(00) 0000-0000', {clearIfNotMatch: true});

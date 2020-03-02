@@ -32,8 +32,9 @@ class TicketUpdateRequest extends FormRequest
      */
     public function rules()
     {
-
-        return TicketRule::rules();
+        $rules = TicketRule::rules();
+        unset($rules['content']);
+        return $rules;
     }
 
     /**

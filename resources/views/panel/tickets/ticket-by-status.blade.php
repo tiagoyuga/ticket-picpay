@@ -1,3 +1,7 @@
+@php
+    $is_client = \Auth::user()->group_id == \App\Models\Group::CLIENT;
+@endphp
+
 <table class="table table-striped table-bordered table-hover">
 
     <thead>
@@ -5,6 +9,10 @@
         <th>Ticket #</th>
         <th>Client</th>
         <th>User</th>
+        @if(!$is_client)
+            <th>Est. Hrs</th>
+            <th>Hrs Spent</th>
+        @endif
         <th>Subject</th>
         <th>Status</th>
         <th>Priority</th>
@@ -24,6 +32,10 @@
                 <td>{{ $item->uid }}</td>
                 <td>{{ $item->client->company_name }}</td>
                 <td>{{ $item->userClient->name }}</td>
+                @if(!$is_client)
+                    <td>{{$item->estimated_time}}</td>
+                    <td>{{$item->hour_spent }}</td>
+                @endif
                 <td>{{ $item->subject }}</td>
                 <td>{{  $item->status->name }}</td>
                 <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
