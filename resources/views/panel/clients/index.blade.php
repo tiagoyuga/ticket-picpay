@@ -44,7 +44,7 @@
                                     <thead>
                                     <tr>
 
-                                        <th>Responsible user</th>
+                                        <th>Number of users</th>
                                         <th>Company Name</th>
                                         <th>Contact Name</th>
                                         <th>Phone</th>
@@ -61,7 +61,7 @@
                                             <tr id="tr-{{ $item->id }}">
 
 
-                                                <td>{{ $item->user ? $item->user->name : '' }}</td>
+                                                <td>{{ $item->users->count() }}</td>
                                                 <td>{{ $item->company_name }}</td>
                                                 <td>{{ $item->contact_name }}</td>
                                                 <td>{{ $item->cell_phone ? $item->cell_phone .' ' : '' }}
@@ -69,7 +69,7 @@
                                                 </td>
 {{--                                               // <td>{{ $item->status }}</td>--}}
                                                 <td>{{ $item->email }}</td>
-                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
+                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
 
                                                 <td style="text-align: center">
 

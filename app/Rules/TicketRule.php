@@ -26,7 +26,7 @@ class TicketRule
         'ticket_status_id' => 'nullable',
         'subject' => 'nullable|min:2|max:255',
         'content' => 'required',
-        'priority' => 'nullable|in:low,normal,high',
+        'priority' => 'nullable|in:low,medium,high',
 	];
 
     /**

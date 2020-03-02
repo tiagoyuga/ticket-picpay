@@ -40,6 +40,31 @@
 
                         <!-- inicio dos campos -->
 
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 @if ($errors->has('client_id')) has-error @endif">
+                                    <label for="priority">Company</label>
+
+                                    @if(!isset($item))
+
+                                    <select name="client_id" id="client_id" class="form-control">
+                                        @foreach(\Auth::user()->clients as $client)
+                                            <option
+                                                value="{{ $client->id }}" {{ old('client_id', (isset($item) ? $item->client_id : '')) == $client->id ? 'selected' : '' }}>{{ $client->company_name }} </option>
+                                        @endforeach
+                                    </select>
+
+                                    {!! $errors->first('client_id','<span class="help-block m-b-none">:message</span>') !!}
+
+                                    @else
+                                        <p>
+                                            <strong>{{ $item->client->company_name }}</strong>
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+
+
                             <div class="form-row">
                                 <div class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
                                     <label for="subject">Subject</label>

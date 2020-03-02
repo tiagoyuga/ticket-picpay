@@ -166,9 +166,9 @@ class UserService
     {
         //return Cache::remember('User_lists', config('cache.cache_time'), function () {
 
-        return User::orderBy('name')
+        return User::orderBy('users.name')
             ->whereGroupId(3)
-            ->pluck('name', 'id')
+            ->pluck('users.name', 'users.id')
             ->toArray();
         //});
     }

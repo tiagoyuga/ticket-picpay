@@ -37,6 +37,12 @@ class UsersTableSeeder extends Seeder
                 "name" => "Fulano Client",
                 "email" => "client@gmail.com",
                 "group_id" => 3
+            ),
+            array(
+                "is_dev" => false,
+                "name" => "Ciclano Client",
+                "email" => "client@gmail.com",
+                "group_id" => 3
             )
         );
 

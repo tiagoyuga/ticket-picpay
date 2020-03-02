@@ -34,7 +34,10 @@ class TicketStoreRequest extends FormRequest
     public function rules()
     {
 
-        return TicketRule::rules();
+        $rules = TicketRule::rules();
+        $rules['subject'] = 'required|min:2|max:255';
+
+        return $rules;
     }
 
     /**

@@ -33,18 +33,20 @@
                         <!-- inicio dos campos -->
                             <div class="form-row">
                                 <div class="form-group col-md-4 @if ($errors->has('user_id')) has-error @endif">
-                                    <label for="group_id">User responsible for the company <i class="text-danger">*</i></label>
+                                    <label for="group_id">Users responsible for the company <i class="text-danger">*</i></label>
                                     <select  class="select2 form-control form-control-lg" style="width: 100%"
-                                            name="user_id"
+                                            name="users[]"
+                                             multiple
                                             id="user_id">
                                         <option value="">Select</option>
 
-                                        @foreach($users as $id => $name)
+                                        @foreach($users as $key=>$value)
                                             <option
-                                                value="{{ $id }}" {{ old('user_id', (isset($item) ? $item->user_id : '')) == $id ? 'selected' : null }}>
-                                                {{ $name }}
+                                                value="{{ $key }}" {{ isset($item) && $item->users->contains($key) ? 'selected' : ''}}>
+                                                {{ $value }}
                                             </option>
                                         @endforeach
+
                                     </select>
                                     {!! $errors->first('user_id','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>

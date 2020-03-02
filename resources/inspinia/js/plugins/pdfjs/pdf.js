@@ -9977,7 +9977,7 @@ var CanvasExtraState = function CanvasExtraStateClosure() {
     this.strokeAlpha = 1;
     this.lineWidth = 1;
     this.activeSMask = null;
-    this.resumeSMaskCtx = null;
+    this.SummarySMaskCtx = null;
   }
   CanvasExtraState.prototype = {
     clone: function CanvasExtraState_clone() {
@@ -10452,7 +10452,7 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       this.ctx.restore();
       this.ctx.save();
       copyCtxState(groupCtx, this.ctx);
-      this.current.resumeSMaskCtx = groupCtx;
+      this.current.SummarySMaskCtx = groupCtx;
       var deltaTransform = _util.Util.transform(this.current.activeSMask.startTransformInverse, groupCtx.mozCurrentTransform);
       this.ctx.transform.apply(this.ctx, deltaTransform);
       groupCtx.save();
@@ -10460,8 +10460,8 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       groupCtx.clearRect(0, 0, groupCtx.canvas.width, groupCtx.canvas.height);
       groupCtx.restore();
     },
-    resumeSMaskGroup: function CanvasGraphics_endSMaskGroup() {
-      var groupCtx = this.current.resumeSMaskCtx;
+    SummarySMaskGroup: function CanvasGraphics_endSMaskGroup() {
+      var groupCtx = this.current.SummarySMaskCtx;
       var currentCtx = this.ctx;
       this.ctx = groupCtx;
       this.groupStack.push(currentCtx);
@@ -10482,11 +10482,11 @@ var CanvasGraphics = function CanvasGraphicsClosure() {
       var old = this.current;
       this.stateStack.push(old);
       this.current = old.clone();
-      this.current.resumeSMaskCtx = null;
+      this.current.SummarySMaskCtx = null;
     },
     restore: function CanvasGraphics_restore() {
-      if (this.current.resumeSMaskCtx) {
-        this.resumeSMaskGroup();
+      if (this.current.SummarySMaskCtx) {
+        this.SummarySMaskGroup();
       }
       if (this.current.activeSMask !== null && (this.stateStack.length === 0 || this.stateStack[this.stateStack.length - 1].activeSMask !== this.current.activeSMask)) {
         this.endSMaskGroup();

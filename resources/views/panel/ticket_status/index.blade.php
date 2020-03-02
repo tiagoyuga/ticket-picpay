@@ -43,7 +43,7 @@
 
                                     <thead>
                                     <tr>
-                                        
+
                                         <th>Name</th>
                                         <th>Order</th>
                                         <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
@@ -56,10 +56,10 @@
                                         @foreach($data as $item)
                                             <tr id="tr-{{ $item->id }}">
 
-                                                
+
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->order }}</td>
-                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
+                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
 
                                                 <td style="text-align: center">
 

@@ -38,7 +38,7 @@ return [
 
     'priorities' => [
         'low' => 'Low',
-        'normal' => 'Normal',
+        'medium' => 'Medium',
         'high' => 'High',
     ],
 

@@ -11,6 +11,8 @@ namespace App\Services;
 
 use App\Models\TicketActivity;
 use App\Models\TicketComment;
+use App\Models\TicketFile;
+use App\Rlustosa\GenericUpload;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -77,9 +79,31 @@ class TicketCommentService
             $activity->after = json_encode($model->ticket->toArray());
             $activity->save();
 
+            $this->upload($model->ticket);
+
 
             return $model;
         });
+    }
+
+    private function upload($model)
+    {
+        if(request()->hasFile('file')){
+            $path = GenericUpload::store(request()->file('file'), 'tickets');
+            $attach = new TicketFile();
+            $attach->file = $path;
+            $attach->user_id = \Auth::id();
+            $attach->ticket_id = $model->id;
+            $attach->save();
+
+            $activity = new TicketActivity();
+            $activity->user_id = \Auth::id();
+            $activity->ticket_id = $model->id;
+            $activity->activity = "Uploaded a file in ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
+            $activity->before = json_encode($model->toArray());
+            $activity->after = json_encode($model->toArray());
+            $activity->save();
+        }
     }
 
     public function update(array $data, TicketComment $model): TicketComment

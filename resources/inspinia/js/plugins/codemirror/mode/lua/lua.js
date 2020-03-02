@@ -32,7 +32,7 @@ CodeMirror.defineMode("lua", function(config, parserConfig) {
     "loadfile","loadstring","module","next","pairs","pcall","print","rawequal","rawget","rawset","require",
     "select","setfenv","setmetatable","tonumber","tostring","type","unpack","xpcall",
 
-    "coroutine.create","coroutine.resume","coroutine.running","coroutine.status","coroutine.wrap","coroutine.yield",
+    "coroutine.create","coroutine.Summary","coroutine.running","coroutine.status","coroutine.wrap","coroutine.yield",
 
     "debug.debug","debug.getfenv","debug.gethook","debug.getinfo","debug.getlocal","debug.getmetatable",
     "debug.getregistry","debug.getupvalue","debug.setfenv","debug.sethook","debug.setlocal","debug.setmetatable",

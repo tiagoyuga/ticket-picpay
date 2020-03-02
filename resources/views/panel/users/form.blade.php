@@ -62,7 +62,9 @@
                                     {!! $errors->first('name','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
                             </div>
-                                <div class="form-row">
+
+
+                            <div class="form-row">
                                 <div class="form-group col-md-4 @if ($errors->has('email')) has-error @endif">
                                     <label for="email">E-mail <i class="text-danger">*</i></label>
                                     <input type="text" name="email" id="email" class="form-control"

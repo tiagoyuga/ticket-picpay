@@ -38,6 +38,7 @@ class Ticket extends Model
     protected $fillable = [
         'uid',
         'client_id',
+        'user_id',
         'cto_id',
         'dev_id',
         'ticket_status_id',
@@ -94,6 +95,11 @@ class Ticket extends Model
     function status()
     {
         return $this->belongsTo(TicketStatus::class, 'ticket_status_id', 'id');
+    }
+
+    function userClient()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     function client()

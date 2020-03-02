@@ -59,7 +59,7 @@
 
                                                 <td>{{ $item->name }}</td>
                                                 <td><p class="badge badge-info">{{ $item->users->count() }}</p></td>
-                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
+                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
 
                                                 <td style="text-align: center">
 

@@ -19,6 +19,7 @@
                                     <a href="{{ route('tickets.edit', $item->id) }}" class="btn btn-white btn-xs float-right">Edit ticket</a>
                                     @endcan
                                     <h2>{{ $item->subject }}</h2>
+                                    <span>{{ $item->uid }}</span>
                                 </div>
 
                             </div>
@@ -39,7 +40,7 @@
                                         <dt>Created by:</dt>
                                     </div>
                                     <div class="col-sm-8 text-sm-left">
-                                        <dd class="mb-1">{{ $item->client->user->name }}</dd>
+                                        <dd class="mb-1">{{ $item->userClient->name }}</dd>
                                     </div>
                                 </dl>
                                 <dl class="row mb-0">
@@ -103,7 +104,7 @@
                                     </div>
                                     <div class="col-sm-8 text-sm-left">
                                         <dd class="project-people mb-1">
-                                            Client: {{ $item->client->user->name }} <br>
+                                            Client: {{ $item->userClient->name }} <br>
 
                                             @if($item->cto_id)
                                                 CTO: {{ $item->cto->name }} <br>
@@ -143,11 +144,10 @@
                                     <div class="panel-heading">
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
-                                                <li><a class="nav-link active" href="#tab-1" data-toggle="tab">Users
-                                                        messages</a></li>
+                                                <li><a class="nav-link active" href="#tab-1" data-toggle="tab">Message Center</a></li>
                                                 <li><a class="nav-link" href="#tab-2" data-toggle="tab">Last
                                                         activity</a></li>
-                                                <li><a class="nav-link" href="#tab-3" data-toggle="tab">Resume</a></li>
+                                                <li><a class="nav-link" href="#tab-3" data-toggle="tab">Summary</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -192,7 +192,9 @@
                                                 <div class="mt-5">
 
 
-                                                    <form method="post" class="form-horizontal" id="" autocomplete="off"
+                                                    <form method="post" class="form-horizontal"
+                                                          enctype="multipart/form-data"
+                                                          id="" autocomplete="off"
                                                           action="{{ route('ticket_comments.store') }}">
                                                     {{ method_field('POST') }}
                                                     {{ csrf_field() }}
@@ -208,6 +210,18 @@
                                                             </div>
 
                                                             <input type="hidden" name="ticket_id" value="{{ $item->id }}">
+
+                                                        </div>
+
+                                                        <div class="form-row">
+
+                                                            <div class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
+                                                                <label for="image">Upload File</label>
+                                                                <input id="file" name="file" type="file"
+                                                                       class="form-control required"
+                                                                       accept="image/gif, image/jpeg, image/png, application/pdf"
+                                                                >
+                                                            </div>
 
                                                         </div>
 
@@ -391,5 +405,47 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
-    @include('panel._assets.scripts-froala')
+    <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ),{
+
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'blockQuote',
+                        'insertTable',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'en',
+                height:300,
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+            } )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 @endsection

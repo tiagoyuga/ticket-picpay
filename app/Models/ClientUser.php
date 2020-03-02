@@ -29,7 +29,7 @@ class Client extends Model
      *
      * @var string
      */
-    protected $table = 'clients';
+    protected $table = 'user_client';
 
     /**
      * The attributes that are mass assignable.
@@ -37,12 +37,8 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'company_name',
-        'contact_name',
-        'cell_phone',
-        'additional_phone',
-       // 'status',
-        'email',
+        'user_id',
+        'client_id',
     ];
 
     /**
@@ -94,9 +90,9 @@ class Client extends Model
 
     # Relationships
 
-    function users()
+    function user()
     {
-        return $this->belongsToMany(User::class, 'client_user');
+        return $this->belongsTo(User::class);
     }
 
     # Accessors & Mutators

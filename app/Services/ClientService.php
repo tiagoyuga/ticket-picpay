@@ -67,6 +67,11 @@ class ClientService
             #$model->user_updater_id = \Auth::id();
             $model->save();
 
+            if (isset($data['users']))
+                $model->users()->sync($data['users']);
+            else
+                $model->users()->detach();
+
             return $model;
         });
     }
@@ -77,6 +82,11 @@ class ClientService
         $model->fill($data);
         #$model->user_updater_id = \Auth::id();
         $model->save();
+
+        if (isset($data['users']))
+            $model->users()->sync($data['users']);
+        else
+            $model->users()->detach();
 
         return $model;
     }

@@ -54,8 +54,8 @@
                                         <div class="form-row">
 
                                             <div class="form-group col-md-12">
-                                                <label>Resume *</label>
-                                                <input id="resume" name="resume" type="file"
+                                                <label>Summary *</label>
+                                                <input id="Summary" name="Summary" type="file"
                                                        class="form-control required"
                                                        accept="image/gif, image/jpeg, image/png, application/pdf"
                                                 >

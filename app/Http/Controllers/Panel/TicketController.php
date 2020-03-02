@@ -36,7 +36,7 @@ class TicketController extends ApiBaseController
     {
 
         $this->service = $service;
-        $this->label = 'Ticket';
+        $this->label = 'Ticket Center';
     }
 
     public function index(): View

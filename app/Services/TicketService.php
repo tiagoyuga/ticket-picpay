@@ -74,9 +74,9 @@ class TicketService
 
             $model = new Ticket();
             $model->fill($data);
-            $model->client_id = \Auth::user()->client->id;
+            $model->user_id = \Auth::id ();
             $model->cto_id = User::where('group_id', Group::CTO)->first()->id;
-            $model->uid = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,4) . \Carbon\Carbon::now()->format('m-d-Y');
+            $model->uid = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,4) . '-' . \Carbon\Carbon::now()->format('m-d-Y');
             $model->ticket_status_id = 1;
             $model->save();
 

@@ -60,7 +60,7 @@
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
 
-                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
+                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
 
                                                 <td style="text-align: center">
 

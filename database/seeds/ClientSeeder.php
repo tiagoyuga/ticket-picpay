@@ -19,7 +19,6 @@ class ClientSeeder extends Seeder
 
         $itens = [
             [
-                'user_id' => \App\Models\User::where('group_id', 3)->first()->id,
                 'company_name' => 'Google',
                 'contact_name' => 'Joao',
                 'email' => 'google@google.com',

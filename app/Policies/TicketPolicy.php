@@ -38,8 +38,10 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        if($user->group_id != 3)
+
+        if($user->group_id != 3 || $user->clients()->count() < 1)
             return false;
+
         return true;
     }
 

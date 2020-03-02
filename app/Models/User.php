@@ -50,9 +50,9 @@ class User extends Authenticatable
     protected $dates = [
     ];
 
-    function client()
+    function clients()
     {
-        return $this->hasOne(Client::class);
+        return $this->belongsToMany(Client::class, 'client_user');
     }
 
     function group()

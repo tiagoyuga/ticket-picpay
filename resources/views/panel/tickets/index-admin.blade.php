@@ -42,6 +42,7 @@
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
                                     <li><a class="nav-link active" data-toggle="tab" href="#tab-1">All</a></li>
+                                    <li><a class="nav-link " data-toggle="tab" href="#tab-2">Completed</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -71,8 +72,8 @@
                                                                     <td>{{ $item->subject }}</td>
                                                                     <td>{{ $item->status->name }}</td>
                                                                     <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
-                                                                    <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m/d/Y g:i A') }}</td>
-                                                                    <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m/d/Y g:i A') }}</td>
+                                                                    <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
+                                                                    <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
 
                                                                     <td style="text-align: center">
 
@@ -81,7 +82,7 @@
                                                                                 class="fa fa-list"></i>
                                                                         </a>
 
-                                                                        <a class="btn btn-sm btn-default" title="Details"
+                                                                        <a class="btn btn-sm btn-default" title="Ticket Center"
                                                                            href="{{ route('tickets.detail', [$item->id]) }}"><i
                                                                                 class="fa fa-history"></i>
                                                                         </a>
@@ -98,6 +99,69 @@
                                                         </tbody>
                                                     </table>
                                                 @include('panel._assets.paginate')
+
+                                            @else
+                                                <div class="alert alert-danger">
+                                                    We have nothing to display. If you have performed a search, you can perform
+                                                    a new one with other terms or <a class="alert-link" href="{{ route('tickets.index') }}">
+                                                        clear your search.
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div id="tab-2" class="tab-pane">
+                                        <div class="panel-body">
+                                            @if($data->count())
+                                                <table class="table table-striped table-bordered table-hover">
+
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Ticket #</th>
+                                                        <th>Subject</th>
+                                                        <th>Status</th>
+                                                        <th>Priority</th>
+                                                        <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
+                                                        <th>Last Updated</th>
+                                                        <th style="width: 100px; text-align: center">Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    @if($data->count())
+
+                                                        @foreach($data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED) as $item)
+
+                                                            <tr id="tr-{{ $item->id }}">
+
+                                                                <td>{{ $item->uid }}</td>
+                                                                <td>{{ $item->subject }}</td>
+                                                                <td>{{  $item->status->name }}</td>
+                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
+                                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
+                                                                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
+
+                                                                <td style="text-align: center">
+
+
+                                                                    <a class="btn btn-sm btn-default" title="Change status"
+                                                                       href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
+                                                                            class="fa fa-list"></i>
+                                                                    </a>
+
+                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
+                                                                       href="{{ route('tickets.detail', [$item->id]) }}"><i
+                                                                            class="fa fa-history"></i>
+                                                                    </a>
+
+
+                                                                </td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                    </tbody>
+                                                </table>
 
                                             @else
                                                 <div class="alert alert-danger">
