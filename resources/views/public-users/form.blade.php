@@ -25,7 +25,7 @@
                     </div>
                     <div class="ibox-content">
 
-                        @if (Auth::user()->is_dev && count($errors) > 0)
+                        {{--@if (Auth::user()->is_dev && count($errors) > 0)
                             <div class="alert alert-danger dev-mod">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -33,7 +33,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @endif
+                        @endif--}}
 
                         <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
                               action="{{ route('public_users.store') }}">
@@ -137,6 +137,7 @@
                             </div>
 
                             @if(Auth::user()->isAdmin())
+
                                 <div class="form">
 
                                     <label class="radio-inline">

@@ -13,7 +13,7 @@ use App\Traits\CreationDataTrait;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Cliente extends Model
+class Client extends Model
 {
     use SoftDeletes;
 
