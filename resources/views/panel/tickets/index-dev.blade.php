@@ -1,6 +1,6 @@
 @extends('panel._layouts.panel')
 
-@section('_titulo_pagina_', 'List of '.$label)
+@section('_titulo_pagina_', Ticket(s) List)
 
 @section('content')
 
