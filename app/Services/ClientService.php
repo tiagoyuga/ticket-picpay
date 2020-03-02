@@ -65,6 +65,9 @@ class ClientService
             $model->fill($data);
             #$model->user_creator_id = \Auth::id();
             #$model->user_updater_id = \Auth::id();
+            if (!empty($data["cto_amount"])) {
+                $model->cto_amount = floatval(str_replace(',', '.', $data["cto_amount"]));
+            }
             $model->save();
 
             if (isset($data['users']))
@@ -81,6 +84,9 @@ class ClientService
 
         $model->fill($data);
         #$model->user_updater_id = \Auth::id();
+        if (!empty($data["cto_amount"])) {
+            $model->cto_amount = floatval(str_replace(',', '.', $data["cto_amount"]));
+        }
         $model->save();
 
         if (isset($data['users']))

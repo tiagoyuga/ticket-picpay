@@ -43,6 +43,7 @@ class Client extends Model
         'additional_phone',
        // 'status',
         'email',
+        'cto_amount',
     ];
 
     /**

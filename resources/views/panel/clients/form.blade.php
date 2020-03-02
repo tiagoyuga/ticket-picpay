@@ -80,6 +80,14 @@
 
                             <div class="form-row">
 
+                                <div class="form-group col-md-4 @if ($errors->has('cell_phone')) has-error @endif">
+                                    <label for="cell_phone">Cell phone</label>
+                                    <input type="text" name="cell_phone" id="cell_phone" class="form-control"
+                                           value="{{ old('cell_phone', (isset($item) ? $item->cell_phone : '')) }}">
+                                    {!! $errors->first('cell_phone','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
+
+
                                 <div
                                     class="form-group col-md-4 @if ($errors->has('additional_phone')) has-error @endif">
                                     <label for="additional_phone">Additional Phone</label>
@@ -89,11 +97,17 @@
                                     {!! $errors->first('additional_phone','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
-                                <div class="form-group col-md-4 @if ($errors->has('cell_phone')) has-error @endif">
-                                    <label for="cell_phone">Cell phone</label>
-                                    <input type="text" name="cell_phone" id="cell_phone" class="form-control"
-                                           value="{{ old('cell_phone', (isset($item) ? $item->cell_phone : '')) }}">
-                                    {!! $errors->first('cell_phone','<span class="help-block m-b-none">:message</span>') !!}
+
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-4 @if ($errors->has('cto_amount')) has-error @endif">
+                                    <label for="cell_phone">CTO % Amount</label>
+                                    <input type="text"  name="cto_amount"
+                                           id="cto_amount" class="form-control maskmoney_percent"
+                                           value="{{ old('cto_amount', (isset($item) ? $item->cto_amount : '')) }}">
+                                    {!! $errors->first('cto_amount','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
                             </div>
@@ -138,5 +152,8 @@
 @section('scripts')
     @include('panel._assets.scripts-form')
     <script type="text/javascript" src="{{ asset('js/custom-select2.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
     {!! $validator->selector('#frm_save') !!}
+
+
 @endsection

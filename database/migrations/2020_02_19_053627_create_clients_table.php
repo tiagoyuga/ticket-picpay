@@ -20,6 +20,7 @@ class CreateClientsTable extends Migration {
 			$table->string('cell_phone')->nullable();
 			$table->string('additional_phone')->nullable();
 			$table->string('email')->nullable();
+			$table->float('cto_amount', 8, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
 		});
