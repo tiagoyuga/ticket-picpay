@@ -27,7 +27,7 @@ class PublicController extends Controller
         try {
 
             $request->request->set('name', $request->get('first_name').' '.$request->get('last_name'));
-            $request->request->set('group_id', 1);
+            #$request->request->set('group_id', 1);
 
             $this->validate($request, (new PublicUserRegistrationRequest())->rules());
 

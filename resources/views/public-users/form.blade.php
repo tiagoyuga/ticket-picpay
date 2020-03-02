@@ -88,14 +88,16 @@
 
                                 <div class="form-group col-md-4 @if ($errors->has('phone1')) has-error @endif">
                                     <label for="name">Phone Number <i class="text-danger">*</i></label>
-                                    <input type="text" name="phone1" id="phone1" class="form-control mask_phone_with_ddd"
+                                    <input type="text" name="phone1" id="phone1"
+                                           class="form-control mask_phone_with_ddd"
                                            value="{{ old('phone1', (isset($item) ? $item->name : '')) }}">
                                     {!! $errors->first('phone1','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
                                 <div class="form-group col-md-4 @if ($errors->has('phone2')) has-error @endif">
                                     <label for="name">Cell Phone <i class="text-danger">*</i></label>
-                                    <input type="text" name="phone2" id="phone2" class="form-control mask_phone_with_ddd"
+                                    <input type="text" name="phone2" id="phone2"
+                                           class="form-control mask_phone_with_ddd"
                                            value="{{ old('phone2', (isset($item) ? $item->name : '')) }}">
                                     {!! $errors->first('phone2','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
@@ -122,16 +124,39 @@
                                     {!! $errors->first('password','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
-                                <div class="form-group col-md-4 @if ($errors->has('password_confirmation')) has-error @endif">
-                                    <label for="password_confirmation">Confirm Password <i class="text-danger">*</i></label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                                <div
+                                    class="form-group col-md-4 @if ($errors->has('password_confirmation')) has-error @endif">
+                                    <label for="password_confirmation">Confirm Password <i
+                                            class="text-danger">*</i></label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation"
+                                           class="form-control"
                                            value="{{ old('password_confirmation', (isset($item) ? $item->name : '')) }}">
                                     {!! $errors->first('password_confirmation','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
                             </div>
 
-                            <!-- fim dos campos -->
+                            @if(Auth::user()->isAdmin())
+                                <div class="form">
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="group_id" value="1">Admin
+                                    </label>
+
+                                    <span class="mt-2"></span>
+                                    <br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="group_id" value="3">Regular User
+                                    </label>
+
+                                    <br>
+                                    <br>
+
+                                </div>
+
+                            @endif
+
+                        <!-- fim dos campos -->
 
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
@@ -139,7 +164,7 @@
                                 {{ isset($item) ? 'Save editions' : 'Save' }}
                             </button>
 
-                        <!-- FIM -->
+                            <!-- FIM -->
                         </form>
 
                     </div>
