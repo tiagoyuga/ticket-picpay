@@ -47,57 +47,7 @@
                                     <div id="tab-1" class="tab-pane active">
                                         <div class="panel-body">
                                             @if($data->count())
-                                                <table class="table table-striped table-bordered table-hover">
-
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Ticket #</th>
-                                                        <th>Subject</th>
-                                                        <th>Status</th>
-                                                        <th>Priority</th>
-                                                        <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
-                                                        <th>Last Updated</th>
-                                                        <th style="width: 100px; text-align: center">Actions</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    @if($data->count())
-                                                        @foreach($data as $item)
-
-                                                            <tr id="tr-{{ $item->id }}">
-
-                                                                <td>{{ $item->uid }}</td>
-                                                                <td>{{ $item->subject }}</td>
-                                                                <td>{{  $item->status->name }}</td>
-                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
-
-                                                                <td style="text-align: center">
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
-                                                                            class="fa fa-list"></i>
-                                                                    </a>
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.detail', [$item->id]) }}"><i
-                                                                            class="fa fa-history"></i>
-                                                                    </a>
-
-                                                                    {{--                    <link-destroy-component--}}
-                                                                    {{--                        line-id="{{ 'tr-'.$item->id }}"--}}
-                                                                    {{--                        link="{{ route('tickets.destroy', [$item->id]) }}">--}}
-                                                                    {{--                    </link-destroy-component>--}}
-
-                                                                </td>
-
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                    </tbody>
-                                                </table>
+                                                @include('panel.tickets.ticket-by-status', [$data])
                                                 @include('panel._assets.paginate')
 
                                             @else
@@ -113,56 +63,7 @@
                                     <div id="tab-2" class="tab-pane">
                                         <div class="panel-body">
                                             @if($data->count())
-                                                <table class="table table-striped table-bordered table-hover">
-
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Ticket #</th>
-                                                        <th>Subject</th>
-                                                        <th>Status</th>
-                                                        <th>Priority</th>
-                                                        <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
-                                                        <th>Last Updated</th>
-                                                        <th style="width: 100px; text-align: center">Actions</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    @if($data->count())
-
-                                                        @foreach($data->where('ticket_status_id', \App\Models\TicketStatus::UNDER_DEVELOPMENT) as $item)
-
-                                                            <tr id="tr-{{ $item->id }}">
-
-                                                                <td>{{ $item->uid }}</td>
-                                                                <td>{{ $item->subject }}</td>
-                                                                <td>{{  $item->status->name }}</td>
-                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
-
-                                                                <td style="text-align: center">
-
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
-                                                                            class="fa fa-list"></i>
-                                                                    </a>
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.detail', [$item->id]) }}"><i
-                                                                            class="fa fa-history"></i>
-                                                                    </a>
-
-
-                                                                </td>
-
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                    </tbody>
-                                                </table>
-
+                                                @include('panel.tickets.ticket-by-status', ['data' => $data->where('ticket_status_id', \App\Models\TicketStatus::UNDER_DEVELOPMENT)])
                                             @else
                                                 <div class="alert alert-danger">
                                                     We have nothing to display. If you have performed a search, you can perform
@@ -176,56 +77,7 @@
                                     <div id="tab-3" class="tab-pane">
                                         <div class="panel-body">
                                             @if($data->count())
-                                                <table class="table table-striped table-bordered table-hover">
-
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Ticket #</th>
-                                                        <th>Subject</th>
-                                                        <th>Status</th>
-                                                        <th>Priority</th>
-                                                        <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
-                                                        <th>Last Updated</th>
-                                                        <th style="width: 100px; text-align: center">Actions</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    @if($data->count())
-
-                                                        @foreach($data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED) as $item)
-
-                                                            <tr id="tr-{{ $item->id }}">
-
-                                                                <td>{{ $item->uid }}</td>
-                                                                <td>{{ $item->subject }}</td>
-                                                                <td>{{  $item->status->name }}</td>
-                                                                <td><i class="{{ $item->priority }}">{{ $item->priority }}</i></td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
-                                                                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
-
-                                                                <td style="text-align: center">
-
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.changeStatus', [$item->id]) }}"><i
-                                                                            class="fa fa-list"></i>
-                                                                    </a>
-
-                                                                    <a class="btn btn-sm btn-default" title="Ticket Center"
-                                                                       href="{{ route('tickets.detail', [$item->id]) }}"><i
-                                                                            class="fa fa-history"></i>
-                                                                    </a>
-
-
-                                                                </td>
-
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                    </tbody>
-                                                </table>
-
+                                                @include('panel.tickets.ticket-by-status', ['data' => $data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED)])
                                             @else
                                                 <div class="alert alert-danger">
                                                     We have nothing to display. If you have performed a search, you can perform
