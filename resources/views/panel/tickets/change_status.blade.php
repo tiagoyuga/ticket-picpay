@@ -171,7 +171,7 @@
             let original_seconds = timestamp_to_seconds($(this).val());
             let minutes = (original_seconds / 60);
 
-            let cto_hours =  secondsToTime((minutes * (0.10 ))*60)
+            let cto_hours =  secondsToTime((minutes * ( {{ $item->client->cto_amount }} ))*60)
             $("#cto_hours").val(cto_hours)
 
         })
