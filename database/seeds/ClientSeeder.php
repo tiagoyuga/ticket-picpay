@@ -5,6 +5,7 @@
  * @date       02/28/2020 7:30 AM
  */
 
+use App\Models\Cliente;
 use Illuminate\Database\Seeder;
 
 class ClientSeeder extends Seeder
@@ -31,7 +32,7 @@ class ClientSeeder extends Seeder
 
         foreach ($itens as $item) {
 
-            \App\Models\Client::create($item);
+            Cliente::create($item);
         }
     }
 }

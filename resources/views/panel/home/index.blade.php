@@ -15,9 +15,22 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
-                            Bem vindo {{ \Auth::user()->name }}
+                                Bem vindo {{ \Auth::user()->name }}
                             </div>
                         </div>
+
+                        @if(Auth::user()->can('create', \App\Models\User::class))
+
+                            <br>
+
+                            @if(Auth::user()->isAdmin())
+
+                                <a class="btn btn-primary" id="ln_adicionar" href="{{ route('public_users') }}">
+                                    <i class="fa fa-plus-circle"></i> Add new user
+                                </a>
+                            @endif
+
+                        @endif
 
                     </div>
                 </div>

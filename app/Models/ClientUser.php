@@ -13,7 +13,8 @@ use App\Traits\CreationDataTrait;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Client extends Model
+
+class ClientUser extends Model
 {
     use SoftDeletes;
 
@@ -29,7 +30,8 @@ class Client extends Model
      *
      * @var string
      */
-    protected $table = 'user_client';
+    #protected $table = 'user_client';
+    protected $table = 'client_user';
 
     /**
      * The attributes that are mass assignable.

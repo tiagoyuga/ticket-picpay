@@ -137,6 +137,21 @@ class UserRule
     }
 
 
+    public static function publicRegistration()
+    {
+
+        return [
+            'name' => self::$rules['name'],
+            'job_title' => 'required',
+            'branch_location' => '',#$rules['branch_location'],
+            'phone1' => self::$rules['phone1'],
+            'phone2' => self::$rules['phone2'],
+            'email' => self::$rules['email'],
+            'password' => 'nullable|'.self::$rules['password'],
+        ];
+    }
+
+
 
     /**
      * Return default messages

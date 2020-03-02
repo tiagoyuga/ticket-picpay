@@ -9,7 +9,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Client;
+
+use App\Models\Cliente;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +22,7 @@ class ClientService
     private function buildQuery(): Builder
     {
 
-        $query = Client::query();
+        $query = Cliente::query();
 
         $query->when(request('id'), function ($query, $id) {
 

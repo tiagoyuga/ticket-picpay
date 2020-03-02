@@ -25,6 +25,9 @@ class User extends Authenticatable
         'skype',
         'whatsapp',
         'hangout',
+        'job_title',
+        'branch_location',
+        'phone2',
     ];
 
     /**
@@ -88,5 +91,22 @@ class User extends Authenticatable
         return $this->name . ' (' . $this->document_number . ')';
     }
 
+    public function isAdmin()
+    {
+        /*$userType = $this->belongsTo(UserType::class);
+
+        if (in_array('1', $userType->pluck('type_id'))){
+            return true;
+        }
+
+        return false;*/
+
+        return ($this->group_id == 1 || $this->group_id == 5);
+    }
+
+    function types()
+    {
+        return $this->belongsToMany(Type::class, 'user_types', 'user_id', 'type_id');
+    }
 
 }
