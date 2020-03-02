@@ -14,9 +14,10 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
+                        <h3>Client {{ $client->company_name }}</h3>
                         <h5>@yield('_titulo_pagina_')</h5>
                         <br>
-                        {{ route('public_users') }}
+
                         <div class="ibox-tools">
                             <a class="collapse-link ui-sortable">
                                 <i class="fa fa-chevron-up"></i>
@@ -41,6 +42,8 @@
                         {{ csrf_field() }}
 
                         <!-- inicio dos campos -->
+
+                            <input type="hidden" name="client_id" value="{{ $client->id }}">
 
                             <div class="form-row">
 

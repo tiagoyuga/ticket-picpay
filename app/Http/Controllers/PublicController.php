@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PublicUserRegistrationRequest;
 use App\Http\Requests\UserDevRegistrationRequest;
+use App\Models\Client;
+use App\Models\ClientUser;
 use App\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -22,7 +24,16 @@ class PublicController extends Controller
         return redirect('/panel/profile');
     }
 
-    public function registerPublicUserStore(Request $request, UserService $userService)
+    public function registerPublic(Client $client)
+    {
+
+        return view('public-users.form')
+            ->with([
+                'client' => $client,
+            ]);
+    }
+
+    public function registerPublicUserStore(Request $request, UserService $userService, ClientUser $clientUser)
     {
         try {
 
@@ -31,7 +42,11 @@ class PublicController extends Controller
 
             $this->validate($request, (new PublicUserRegistrationRequest())->rules());
 
-            $userService->create($request->all());
+            $newUser = $userService->create($request->all());
+
+            $request->request->set('user_id', $newUser->id);
+
+            $userService->createClientUser($request->all());
 
             return redirect()->route('users.' . request('routeTo'))
                 ->with([

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Address;
+use App\Models\ClientUser;
 use App\Models\TicketFile;
 use App\Models\BankAccount;
 use App\Models\Group;
@@ -288,6 +289,21 @@ class UserService
 
         });
 
+    }
+
+    public function createClientUser(array $data) : ClientUser
+    {
+
+        return DB::transaction(function () use ($data) {
+
+            $model = new ClientUser();
+            $model->fill($data);
+
+            $model->save();
+
+            return $model;
+
+        });
     }
 
 }

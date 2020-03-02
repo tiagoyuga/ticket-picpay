@@ -19,20 +19,6 @@
                             </div>
                         </div>
 
-                        @if(Auth::user()->can('create', \App\Models\User::class))
-
-                            <br>
-
-                            @if(Auth::user()->isClient())
-
-                                <a class="btn btn-primary" id="ln_adicionar" href="{{ route('public_users') }}">
-                                    <i class="fa fa-plus-circle"></i> Add new user
-                                </a>
-
-                            @endif
-
-                        @endif
-
                     </div>
                 </div>
             </div>

@@ -21,11 +21,14 @@ Route::get('/programmers/new', function () {
 
 Route::post('/programmers/new', 'PublicController@registerDev')->name('dev.store');
 
-Route::get('/users/public_users', function (){
+#Route::get('/users/public_users', function (){
+/*Route::get('public_users', function () {
     return view('/public-users/form');
-})->name('public_users');
+})->name('public_users');*/
 
-Route::post('/users/public_users', 'PublicController@registerPublicUserStore')->name('public_users.store');
+Route::get('/users/public_users/{client}', 'PublicController@registerPublic')->name('public_users.new');
+
+Route::post('/public_users', 'PublicController@registerPublicUserStore')->name('public_users.store');
 
 Route::post('/programmers/new', 'PublicController@registerDev')->name('dev.store');
 
