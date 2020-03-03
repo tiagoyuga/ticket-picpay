@@ -42,7 +42,7 @@
 
                                                 <div
                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                    <label for="content"><h3>Review *</h3></label>
+                                                    <label for="content"><h3>Comment *</h3></label>
                                                     <textarea required rows="14" cols="50" name="review" id="review"
                                                               class=" form-control">{{ old('review') }}</textarea>
                                                     {!! $errors->first('review','<span class="help-block m-b-none">:message</span>') !!}
@@ -91,7 +91,7 @@
 
                                                 <div
                                                     class="form-group col-md-1 @if ($errors->has('cto_hours')) has-error @endif">
-                                                    <label for="name">CTO time</label>
+                                                    <label for="name">CTO hrs</label>
                                                     <input type="text" name="cto_hours" id="cto_hours"
                                                            class="form-control mask_hour"
                                                            value="{{ old('cto_hours', (isset($item) ? $item->cto_hours : '')) }}">
@@ -126,10 +126,10 @@
                                                             id="payment_status">
 
                                                         {{--@foreach(app('constants.payment_status') as $status)--}}
-                                                        @foreach(['Not Paid', 'Paid'] as $status)
-                                                            <option value="{{ $status }}"
-                                                                {{ old('payment_status', (isset($item) ? $item->payment_status : '')) == $status ? 'selected' : '' }}
-                                                            >{{ $status }}</option>
+                                                        @foreach(['Not Paid', 'Paid'] as $payment_status)
+                                                            <option value="{{ $payment_status }}"
+                                                                {{ old('payment_status', (isset($item) ? $item->payment_status : '')) == $payment_status ? 'selected' : '' }}
+                                                            >{{ $payment_status }}</option>
                                                         @endforeach
                                                     </select>
                                                     {!! $errors->first('payment_status','<span class="help-block m-b-none">:message</span>') !!}
@@ -255,7 +255,6 @@
         @else
         $("#payment_calendar").hide();
         @endif
-
 
     </script>
 @endsection
