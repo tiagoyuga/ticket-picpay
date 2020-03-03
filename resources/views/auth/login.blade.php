@@ -42,9 +42,9 @@
             <button type="submit" class="btn btn-black">Entrar</button>
 
             @if (Route::has('password.request'))
-            <!--a class="btn btn-link" href="{{ route('password.request') }}">
+                <a class="btn btn-link" href="{{ route('password.request') }}">
                     Esqueceu sua senha?
-                </a-->
+                </a>
             @endif
 
             <hr>
@@ -52,7 +52,7 @@
 
                 <a href="javascript:"
                    onclick="$('#email').val('admin@gmail.com');$('#loginForm').submit();">
-                   ADMIN
+                    ADMIN
                 </a>
                 <br/>
             </p>

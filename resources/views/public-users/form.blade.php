@@ -15,8 +15,11 @@
 
                     <div class="ibox-title">
                         <h3>Client {{ $client->company_name }}</h3>
+                        <br>
                         <h5>@yield('_titulo_pagina_')</h5>
                         <br>
+
+                        <small>{{ url()->current() }}</small>
 
                         <div class="ibox-tools">
                             <a class="collapse-link ui-sortable">
@@ -25,16 +28,6 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-
-                        {{--@if (Auth::user()->is_dev && count($errors) > 0)
-                            <div class="alert alert-danger dev-mod">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif--}}
 
                         <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
                               action="{{ route('public_users.store') }}">
@@ -139,7 +132,7 @@
 
                             </div>
 
-                            @if(Auth::user()->isAdmin())
+                            @if(Auth::user() && Auth::user()->isAdmin())
 
                                 <div class="form">
 
@@ -157,6 +150,9 @@
                                     <br>
 
                                 </div>
+
+                            @else
+                                <input type="hidden" name="group_id" value="3">
 
                             @endif
 

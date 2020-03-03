@@ -1,5 +1,5 @@
 @php
-    $userIsDev = Auth::user()->is_dev
+    $userIsDev = Auth::user() ? Auth::user()->is_dev : false;
 @endphp
 
 <div class="row border-bottom white-bg">
@@ -25,14 +25,14 @@
                     </a>
                 </li>
 
-{{--                <li>--}}
-{{--                    <a aria-expanded="false" role="button" href="{{ route('dashboard.dashboard') }}">--}}
-{{--                        <i class="fa fa-dashboard"></i>--}}
-{{--                        <span class="nav-label">Dashboard</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li>--}}
+                {{--                    <a aria-expanded="false" role="button" href="{{ route('dashboard.dashboard') }}">--}}
+                {{--                        <i class="fa fa-dashboard"></i>--}}
+                {{--                        <span class="nav-label">Dashboard</span>--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
 
-                @if(\Auth::user()->group_id == \App\Models\Group::ADMIN)
+                @if(Auth::user() && \Auth::user()->group_id == \App\Models\Group::ADMIN)
 
                     <li class="dropdown {{ isActiveRoute([
     'groups.*', 'users.*']) }}">
@@ -58,7 +58,6 @@
                 </li>
 
 
-
             </ul>
 
             <form name="frm_new_users_notifications" id="frm_new_users_notifications">
@@ -66,7 +65,9 @@
                 {{ csrf_field() }}
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome {{ \Auth::user()->name }}</span>
+                        @if(Auth::user())
+                            <span class="m-r-sm text-muted welcome-message">Welcome {{ \Auth::user()->name }}</span>
+                        @endif
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"

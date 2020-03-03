@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/home', function () {
+    return redirect()->to('/login');
+});
+
 Route::get('/', function () {
     return redirect()->to('/login');
 });
