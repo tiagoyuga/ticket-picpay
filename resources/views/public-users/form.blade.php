@@ -132,7 +132,7 @@
 
                             </div>
 
-                            @if(Auth::user() && Auth::user()->isAdmin())
+                            @if(Auth::user() && Auth::user()->is_admin)
 
                                 <div class="form">
 
