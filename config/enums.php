@@ -42,4 +42,9 @@ return [
         'high' => 'High',
     ],
 
+    'payment_status' => [
+        'paid' => 'Paid',
+        'not_paid' => 'Not paid',
+    ]
+
 ];

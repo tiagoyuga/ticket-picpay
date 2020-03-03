@@ -21,10 +21,18 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
+
             $table->string('phone1', 15)->nullable();
+            $table->string('phone2', 15)->nullable();
+
             $table->boolean('is_dev')->default(false);
             $table->integer('access')->default(0);
             $table->dateTime('last_login')->nullable();
+
+            $table->string('job_title')->nullable();
+            $table->string('branch_location')->nullable();
+
+
             include('i-creators-data.php');
             $table->rememberToken();
             $table->timestamps();
