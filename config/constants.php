@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'productItemCategoryId' => 1,
-    'checkPendingRatingSalesDate' => 15,
-    'ratingRange' => range(1, 10),
+    'payment_status' => ['Not Paid', 'Paid'],
 ];

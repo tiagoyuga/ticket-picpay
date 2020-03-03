@@ -48,6 +48,8 @@ class Ticket extends Model
         'dev_estimated_time',
         'dev_hour_spent',
         'cto_hours',
+        'payment_status',
+        'payment_date',
     ];
 
 
@@ -87,7 +89,7 @@ class Ticket extends Model
      *
      * @var array
      */
-    protected $dates = [];
+    protected $dates = ['payment_date'];
 
     # Query Scopes
 

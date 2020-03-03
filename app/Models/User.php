@@ -93,28 +93,12 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        /*$userType = $this->belongsTo(UserType::class);
-
-        if (in_array('1', $userType->pluck('type_id'))){
-            return true;
-        }
-
-        return false;*/
-
-        return ($this->group_id == 1 || $this->group_id == 5);
+        return ($this->group_id == \App\Models\Group::CLIENT || $this->group_id == \App\Models\Group::DEVELOPER);
     }
 
     public function isClient()
     {
-        /*$userType = $this->belongsTo(UserType::class);
-
-        if (in_array('1', $userType->pluck('type_id'))){
-            return true;
-        }
-
-        return false;*/
-
-        return ($this->group_id == 3);
+        return ($this->group_id == \App\Models\Group::CLIENT);
     }
 
     function types()
