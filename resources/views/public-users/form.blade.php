@@ -164,7 +164,7 @@
                             @else
                                 <input type="hidden" name="type" value="2">
 
-                            @endif
+                        @endif
 
                         <!-- fim dos campos -->
 
@@ -199,16 +199,28 @@
 
     <script>
 
-        $().ready(function () {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest",
+            data: '',
+            success: function (data) {
 
-            performRemoteSearch({
-                element: '#city_id',
-                url: '{{ route('users.find') }}',
-                textOption: function (item) {
-                    return item.city + " - " + item.state;
-                }
-            });
-
+                $("#branch_location").select2({
+                    //multiple: true,
+                    data:
+                        $.map(data.data, function (item) {
+                            return {
+                                text: item['State'],
+                                id: item['ID State']
+                            }
+                        })
+                });
+            },
+            error: function (error) {
+                /*jsonValue = jQuery.parseJSON(error.responseText);
+                alert("error" + error.responseText);*/
+            }
         });
 
     </script>
