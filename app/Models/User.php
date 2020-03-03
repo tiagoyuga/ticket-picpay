@@ -91,12 +91,12 @@ class User extends Authenticatable
         return $this->name . ' (' . $this->document_number . ')';
     }
 
-    public function isAdmin()
+    public function getIsAdminAttribute()
     {
         return ($this->group_id == \App\Models\Group::CLIENT || $this->group_id == \App\Models\Group::DEVELOPER);
     }
 
-    public function isClient()
+    public function getIsClientAttribute()
     {
         return ($this->group_id == \App\Models\Group::CLIENT);
     }

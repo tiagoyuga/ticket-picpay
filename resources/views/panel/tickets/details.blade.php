@@ -16,7 +16,8 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     @can('update', $item)
-                                    <a href="{{ route('tickets.edit', $item->id) }}" class="btn btn-white btn-xs float-right">Edit ticket</a>
+                                        <a href="{{ route('tickets.edit', $item->id) }}"
+                                           class="btn btn-white btn-xs float-right">Edit ticket</a>
                                     @endcan
                                     <h2>{{ $item->subject }}</h2>
                                     <span>{{ $item->uid }}</span>
@@ -59,6 +60,28 @@
                                         <dd class="mb-1">{{ $item->client->company_name }}</dd>
                                     </div>
                                 </dl>
+
+                                @if(!\Auth::user()->is_client)
+
+                                    <dl class="row mb-0">
+                                        <div class="col-sm-4 text-sm-right">
+                                            <dt>Est Dev. hrs:</dt>
+                                        </div>
+                                        <div class="col-sm-8 text-sm-left">
+                                            <dd class="mb-1">{{ $item->dev_estimated_time }}</dd>
+                                        </div>
+                                    </dl>
+
+                                    <dl class="row mb-0">
+                                        <div class="col-sm-4 text-sm-right">
+                                            <dt>CTO Hrs:</dt>
+                                        </div>
+                                        <div class="col-sm-8 text-sm-left">
+                                            <dd class="mb-1">{{ $item->cto_hours  }}</dd>
+                                        </div>
+                                    </dl>
+
+                                @endif
 
 
                             </div>
@@ -144,7 +167,8 @@
                                     <div class="panel-heading">
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
-                                                <li><a class="nav-link active" href="#tab-1" data-toggle="tab">Message Center</a></li>
+                                                <li><a class="nav-link active" href="#tab-1" data-toggle="tab">Message
+                                                        Center</a></li>
                                                 <li><a class="nav-link" href="#tab-2" data-toggle="tab">Last
                                                         activity</a></li>
                                                 <li><a class="nav-link" href="#tab-3" data-toggle="tab">Summary</a></li>
@@ -166,7 +190,8 @@
 
                                                                 <a href="#" class="float-left pr-5">
                                                                     {{ $comment->user->name }} <br>
-                                                                    <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                                                    <small
+                                                                        class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                                                                 </a>
 
                                                                 <div class="media-body ">
@@ -177,7 +202,7 @@
 
                                                         @endforeach
 
-                                                        @else
+                                                    @else
 
 
                                                         <p>
@@ -203,19 +228,24 @@
 
                                                         <div class="form-row">
 
-                                                            <div class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                                    <label for="content"><h3>Leave message</h3></label>
-                                                                <textarea  rows="14" cols="50" name="content" id="content" class="froalaEditor form-control">{{ old('content') }}</textarea>
+                                                            <div
+                                                                class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
+                                                                <label for="content"><h3>Leave message</h3></label>
+                                                                <textarea rows="14" cols="50" name="content"
+                                                                          id="content"
+                                                                          class="froalaEditor form-control">{{ old('content') }}</textarea>
                                                                 {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
                                                             </div>
 
-                                                            <input type="hidden" name="ticket_id" value="{{ $item->id }}">
+                                                            <input type="hidden" name="ticket_id"
+                                                                   value="{{ $item->id }}">
 
                                                         </div>
 
                                                         <div class="form-row">
 
-                                                            <div class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
+                                                            <div
+                                                                class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
                                                                 <label for="image">Upload File</label>
                                                                 <input id="file" name="file" type="file"
                                                                        class="form-control required"
@@ -230,7 +260,7 @@
                                                             Save message
                                                         </button>
 
-                                                    <!-- FIM -->
+                                                        <!-- FIM -->
                                                     </form>
                                                 </div>
 
@@ -276,7 +306,6 @@
                                                         </p>
 
                                                     @endif
-
 
 
                                                     </tbody>
@@ -349,7 +378,7 @@
                                                                                         </td>
                                                                                         <td class="text-center">
 
-                                                                                           {{ $file->created_at->format('m-d-Y H:s:i') }}
+                                                                                            {{ $file->created_at->format('m-d-Y H:s:i') }}
 
 
                                                                                         </td>
@@ -373,8 +402,6 @@
                                                                 </div>
 
                                                             </div>
-
-
 
 
                                                         </div>
@@ -408,7 +435,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create( document.querySelector( '#content' ),{
+            .create(document.querySelector('#content'), {
 
                 toolbar: {
                     items: [
@@ -430,7 +457,7 @@
                     ]
                 },
                 language: 'en',
-                height:300,
+                height: 300,
                 table: {
                     contentToolbar: [
                         'tableColumn',
@@ -440,12 +467,12 @@
                 },
                 licenseKey: '',
 
-            } )
-            .then( editor => {
-                console.log( editor );
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+            })
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endsection
