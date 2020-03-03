@@ -323,13 +323,16 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
-                                                                    <label for="subject">Subject</label>
+                                                                    <label for="subject"><strong>Subject</strong></label>
                                                                     <p>{{$item->subject}}</p>
                                                                 </div>
+                                                            </div>
+                                                            <hr>
 
+                                                            <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                                    <label for="content">Content</label>
+                                                                    <label for="content"><strong>Content</strong></label>
                                                                     <div>
                                                                         {!! $item->content !!}
                                                                     </div>
@@ -337,23 +340,27 @@
                                                                 </div>
                                                             </div>
 
+                                                            <hr>
+
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
-                                                                    <label for="priority">Priority</label>
+                                                                    <label for="priority"><strong>Priority</strong></label>
 
                                                                     <p>
-                                                                        {{$item->priority}}
+                                                                        <span class="{{$item->priority}} {{$item->priority == 'medium' ? 'text-warning' : ''}}">{{$item->priority}}</span>
                                                                     </p>
 
 
                                                                 </div>
                                                             </div>
 
+                                                            <hr>
+
                                                             <div class="form-row">
 
                                                                 <div
-                                                                    class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
+                                                                    class="form-group col-md-12 @if ($errors->has('file')) has-error @endif">
                                                                     <label for="image">Uploads</label>
 
                                                                     @if($item->files)
