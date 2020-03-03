@@ -31,11 +31,14 @@
 
                     <div class="ibox-content">
 
-                        <div class="m-b-lg">
+                        {{--<div class="m-b-lg">
+
                             <form method="get" id="frm_search" action="{{ route('tickets.index') }}">
                                 @include('panel._assets.basic-search')
                             </form>
-                        </div>
+                        </div>--}}
+
+                        @include('panel.tickets.filter')
 
                         <div class="table-responsive">
 

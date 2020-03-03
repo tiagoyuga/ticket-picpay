@@ -16,6 +16,7 @@ use App\Models\TicketFile;
 use App\Models\TicketStatus;
 use App\Models\User;
 use App\Rlustosa\GenericUpload;
+use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -43,6 +44,23 @@ class TicketService
             return $query->where('subject', 'LIKE', '%' . $search . '%')
                 ->orWhere('uid', 'LIKE', '%' . $search . '%');
         });
+
+        $query->when(request('start_date'), function ($query, $start_date) {
+
+            $startDate = request('start_date');
+            $startDate = Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d');
+
+            return $query->where('tickets.created_at', '>=', $startDate . ' 00:00:00');
+        });
+
+        $query->when(request('end_date'), function ($query, $end_date) {
+
+            $endDate = request('end_date');
+            $endDate = Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d');
+
+            return $query->where('tickets.created_at', '<=', $endDate . ' 23:59:59');
+        });
+
 
         return $query;
     }
