@@ -125,7 +125,7 @@ class TicketController extends ApiBaseController
 
         $this->log(__METHOD__);
 
-        $this->authorize('update', $ticket);
+        $this->authorize('changeStatus', $ticket);
 
         return view('panel.tickets.change_status')
             ->with([

@@ -50,6 +50,8 @@ class Ticket extends Model
         'cto_hours',
         'payment_status',
         'payment_date',
+        'est_hrs_client',
+        'dev_hrs_client',
     ];
 
 

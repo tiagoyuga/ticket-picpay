@@ -93,7 +93,7 @@ class User extends Authenticatable
 
     public function getIsAdminAttribute()
     {
-        return ($this->group_id == \App\Models\Group::CLIENT || $this->group_id == \App\Models\Group::DEVELOPER);
+        return ($this->group_id == \App\Models\Group::ADMIN);
     }
 
     public function getIsClientAttribute()

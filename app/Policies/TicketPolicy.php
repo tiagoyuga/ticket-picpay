@@ -30,6 +30,15 @@ class TicketPolicy
         return true;
     }
 
+    public function changeStatus(User $user, Ticket $ticket)
+    {
+        if($user->is_client)
+            return false;
+
+        return true;
+    }
+
+
     /**
      * Determine whether the user can create ticket.
      *
