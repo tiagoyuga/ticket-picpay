@@ -19,6 +19,14 @@
                             </div>
                         </div>
 
+                        @if(Auth::user()->getIsClientAttribute())
+                            <br>
+                            <a class="btn btn-primary" id="ln_adicionar" title="add users to client"
+                               href="{{ route('public_users.new', base64_encode(Auth::id()))}} ">
+                                <i class="fa fa-plus-circle"></i> Add new user
+                            </a>
+                        @endif
+
                     </div>
                 </div>
             </div>

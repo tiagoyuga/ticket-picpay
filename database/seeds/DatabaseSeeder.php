@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(RegionSeeder::class);
         //$this->call(StateSeeder::class);
         //$this->call(CityDevSeeder::class);
-       // $this->call(TypeSeeder::class);
+        $this->call(TypeSeeder::class);
         $this->call(GroupSeeder::class);
         $this->call(UsersTableSeeder::class);
        // $this->call(DevSkillCategorySeeder::class);

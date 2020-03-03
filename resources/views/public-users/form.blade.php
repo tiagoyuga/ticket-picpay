@@ -14,19 +14,24 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h3>Client {{ $client->company_name }}</h3>
+
+                        <h3>Client {{ $user->name }}</h3>
                         <br>
                         <h5>@yield('_titulo_pagina_')</h5>
                         <br>
 
-                        <small>{{ url()->current() }}</small>
+                        <span class="text-info">{{ url()->current() }}</span>
 
                         <div class="ibox-tools">
                             <a class="collapse-link ui-sortable">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
                         </div>
+                        <br>
+                        <br>
+
                     </div>
+
                     <div class="ibox-content">
 
                         <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
@@ -36,7 +41,7 @@
 
                         <!-- inicio dos campos -->
 
-                            <input type="hidden" name="client_id" value="{{ $client->id }}">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
 
                             <div class="form-row">
 
@@ -85,7 +90,7 @@
                                 <div class="form-group col-md-4 @if ($errors->has('phone1')) has-error @endif">
                                     <label for="name">Phone Number <i class="text-danger">*</i></label>
                                     <input type="text" name="phone1" id="phone1"
-                                           class="form-control mask_phone_with_ddd"
+                                           class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('phone1', (isset($item) ? $item->name : '')) }}">
                                     {!! $errors->first('phone1','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
@@ -93,7 +98,7 @@
                                 <div class="form-group col-md-4 @if ($errors->has('phone2')) has-error @endif">
                                     <label for="name">Cell Phone <i class="text-danger">*</i></label>
                                     <input type="text" name="phone2" id="phone2"
-                                           class="form-control mask_phone_with_ddd"
+                                           class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('phone2', (isset($item) ? $item->name : '')) }}">
                                     {!! $errors->first('phone2','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
@@ -132,18 +137,23 @@
 
                             </div>
 
-                            @if(Auth::user() && Auth::user()->is_admin)
+                            <hr>
 
+                            @if(Auth::user())
+
+                                <label class="radio-inline">
+                                    <strong>Previlegies setup</strong>
+                                </label>
                                 <div class="form">
 
                                     <label class="radio-inline">
-                                        <input type="radio" name="group_id" value="1">Admin
+                                        <input type="radio" name="type" value="1">Admin
                                     </label>
 
                                     <span class="mt-2"></span>
                                     <br>
                                     <label class="radio-inline">
-                                        <input type="radio" name="group_id" value="3">Regular User
+                                        <input type="radio" name="type" value="2">Regular User
                                     </label>
 
                                     <br>
@@ -152,7 +162,7 @@
                                 </div>
 
                             @else
-                                <input type="hidden" name="group_id" value="3">
+                                <input type="hidden" name="type" value="2">
 
                             @endif
 

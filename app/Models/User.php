@@ -101,9 +101,25 @@ class User extends Authenticatable
         return ($this->group_id == \App\Models\Group::CLIENT);
     }
 
-    function types()
+    /*function types()
     {
         return $this->belongsToMany(Type::class, 'user_types', 'user_id', 'type_id');
+    }*/
+
+    public function userTypes()
+    {
+        return $this->hasMany(UserType::class, 'user_id');
+    }
+
+    public function isClientAdmim()
+    {
+        $userTypes = $this->userTypes();
+
+        if($userTypes) {
+            return (in_array(Type::ADMIN, $userTypes->pluck('type_id')->toArray()));
+        }
+
+        return false;
     }
 
 }

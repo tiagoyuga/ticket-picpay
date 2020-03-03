@@ -1,6 +1,6 @@
 @php
     $is_client = \Auth::user()->group_id == \App\Models\Group::CLIENT;
-    $is_admin = \Auth::user()->group_id == \App\Models\Group::ADMIN;
+    $isClientAdmim = \Auth::user()->isClientAdmim();
 @endphp
 
 <table class="table table-striped table-bordered table-hover">
@@ -13,14 +13,19 @@
         <th>Subject</th>
         <th>Status</th>
         <th>Priority</th>
-        @if($is_admin)
-            <th>Payment Status</th>
-        @endif
         <th>Last Updated</th>
-        @if($is_client)
+        {{--@if($is_client)
             <th>Est. Hrs</th>
             <th>Hrs Spent</th>
+        @endif--}}
+
+        @if($isClientAdmim)
+            <th>Est. Hrs</th>
+            <th>Hrs Spent</th>
+            <th>Payment Status</th>
+            {{--<th>Dev Hrs</th>--}}
         @endif
+
         <th style="width: 100px; text-align: center">Actions</th>
     </tr>
     </thead>
@@ -41,7 +46,18 @@
                     <i class="{{ $item->priority }} {{ $item->priority == 'medium' ? 'text-warning' : '' }}">{{ $item->priority }}</i>
                 </td>
 
-                @if($is_admin)
+                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
+
+                {{--@if($is_client)
+                    <td>{{$item->est_hrs_client}}</td>
+                    <td>{{$item->dev_hrs_client }}</td>
+                @endif--}}
+
+                @if($isClientAdmim)
+
+                    <td>{{$item->est_hrs_client}}</td>
+                    <td>{{$item->dev_hrs_client }}</td>
+
                     <td>
                         <span class="{{ strtolower($item->payment_status) == 'paid' ? 'text-success' : 'text-danger' }}">
                             {{ $item->payment_status }}
@@ -52,13 +68,8 @@
                             <span>Paid at: {{ $item->payment_date->format('m-d-y') }}</span>
                         @endif
                     </td>
-                @endif
 
-                <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
-
-                @if($is_client)
-                    <td>{{$item->est_hrs_client}}</td>
-                    <td>{{$item->dev_hrs_client }}</td>
+                    {{--<td>{{$item->dev_hrs_client }}</td>--}}
                 @endif
 
                 <td style="text-align: center">

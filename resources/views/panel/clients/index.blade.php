@@ -73,10 +73,10 @@
 
                                                 <td style="text-align: center; width: 10%">
 
-                                                    <a class="btn btn-primary btn-sm" id="ln_adicionar" title="add users to client"
+                                                    {{--<a class="btn btn-primary btn-sm" id="ln_adicionar" title="add users to client"
                                                        href="{{ route('public_users.new', [$item->id])}} ">
                                                         <i class="fa fa-plus-circle"></i>
-                                                    </a>
+                                                    </a>--}}
 
                                                     <a class="btn btn-sm btn-default" title="Edit"
                                                        href="{{ route('clients.edit', [$item->id]) }}"><i

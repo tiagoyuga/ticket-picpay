@@ -138,8 +138,7 @@ class TicketService
     {
         $model_before = $model->toArray();
 
-
-        if($data['dev_hour_spent'] != $model->dev_hour_spent) {
+        if(isset($data['dev_hour_spent']) && $data['dev_hour_spent'] != $model->dev_hour_spent) {
             $partes = explode(":", $data['dev_hour_spent']);
 
             $minutes = $partes[0]*60+$partes[1];

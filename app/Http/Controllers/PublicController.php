@@ -6,6 +6,8 @@ use App\Http\Requests\PublicUserRegistrationRequest;
 use App\Http\Requests\UserDevRegistrationRequest;
 use App\Models\Client;
 use App\Models\ClientUser;
+use App\Models\Group;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -24,12 +26,15 @@ class PublicController extends Controller
         return redirect('/panel/profile');
     }
 
-    public function registerPublic(Client $client)
+    #public function registerPublic(User $user)
+    public function registerPublic($user_id, UserService $userService)
     {
+
+        $user = $userService->find(base64_decode($user_id));
 
         return view('public-users.form')
             ->with([
-                'client' => $client,
+                'user' => $user,
             ]);
     }
 
@@ -38,17 +43,14 @@ class PublicController extends Controller
         try {
 
             $request->request->set('name', $request->get('first_name').' '.$request->get('last_name'));
-            #$request->request->set('group_id', 1);
+
+            $request->request->set('group_id', Group::CLIENT);
 
             $this->validate($request, (new PublicUserRegistrationRequest())->rules());
 
             $newUser = $userService->create($request->all());
 
-            $request->request->set('user_id', $newUser->id);
-
-            $userService->createClientUser($request->all());
-
-            return redirect()->route('users.' . request('routeTo'))
+            return redirect()->back()
                 ->with([
                     'message' => 'Successfully created',
                     'messageType' => 's',

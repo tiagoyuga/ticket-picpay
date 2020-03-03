@@ -15,6 +15,7 @@ use App\Models\TicketFile;
 use App\Models\BankAccount;
 use App\Models\Group;
 use App\Models\Qualification;
+use App\Models\Type;
 use App\Models\User;
 use App\Rlustosa\GenericUpload;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -81,6 +82,10 @@ class UserService
             }
 
             $model->save();
+
+            $types = Type::find(array_merge([$data["type"]], [Type::CLIENT]));
+
+            $model->types()->attach($types);
 
             return $model;
 
@@ -289,21 +294,6 @@ class UserService
 
         });
 
-    }
-
-    public function createClientUser(array $data) : ClientUser
-    {
-
-        return DB::transaction(function () use ($data) {
-
-            $model = new ClientUser();
-            $model->fill($data);
-
-            $model->save();
-
-            return $model;
-
-        });
     }
 
 }
