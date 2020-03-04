@@ -97,5 +97,10 @@ class ClientUser extends Model
         return $this->belongsTo(User::class);
     }
 
+    function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
     # Accessors & Mutators
 }

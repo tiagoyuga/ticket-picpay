@@ -15,7 +15,7 @@
 
                     <div class="ibox-title">
 
-                        <h3>Client {{ $user->name }}</h3>
+                        <h3>Company {{ $client->company_name }}</h3>
                         <br>
                         <h5>@yield('_titulo_pagina_')</h5>
                         <br>
@@ -43,7 +43,7 @@
 
                         <!-- inicio dos campos -->
 
-                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                            <input type="hidden" name="client_id" value="{{ $client->id }}">
 
                             <div class="form-row">
 
@@ -144,7 +144,7 @@
                             @if(Auth::user())
 
                                 <label class="radio-inline">
-                                    <strong>Previlegies setup</strong>
+                                    <strong>Privileges setup</strong>
                                 </label>
                                 <div class="form">
 

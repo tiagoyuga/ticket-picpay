@@ -142,6 +142,7 @@ class UserRule
 
         return [
             'name' => self::$rules['name'],
+            'client_id' => str_replace('nullable', 'required', self::$rules['client_id']),
             'job_title' => 'required',
             'branch_location' => '',#$rules['branch_location'],
             'phone1' => self::$rules['phone1'],

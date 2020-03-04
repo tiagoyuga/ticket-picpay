@@ -132,4 +132,19 @@ class User extends Authenticatable
         return false;
     }
 
+    public function clientUser()
+    {
+        return $this->hasMany(ClientUser::class, 'user_id');
+    }
+
+    public function checkCanSharePublicRegisterLink()
+    {
+        if ($this->getIsClientAttribute()) {
+
+            return ($this->clientUser());
+        }
+
+        return false;
+    }
+
 }

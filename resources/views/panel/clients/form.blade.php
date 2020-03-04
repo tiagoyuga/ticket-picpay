@@ -97,7 +97,7 @@
 
                                 <div class="form-group col-md-4 @if ($errors->has('cell_phone')) has-error @endif">
                                     <label for="cell_phone">Cell phone</label>
-                                    <input type="text" name="cell_phone" id="cell_phone" class="form-control"
+                                    <input type="text" name="cell_phone" id="cell_phone" class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('cell_phone', (isset($item) ? $item->cell_phone : '')) }}">
                                     {!! $errors->first('cell_phone','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
@@ -107,7 +107,7 @@
                                     class="form-group col-md-4 @if ($errors->has('additional_phone')) has-error @endif">
                                     <label for="additional_phone">Additional Phone</label>
                                     <input type="text" name="additional_phone" id="additional_phone"
-                                           class="form-control"
+                                           class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('additional_phone', (isset($item) ? $item->additional_phone : '')) }}">
                                     {!! $errors->first('additional_phone','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
