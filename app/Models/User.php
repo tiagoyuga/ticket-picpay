@@ -101,10 +101,10 @@ class User extends Authenticatable
         return ($this->group_id == \App\Models\Group::CLIENT);
     }
 
-    /*function types()
+    function types()
     {
         return $this->belongsToMany(Type::class, 'user_types', 'user_id', 'type_id');
-    }*/
+    }
 
     public function userTypes()
     {

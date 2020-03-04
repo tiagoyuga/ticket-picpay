@@ -37,6 +37,15 @@ class GroupStoreRequest extends FormRequest
         return GroupRule::rules();
     }
 
+    public function rulesGroup()
+    {
+
+        $rules = GroupRule::rules();
+        return [
+            'name' => $rules['name']
+        ];
+    }
+
     /**
      * Get the validation messages that apply to the request.
      *

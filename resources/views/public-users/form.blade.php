@@ -153,7 +153,7 @@
                                     <span class="mt-2"></span>
                                     <br>
                                     <label class="radio-inline">
-                                        <input type="radio" name="type" value="2">Regular User
+                                        <input type="radio" name="type" value="2" checked>Regular User
                                     </label>
 
                                     <br>

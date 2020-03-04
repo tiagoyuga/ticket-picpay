@@ -242,6 +242,24 @@
 
                                                         </div>
 
+                                                        {{-- select users to send message--}}
+                                                        <div class="form-row" id="selected_user" style="display: none;">
+
+                                                            <div
+                                                                class="form-group col-md-4 @if ($errors->has('selected_user')) has-error @endif">
+                                                                <label for="selected_user">Branch Location <i
+                                                                        class="text-danger">*</i></label>
+                                                                <select class="form-control form-control-lg select2"
+                                                                        style="width: 100%"
+                                                                        name="selected_user"
+                                                                        id="selected_user_select2"
+                                                                >
+                                                                </select>
+                                                                {!! $errors->first('selected_user','<span class="help-block m-b-none">:message</span>') !!}
+                                                            </div>
+
+                                                        </div>
+
                                                         <div class="form-row">
 
                                                             <div
@@ -323,7 +341,8 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
-                                                                    <label for="subject"><strong>Subject</strong></label>
+                                                                    <label
+                                                                        for="subject"><strong>Subject</strong></label>
                                                                     <p>{{$item->subject}}</p>
                                                                 </div>
                                                             </div>
@@ -332,7 +351,8 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                                    <label for="content"><strong>Content</strong></label>
+                                                                    <label
+                                                                        for="content"><strong>Content</strong></label>
                                                                     <div>
                                                                         {!! $item->content !!}
                                                                     </div>
@@ -345,10 +365,12 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
-                                                                    <label for="priority"><strong>Priority</strong></label>
+                                                                    <label
+                                                                        for="priority"><strong>Priority</strong></label>
 
                                                                     <p>
-                                                                        <span class="{{$item->priority}} {{$item->priority == 'medium' ? 'text-warning' : ''}}">{{$item->priority}}</span>
+                                                                        <span
+                                                                            class="{{$item->priority}} {{$item->priority == 'medium' ? 'text-warning' : ''}}">{{$item->priority}}</span>
                                                                     </p>
 
 
@@ -439,8 +461,10 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
+    @include('panel._assets.scripts-select2')
     <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
     <script>
+
         ClassicEditor
             .create(document.querySelector('#content'), {
 
