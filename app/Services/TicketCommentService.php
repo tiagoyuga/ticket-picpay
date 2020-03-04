@@ -69,6 +69,19 @@ class TicketCommentService
             $model->fill($data);
             #$model->user_creator_id = \Auth::id();
             #$model->user_updater_id = \Auth::id();
+
+//            if($data['send_to']) {
+//                switch ($data['send_to']){
+//                    case 'all':
+//
+//                    case 'members':
+//                    case 'client':
+//                    case 'admin':
+//                    case 'cto':
+//                    case 'dev':
+//                }
+//            }
+
             $model->save();
 
             $activity = new TicketActivity();

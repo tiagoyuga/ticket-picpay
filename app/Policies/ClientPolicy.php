@@ -67,4 +67,10 @@ class ClientPolicy
 
         return true;
     }
+
+    public function userCanChat(User $user, Client $client)
+    {
+
+        return ($client->usersTypeUser->contains($user->id));
+    }
 }

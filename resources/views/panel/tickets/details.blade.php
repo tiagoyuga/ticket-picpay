@@ -184,21 +184,61 @@
 
                                                     @if($item->comments()->count())
 
+                                                        @php
+
+                                                            $user = \Auth::user();
+                                                            $visibility = [];
+                                                            $visibility['all'] = true;
+                                                            $visibility['client'] = false;
+                                                            $visibility['cto'] = false;
+                                                            $visibility['dev'] = false;
+                                                            $visibility['admin'] = false;
+                                                            $visibility['members'] = false;
+
+                                                           switch ($user->group_id){
+
+                                                                case (\App\Models\Group::CLIENT):
+                                                                    $visibility['client'] = true;
+                                                                    break;
+                                                                case (\App\Models\Group::CTO):
+                                                                    $visibility['cto'] = true;
+                                                                    $visibility['members'] = true;
+                                                                    break;
+                                                                case (\App\Models\Group::DEVELOPER):
+                                                                    $visibility['dev'] = true;
+                                                                    $visibility['members'] = true;
+                                                                    break;
+                                                                case (\App\Models\Group::ADMIN):
+                                                                    $visibility['admin'] = true;
+                                                                    $visibility['members'] = true;
+                                                                    break;
+
+                                                            }
+
+
+                                                        @endphp
+
                                                         @foreach($item->comments as $comment)
 
-                                                            <div class="feed-element">
+                                                            @if($user->is_admin || $comment->user_id == \Auth::id() || $visibility[$comment->to_users] === true )
 
-                                                                <a href="#" class="float-left pr-5">
-                                                                    {{ $comment->user->name }} <br>
-                                                                    <small
-                                                                        class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
-                                                                </a>
+                                                                <div class="feed-element">
 
-                                                                <div class="media-body ">
-                                                                    {!!  $comment->content  !!}
+                                                                    <a href="#" class="float-left pr-5">
+                                                                        {{ $comment->user->name }} <br>
+                                                                        <i class="text-muted">to: {{ $comment->to_users }}</i>
+                                                                        <br>
+                                                                        <small
+                                                                            class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                                                    </a>
+
+                                                                    <div class="media-body ">
+                                                                        {!!  $comment->content  !!}
+                                                                    </div>
+
                                                                 </div>
 
-                                                            </div>
+                                                            @endif
 
                                                         @endforeach
 
@@ -229,8 +269,64 @@
                                                         <div class="form-row">
 
                                                             <div
+                                                                class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
+
+
+                                                                <label for="content"><h3>Send
+                                                                        to </h3></label>
+
+                                                                <select class="select2 form-control form-control-lg"
+                                                                        style="width: 100%"
+                                                                        name="to_users"
+                                                                        id="to_users"
+                                                                        required>
+
+                                                                    <option value="">Select</option>
+
+                                                                    @if($user->isClient)
+                                                                        <option value="all">All</option>
+                                                                        <option value="admin">Admin</option>
+                                                                        <option value="cto">Cto</option>
+                                                                        <option value="dev">Dev</option>
+
+                                                                    @else
+
+                                                                        @cannot('userCanChat', $item->client)
+                                                                            <option value="members">All Members</option>
+                                                                            <option value="admin">Admin</option>
+                                                                            <option value="cto">Cto</option>
+                                                                            <option value="dev">Dev</option>
+                                                                        @endcannot
+
+                                                                        @can('userCanChat', $item->client)
+                                                                            <option value="all">All</option>
+
+                                                                            @if($visibility['client'] == false)
+                                                                                <option value="members">Members</option>
+                                                                                <option value="client">Client</option>
+                                                                            @endif
+
+                                                                            <option value="admin">Admin</option>
+                                                                            <option value="cto">Cto</option>
+                                                                            <option value="dev">Dev</option>
+                                                                        @endcan
+
+                                                                    @endif
+
+
+                                                                </select>
+
+                                                                {!! $errors->first('to_users','<span class="help-block m-b-none">:message</span>') !!}
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-row">
+
+                                                            <div
                                                                 class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                                <label for="content"><h3>Leave message</h3></label>
+                                                                <label for="content"><h3>Message</h3></label>
                                                                 <textarea rows="14" cols="50" name="content"
                                                                           id="content"
                                                                           class="froalaEditor form-control">{{ old('content') }}</textarea>
@@ -241,6 +337,7 @@
                                                                    value="{{ $item->id }}">
 
                                                         </div>
+
 
                                                         <div class="form-row">
 
@@ -262,6 +359,8 @@
 
                                                         <!-- FIM -->
                                                     </form>
+
+
                                                 </div>
 
                                             </div>
@@ -279,21 +378,31 @@
 
                                                     @if($item->activities()->count())
 
+
+
+
                                                         @foreach($item->activities as $activity)
 
-                                                            <tr>
-                                                                <td>
-                                                                    {{ $activity->user->name }}
-                                                                </td>
-                                                                <td>
-                                                                    {!! $activity->activity  !!}
-                                                                </td>
-                                                                <td>
-                                                                    {{ $activity->created_at->diffForHumans() }}
-                                                                </td>
 
+                                                            @if($user->isAdmin || $user->id == $activity->user_id ||
+                                                                     $item->client->usersTypeUser->contains($user->id))
 
-                                                            </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        {{ $activity->user->name }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {!! $activity->activity  !!}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $activity->created_at->diffForHumans() }}
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            @endif
 
                                                         @endforeach
 
@@ -323,7 +432,8 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
-                                                                    <label for="subject"><strong>Subject</strong></label>
+                                                                    <label
+                                                                        for="subject"><strong>Subject</strong></label>
                                                                     <p>{{$item->subject}}</p>
                                                                 </div>
                                                             </div>
@@ -332,7 +442,8 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                                                    <label for="content"><strong>Content</strong></label>
+                                                                    <label
+                                                                        for="content"><strong>Content</strong></label>
                                                                     <div>
                                                                         {!! $item->content !!}
                                                                     </div>
@@ -345,14 +456,16 @@
                                                             <div class="form-row">
                                                                 <div
                                                                     class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
-                                                                    <label for="priority"><strong>Priority</strong></label>
+                                                                    <label
+                                                                        for="priority"><strong>Priority</strong></label>
 
                                                                     <p>
-                                                                        <span class="{{$item->priority}} {{$item->priority == 'medium' ? 'text-warning' : ''}}">{{$item->priority}}</span>
+                                                                        <span
+                                                                            class="{{$item->priority}} {{$item->priority == 'medium' ? 'text-warning' : ''}}">{{$item->priority}}</span>
                                                                     </p>
 
-
                                                                 </div>
+
                                                             </div>
 
                                                             <hr>

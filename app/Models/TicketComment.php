@@ -38,6 +38,7 @@ class TicketComment extends Model
      */
     protected $fillable = [
         'user_id',
+        'to_users',
         'ticket_id',
         'content',
     ];
