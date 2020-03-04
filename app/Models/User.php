@@ -96,6 +96,16 @@ class User extends Authenticatable
         return ($this->group_id == \App\Models\Group::ADMIN);
     }
 
+    public function getIsDevAttribute()
+    {
+        return ($this->group_id == \App\Models\Group::DEVELOPER);
+    }
+
+    public function getIsCtoAttribute()
+    {
+        return ($this->group_id == \App\Models\Group::CTO);
+    }
+
     public function getIsClientAttribute()
     {
         return ($this->group_id == \App\Models\Group::CLIENT);

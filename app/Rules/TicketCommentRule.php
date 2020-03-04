@@ -21,6 +21,7 @@ class TicketCommentRule
 		'id' => 'required',
         'user_id' => 'required',
         'ticket_id' => 'required',
+        'to_users' => 'required',
         'content' => 'required',
 	];
 
@@ -35,6 +36,7 @@ class TicketCommentRule
         return [
             //'user_id' => self::$rules['user_id'],
             'ticket_id' => self::$rules['ticket_id'],
+            'to_users' => self::$rules['to_users'],
             'content' => self::$rules['content'],
         ];
     }

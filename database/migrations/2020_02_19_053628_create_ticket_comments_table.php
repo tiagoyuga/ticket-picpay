@@ -29,7 +29,7 @@ class CreateTicketCommentsTable extends Migration {
                 ->onDelete('restrict');
 
             $table->text('content');
-
+            $table->string('to_users');
             $table->timestamps();
             $table->softDeletes();
 		});

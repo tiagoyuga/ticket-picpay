@@ -44,7 +44,8 @@
                                     <thead>
                                     <tr>
 
-                                        <th>Number of users</th>
+                                        <th>Managers</th>
+                                        <th>Users who can chat with the customer</th>
                                         <th>Company Name</th>
                                         <th>Contact Name</th>
                                         <th>Phone</th>
@@ -59,9 +60,8 @@
                                     @if($data->count())
                                         @foreach($data as $item)
                                             <tr id="tr-{{ $item->id }}">
-
-
-                                                <td>{{ $item->users->count() }}</td>
+                                                <td>{{ $item->usersTypeClient->count() }}</td>
+                                                <td>{{ $item->usersTypeUser->count() }}</td>
                                                 <td>{{ $item->company_name }}</td>
                                                 <td>{{ $item->contact_name }}</td>
                                                 <td>{{ $item->cell_phone ? $item->cell_phone .' ' : '' }}

@@ -28,6 +28,9 @@ class CreateClientUserTable extends Migration {
                 ->on('clients')
                 ->onDelete('restrict');
 
+            $table->boolean('is_client')->default(true);
+            $table->boolean('chat')->default(false);
+
             $table->timestamps();
             $table->softDeletes();
 		});

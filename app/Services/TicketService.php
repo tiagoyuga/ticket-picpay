@@ -136,6 +136,8 @@ class TicketService
 
     public function update(array $data, Ticket $model): Ticket
     {
+
+
         $model_before = $model->toArray();
 
         if(isset($data['dev_hour_spent']) && $data['dev_hour_spent'] != $model->dev_hour_spent) {
@@ -148,14 +150,34 @@ class TicketService
         }
         $model->fill($data);
         $model_after = $model->toArray();
-
         $model->save();
+
+        if(isset($data['completed'])){
+
+            $model->ticket_status_id = TicketStatus::COMPLETED;
+            $model_after = $model->toArray();
+            $model->save();
+
+            $data['review'] = 'Ticket set as completed';
+
+        }
+
+        if(isset($data['reopen'])){
+
+            $model->ticket_status_id = TicketStatus::CLIENT_REVIEW;
+            $model_after = $model->toArray();
+            $model->save();
+
+            $data['review'] = 'Ticket set as review';
+
+        }
+
 
         if($model_before != $model_after){
 
             $content = "Updated at ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
 
-            if(in_array(\Auth::user()->group_id, [Group::CTO,  Group::ADMIN]) && $model_before['ticket_status_id'] != $model_after['ticket_status_id'] ) {
+            if(in_array(\Auth::user()->group_id, [Group::CTO, Group::CLIENT, Group::ADMIN]) && $model_before['ticket_status_id'] != $model_after['ticket_status_id'] ) {
                 $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . ($data['review'] ? $data['review'] : $data['content']);
             }
 
