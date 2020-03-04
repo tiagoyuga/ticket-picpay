@@ -100,5 +100,18 @@ class Client extends Model
         return $this->belongsToMany(User::class, 'client_user');
     }
 
+    public function usersTypeClient()
+    {
+        return $this->belongsToMany(User::class, 'client_user')->withPivotValue('is_client',true);
+    }
+
+    function usersTypeUser()
+    {
+        return $this->belongsToMany(User::class, 'client_user')
+            ->withPivotValue('is_client', false)
+            ->withPivotValue('chat', true);
+    }
+
+
     # Accessors & Mutators
 }

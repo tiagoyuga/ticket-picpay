@@ -66,8 +66,9 @@ class ClientController extends ApiBaseController
             ->with([
                 'validator' => $validator,
                 'label' => $this->label,
-                'users' => $userService->listsClients(),
+                'clientsList' => $userService->listsClients(),
                 'devs' => $userService->listsDevs(),
+                'usersList' => $userService->lists(),
 
             ]);
     }
@@ -99,8 +100,9 @@ class ClientController extends ApiBaseController
                 'item' => $client,
                 'label' => $this->label,
                 'validator' => $validator,
-                'users' => $userService->listsClients(),
+                'clientsList' => $userService->listsClients(),
                 'devs' => $userService->listsDevs(),
+                'usersList' => $userService->lists(),
             ]);
     }
 

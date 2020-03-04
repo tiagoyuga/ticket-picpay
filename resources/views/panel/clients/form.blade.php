@@ -32,32 +32,47 @@
 
                         <!-- inicio dos campos -->
                             <div class="form-row">
-                                <div class="form-group col-md-4 @if ($errors->has('user_id')) has-error @endif">
+                                <div class="form-group col-md-8 @if ($errors->has('clients')) has-error @endif">
                                     <label for="group_id">Users responsible for the company <i class="text-danger">*</i></label>
                                     <select  class="select2 form-control form-control-lg" style="width: 100%"
-                                            name="users[]"
+                                            name="clients[]"
                                              multiple
-                                            id="user_id">
+                                            id="clients">
                                         <option value="">Select</option>
 
-                                        @foreach($users as $key=>$value)
+                                        @foreach($clientsList as $key=>$value)
                                             <option
-                                                value="{{ $key }}" {{ isset($item) && $item->users->contains($key) ? 'selected' : ''}}>
+                                                value="{{ $key }}" {{ isset($item) && $item->usersTypeClient->contains($key) ? 'selected' : ''}}>
                                                 {{ $value }}
                                             </option>
                                         @endforeach
 
                                     </select>
-                                    {!! $errors->first('user_id','<span class="help-block m-b-none">:message</span>') !!}
+                                    {!! $errors->first('clients','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
-                                <div class="form-group col-md-4 @if ($errors->has('email')) has-error @endif">
-                                    <label for="email">Company e-mail</label>
-                                    <input type="text" name="email" id="email" class="form-control"
-                                           value="{{ old('email', (isset($item) ? $item->email : '')) }}">
-                                    {!! $errors->first('email','<span class="help-block m-b-none">:message</span>') !!}
-                                </div>
 
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-8 @if ($errors->has('users')) has-error @endif">
+                                    <label for="group_id">Users who can chat with the customer  <i class="text-danger">*</i></label>
+                                    <select  class="select2 form-control form-control-lg" style="width: 100%"
+                                             name="users[]"
+                                             multiple
+                                             id="users">
+                                        <option value="">Select</option>
+
+                                        @foreach($usersList as $key=>$value)
+                                            <option
+                                                value="{{ $key }}" {{ isset($item) && $item->usersTypeUser->contains($key) ? 'selected' : ''}}>
+                                                {{ $value }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                    {!! $errors->first('users','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
 
                             </div>
 
@@ -108,6 +123,13 @@
                                            id="cto_amount" class="form-control maskmoney_percent"
                                            value="{{ old('cto_amount', (isset($item) ? $item->cto_amount : '')) }}">
                                     {!! $errors->first('cto_amount','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
+
+                                <div class="form-group col-md-4 @if ($errors->has('email')) has-error @endif">
+                                    <label for="email">Company e-mail</label>
+                                    <input type="text" name="email" id="email" class="form-control"
+                                           value="{{ old('email', (isset($item) ? $item->email : '')) }}">
+                                    {!! $errors->first('email','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
                             </div>

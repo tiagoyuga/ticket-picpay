@@ -40,7 +40,7 @@ class ClientService
     public function paginate(int $limit): LengthAwarePaginator
     {
 
-        return $this->buildQuery()->paginate($limit);
+        return $this->buildQuery()->orderBy('id', 'desc')->paginate($limit);
     }
 
     public function all(): Collection
@@ -71,10 +71,15 @@ class ClientService
             }
             $model->save();
 
-            if (isset($data['users']))
-                $model->users()->sync($data['users']);
+            if (isset($data['clients']))
+                $model->usersTypeClient()->sync($data['clients']);
             else
-                $model->users()->detach();
+                $model->usersTypeClient()->detach();
+
+            if (isset($data['users']))
+                $model->usersTypeUser()->sync($data['users']);
+            else
+                $model->usersTypeUser()->detach();
 
             return $model;
         });
@@ -90,10 +95,16 @@ class ClientService
         }
         $model->save();
 
-        if (isset($data['users']))
-            $model->users()->sync($data['users']);
+        if (isset($data['clients']))
+            $model->usersTypeClient()->sync($data['clients']);
         else
-            $model->users()->detach();
+            $model->usersTypeClient()->detach();
+
+        if (isset($data['users']))
+            $model->usersTypeUser()->sync($data['users']);
+        else
+            $model->usersTypeUser()->detach();
+
 
         return $model;
     }
