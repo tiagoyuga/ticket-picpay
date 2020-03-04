@@ -87,7 +87,7 @@ class TicketCommentService
             $activity = new TicketActivity();
             $activity->user_id = \Auth::id();
             $activity->ticket_id = $data['ticket_id'];
-            $activity->activity = "Leave comment in ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
+            $activity->activity = "Leave comment ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
             $activity->before = json_encode($model->ticket->toArray());
             $activity->after = json_encode($model->ticket->toArray());
             $activity->save();
