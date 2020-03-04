@@ -20,7 +20,9 @@
                         <h5>@yield('_titulo_pagina_')</h5>
                         <br>
 
-                        <span class="text-info">{{ url()->current() }}</span>
+                        <span class="text-info">
+                            <a href="{{ url()->current() }}" target="_blank">{{ url()->current() }}</a>
+                        </span>
 
                         <div class="ibox-tools">
                             <a class="collapse-link ui-sortable">
