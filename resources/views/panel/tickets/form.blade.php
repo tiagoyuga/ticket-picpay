@@ -108,7 +108,24 @@
 
                             </div>
 
+                            @if(isset($item))
+                            <hr>
+                            <div class="form-group row">
 
+                                <div class="col-sm-10">
+                                    @if($item->ticket_status_id == \App\Models\TicketStatus::COMPLETED)
+                                        <div><label>Reopen ticket <br><br><input type="checkbox" name="reopen" value="reopen" >
+                                                I confirm the ticket opening again </label></div>
+
+                                    @else
+                                        <div><label>Set Ticket as completed <br><br><input type="checkbox" name="completed" value="completed" > I confirm that the task has been solved</label></div>
+
+                                    @endif
+                                </div>
+
+                            </div>
+                            <hr>
+                            @endif
                         <!-- fim dos campos -->
 
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">

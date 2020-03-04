@@ -182,11 +182,14 @@
                                             <div class="tab-pane active" id="tab-1">
                                                 <div class="feed-activity-list">
 
+                                                    @php
+                                                        $user = \Auth::user();
+                                                    @endphp
+
                                                     @if($item->comments()->count())
 
                                                         @php
 
-                                                            $user = \Auth::user();
                                                             $visibility = [];
                                                             $visibility['all'] = true;
                                                             $visibility['client'] = false;
