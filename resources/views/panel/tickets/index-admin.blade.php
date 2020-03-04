@@ -53,7 +53,8 @@
                                             @if($data->count())
 
                                                 @include('panel.tickets.ticket-by-status', [$data])
-                                                @include('panel._assets.paginate')
+                                                {{--@include('panel._assets.paginate')--}}
+                                                @include('panel._assets.paginate-ticket')
 
                                             @else
                                                 <div class="alert alert-danger">

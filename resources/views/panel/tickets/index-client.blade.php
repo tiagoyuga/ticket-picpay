@@ -50,7 +50,8 @@
                                         <div class="panel-body">
                                             @if($data->count())
                                                 @include('panel.tickets.ticket-by-status', [$data])
-                                                @include('panel._assets.paginate')
+                                                {{--@include('panel._assets.paginate')--}}
+                                                @include('panel._assets.paginate-ticket')
                                             @else
                                                 <div class="alert alert-danger">
                                                     We have nothing to display. If you have performed a search, you can perform
