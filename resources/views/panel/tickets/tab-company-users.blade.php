@@ -2,7 +2,7 @@
 <div class="form-row">
 
     <div class="form-group col-md-12 ">
-        <label for="group_id">Select the Company to show the users</label>
+        {{--<label for="group_id">Select the Company to show the users</label>
 
         <select class="form-control form-control-lg"
                 style="width: 100%"
@@ -18,7 +18,7 @@
             @endforeach
         </select>
 
-        <br>
+        <br>--}}
 
         @php
             $userService = new \App\Services\UserService();
@@ -34,6 +34,7 @@
                     <thead>
                     <tr>
                         <th>Users from {{ $clientUser->client->company_name }}</th>
+                        <th width="20%">Type</th>
                     </tr>
                     <tbody>
 
@@ -44,6 +45,7 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->isClientAdmim() ? 'Admim' : 'Regular User' }}</td>
                         </tr>
                     @endforeach
 
