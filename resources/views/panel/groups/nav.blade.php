@@ -18,7 +18,7 @@
             </a>
             @if(Auth::user()->can('create', \App\Models\Group::class))
                 <a class="btn btn-primary" id="ln_adicionar" href="{{ route('groups.create') }}">
-                    <i class="fa fa-plus-circle"></i> Novo
+                    <i class="fa fa-plus-circle"></i> New
                 </a>
             @endif
         </div>
