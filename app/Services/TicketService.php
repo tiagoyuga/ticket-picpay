@@ -137,9 +137,11 @@ class TicketService
 
     public function update(array $data, Ticket $model): Ticket
     {
-
-
         $model_before = $model->toArray();
+
+        $model->dev_hour_spent = empty($model->dev_hour_spent) ? '00:00' : $model->dev_hour_spent;
+
+        $workHour = false;
 
         if(isset($data['dev_hour_spent']) && $data['dev_hour_spent'] != $model->dev_hour_spent) {
             $partes = explode(":", $data['dev_hour_spent']);
@@ -149,6 +151,48 @@ class TicketService
             $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $minutes * $model->client->cto_amount ) : $minutes);
 
         }
+        else if(isset($data['add_work_hour']) || isset($data['remove_work_hour'])) {
+
+            if (!empty($data['add_work_hour'])) {
+                $workHour = true;
+                $partes = explode(":", $data['add_work_hour']);
+                $minutes = $partes[0]*60+$partes[1];
+
+                $partes = explode(":", $model->dev_hour_spent);
+                $minutesNew = $partes[0]*60+$partes[1];
+
+                $totalMinutes = $minutes+$minutesNew;
+
+                $data['dev_hour_spent'] = $this->hoursandmins($totalMinutes);
+
+                $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $totalMinutes * $model->client->cto_amount ) : $totalMinutes);
+
+                $model->fill($data);
+                $model_after = $model->toArray();
+                $model->save();
+            }
+
+            if (!empty($data['remove_work_hour'])) {
+                $workHour = true;
+                $partes = explode(":", $data['remove_work_hour']);
+                $minutes = $partes[0]*60+$partes[1];
+
+                $partes = explode(":", $model->dev_hour_spent);
+                $minutesNew = $partes[0]*60+$partes[1];
+
+                $totalMinutes = $minutes - $minutesNew;
+                $totalMinutes = ($totalMinutes < 0) ? $totalMinutes * -1 : $totalMinutes;
+
+                $data['dev_hour_spent'] = $this->hoursandmins($totalMinutes);
+
+                $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $totalMinutes * $model->client->cto_amount ) : $totalMinutes);
+
+                $model->fill($data);
+                $model_after = $model->toArray();
+                $model->save();
+            }
+        }
+
         $model->fill($data);
         $model_after = $model->toArray();
         $model->save();
@@ -173,13 +217,22 @@ class TicketService
 
         }
 
-
         if($model_before != $model_after){
 
             $content = "Updated at ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
 
             if(in_array(\Auth::user()->group_id, [Group::CTO, Group::CLIENT, Group::ADMIN]) && $model_before['ticket_status_id'] != $model_after['ticket_status_id'] ) {
                 $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . ($data['review'] ? $data['review'] : $data['content']);
+            }
+
+            if ($workHour) {
+                if (!empty($data['add_work_hour'])) {
+                    $content .= " - User has added {$data['add_work_hour']} work hours to {$data['work_date']}";
+                }
+
+                if (!empty($data['remove_work_hour'])) {
+                    $content .= " - User has removed {$data['add_work_hour']} work hours to {$data['work_date']}";
+                }
             }
 
             $activity = new TicketActivity();

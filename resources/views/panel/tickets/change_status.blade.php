@@ -40,33 +40,33 @@
 
                                             @if(\Auth::user()->is_admin)
 
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-warning d-block w-100" role="alert">
-                                                        These two fields are only for client
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <div class="alert alert-warning d-block w-100" role="alert">
+                                                            These two fields are only for client
+                                                        </div>
                                                     </div>
+
+                                                    <div class="col-md-8"></div>
+
+                                                    <div
+                                                        class="form-group col-md-2 @if ($errors->has('est_hrs_client')) has-error @endif">
+                                                        <label for="name">Est Hrs</label>
+                                                        <input type="text" name="est_hrs_client" id="est_hrs_client"
+                                                               class="form-control mask_hour hour_change"
+                                                               value="{{ old('est_hrs_client', (isset($item) ? $item->est_hrs_client : '')) }}">
+                                                        {!! $errors->first('est_hrs_client','<span class="help-block m-b-none">:message</span>') !!}
+                                                    </div>
+
+                                                    <div
+                                                        class="form-group col-md-2 @if ($errors->has('dev_hrs_client')) has-error @endif">
+                                                        <label for="name">Dev Hrs</label>
+                                                        <input type="text" name="dev_hrs_client" id="dev_hrs_client"
+                                                               class="form-control mask_hour"
+                                                               value="{{ old('dev_hrs_client', (isset($item) ? $item->dev_hrs_client : '')) }}">
+                                                    </div>
+
                                                 </div>
-
-                                                <div class="col-md-8"></div>
-
-                                                <div
-                                                    class="form-group col-md-2 @if ($errors->has('est_hrs_client')) has-error @endif">
-                                                    <label for="name">Est Hrs</label>
-                                                    <input type="text" name="est_hrs_client" id="est_hrs_client"
-                                                           class="form-control mask_hour hour_change"
-                                                           value="{{ old('est_hrs_client', (isset($item) ? $item->est_hrs_client : '')) }}">
-                                                    {!! $errors->first('est_hrs_client','<span class="help-block m-b-none">:message</span>') !!}
-                                                </div>
-
-                                                <div
-                                                    class="form-group col-md-2 @if ($errors->has('dev_hrs_client')) has-error @endif">
-                                                    <label for="name">Dev Hrs</label>
-                                                    <input type="text" name="dev_hrs_client" id="dev_hrs_client"
-                                                           class="form-control mask_hour"
-                                                           value="{{ old('dev_hrs_client', (isset($item) ? $item->dev_hrs_client : '')) }}">
-                                                </div>
-
-                                            </div>
 
                                             @endif
 
@@ -75,7 +75,7 @@
                                                 <div
                                                     class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
                                                     <label for="content"><h3>Comment *</h3></label>
-                                                    <textarea  rows="14" cols="50" name="review" id="review"
+                                                    <textarea rows="14" cols="50" name="review" id="review"
                                                               class=" form-control">{{ old('review') }}</textarea>
                                                     {!! $errors->first('review','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
@@ -93,7 +93,7 @@
                                                     <select class="select2 form-control form-control-lg"
                                                             style="width: 100%"
                                                             name="dev_id"
-                                                            id="dev_id" >
+                                                            id="dev_id">
                                                         <option value="">Select</option>
 
                                                         @foreach($devs as $id => $name)
@@ -207,6 +207,47 @@
                                                 </div>
 
                                             </div>
+
+                                            @if(isset($item) && Auth::user()->getIsDevAttribute())
+                                                {{--add work hour--}}
+                                                <hr>
+                                                <label for="add_work_hours">Add or remove work hours</label>
+                                                <div class="form-row">
+
+                                                    <div
+                                                        class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">
+                                                        <label for="work_date">Date</label>
+                                                        <input type="text" name="work_date" id="add_work_hours"
+                                                               class="form-control mask_date datepicker"
+                                                               value="{{ old('work_date') }}">
+                                                        {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}
+                                                    </div>
+
+                                                    <div
+                                                        class="form-group col-md-1 @if ($errors->has('add_work_hour')) has-error @endif">
+                                                        <label for="add_work_hour">Add Hours</label>
+                                                        <input type="text" name="add_work_hour" id="add_work_hour"
+                                                               class="form-control mask_hour"
+                                                               value="{{ old('add_work_hour') }}"
+                                                               maxlength="5"
+                                                        >
+                                                        {!! $errors->first('add_work_hour','<span class="help-block m-b-none">:message</span>') !!}
+                                                    </div>
+
+                                                    <div
+                                                        class="form-group col-md-1 @if ($errors->has('remove_work_hour')) has-error @endif">
+                                                        <label for="remove_work_hour">Remove Hours</label>
+                                                        <input type="text" name="remove_work_hour" id="remove_work_hour"
+                                                               class="form-control mask_hour"
+                                                               value="{{ old('remove_work_hour') }}"
+                                                               maxlength="5"
+                                                        >
+                                                        {!! $errors->first('work_hour','<span class="help-block m-b-none">:message</span>') !!}
+                                                    </div>
+
+                                                </div>
+                                            @endif
+                                            <br>
 
                                             <button class="btn btn-primary" id="" type="submit">
                                                 <i class="fa fa-save"></i>
