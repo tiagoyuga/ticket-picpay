@@ -2,8 +2,7 @@
 <div class="form-row">
 
     <div class="form-group col-md-12 ">
-        <label for="group_id">Select the Company to share the
-            register link</label>
+        <label for="group_id">Select the Company to show the users</label>
 
         <select class="form-control form-control-lg"
                 style="width: 100%"

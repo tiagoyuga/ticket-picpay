@@ -13,7 +13,15 @@
         <th>Subject</th>
         <th>Status</th>
         <th>Priority</th>
+
+        @if (isset($isAdmim) && $isAdmim)
+            <th>Est. Hrs</th>
+            <th>Hrs Spent</th>
+
+        @endif
+
         <th>Last Updated</th>
+
         {{--@if($is_client)
             <th>Est. Hrs</th>
             <th>Hrs Spent</th>
@@ -45,6 +53,11 @@
                 <td>
                     <i class="{{ $item->priority }} {{ $item->priority == 'medium' ? 'text-warning' : '' }}">{{ $item->priority }}</i>
                 </td>
+
+                @if (isset($isAdmim) && $isAdmim)
+                    <td>{{$item->est_hrs_client}}</td>
+                    <td>{{$item->dev_hrs_client }}</td>
+                @endif
 
                 <td class="hidden-xs hidden-sm">{{ $item->updated_at->format('m-d-Y g:i A') }}</td>
 

@@ -52,6 +52,9 @@
                                         <div class="panel-body">
                                             @if($data->count())
 
+                                                @php
+                                                $isAdmim = true;
+                                                @endphp
                                                 @include('panel.tickets.ticket-by-status', [$data])
                                                 {{--@include('panel._assets.paginate')--}}
                                                 @include('panel._assets.paginate-ticket')
