@@ -84,8 +84,10 @@ class UserService
 
             $model->save();
 
-            $types = Type::find(array_merge([$data["type"]], [Type::CLIENT]));
+            #$types = Type::find(array_merge([$data["type"]], [Type::CLIENT]));
+            $types = Type::find($data['type']);
 
+            #dd($types->toArray(), $data);
             $model->types()->attach($types);
 
             return $model;
