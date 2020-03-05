@@ -18,6 +18,8 @@ use App\Traits\LogActivity;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use JsValidator;
 
@@ -68,16 +70,24 @@ class GroupController extends ApiBaseController
             ]);
     }
 
-    public function store(GroupStoreRequest $groupStoreRequest)
+    public function store(Request $request)
     {
+        try {
 
-        $this->service->create($groupStoreRequest->all());
+            $this->validate($request, (new GroupStoreRequest())->rulesGroup());
 
-        return redirect()->route('groups.' . request('routeTo'))
-            ->with([
-                'message' => 'Successfully created',
-                'messageType' => 's',
-            ]);
+            $this->service->create($request->all());
+
+            return redirect()->route('groups.' . request('routeTo'))
+                ->with([
+                    'message' => 'Successfully created',
+                    'messageType' => 's',
+                ]);
+
+        } catch (ValidationException $e) {
+
+            return redirect()->back()->withInput($request->all())->withErrors($e->errors());
+        }
     }
 
     public function edit(Group $group): View
@@ -98,18 +108,26 @@ class GroupController extends ApiBaseController
             ]);
     }
 
-    public function update(GroupUpdateRequest $request, Group $group): RedirectResponse
+    public function update(Request $request, Group $group): RedirectResponse
     {
+        try {
 
-        $this->log(__METHOD__);
+            $this->log(__METHOD__);
 
-        $this->service->update($request->all(), $group);
+            $this->validate($request, (new GroupUpdateRequest())->rulesGroup());
 
-        return redirect()->route('groups.index')
-            ->with([
-                'message' => 'Successfully updated',
-                'messageType' => 's',
-            ]);
+            $this->service->update($request->all(), $group);
+
+            return redirect()->route('groups.index')
+                ->with([
+                    'message' => 'Successfully updated',
+                    'messageType' => 's',
+                ]);
+
+        } catch (ValidationException $e) {
+
+            return redirect()->back()->withInput($request->all())->withErrors($e->errors());
+        }
     }
 
     public function destroy(Group $group): JsonResponse
