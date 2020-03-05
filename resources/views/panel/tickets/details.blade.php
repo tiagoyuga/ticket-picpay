@@ -6,6 +6,16 @@
 
     @include('panel.tickets.nav')
 
+    @php
+        $visibility = [];
+        $visibility['all'] = true;
+        $visibility['client'] = false;
+        $visibility['cto'] = false;
+        $visibility['dev'] = false;
+        $visibility['admin'] = false;
+        $visibility['members'] = false;
+    @endphp
+
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
 
@@ -190,33 +200,25 @@
 
                                                         @php
 
-                                                            $visibility = [];
-                                                            $visibility['all'] = true;
-                                                            $visibility['client'] = false;
-                                                            $visibility['cto'] = false;
-                                                            $visibility['dev'] = false;
-                                                            $visibility['admin'] = false;
-                                                            $visibility['members'] = false;
+                                                            switch ($user->group_id){
 
-                                                           switch ($user->group_id){
+                                                                 case (\App\Models\Group::CLIENT):
+                                                                     $visibility['client'] = true;
+                                                                     break;
+                                                                 case (\App\Models\Group::CTO):
+                                                                     $visibility['cto'] = true;
+                                                                     $visibility['members'] = true;
+                                                                     break;
+                                                                 case (\App\Models\Group::DEVELOPER):
+                                                                     $visibility['dev'] = true;
+                                                                     $visibility['members'] = true;
+                                                                     break;
+                                                                 case (\App\Models\Group::ADMIN):
+                                                                     $visibility['admin'] = true;
+                                                                     $visibility['members'] = true;
+                                                                     break;
 
-                                                                case (\App\Models\Group::CLIENT):
-                                                                    $visibility['client'] = true;
-                                                                    break;
-                                                                case (\App\Models\Group::CTO):
-                                                                    $visibility['cto'] = true;
-                                                                    $visibility['members'] = true;
-                                                                    break;
-                                                                case (\App\Models\Group::DEVELOPER):
-                                                                    $visibility['dev'] = true;
-                                                                    $visibility['members'] = true;
-                                                                    break;
-                                                                case (\App\Models\Group::ADMIN):
-                                                                    $visibility['admin'] = true;
-                                                                    $visibility['members'] = true;
-                                                                    break;
-
-                                                            }
+                                                             }
 
 
                                                         @endphp
