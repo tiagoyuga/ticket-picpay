@@ -52,6 +52,16 @@
                         </li>
                     @endif
 
+                    @if(\Auth::user()->isClientAdmim())
+                        <li>
+                            <a aria-expanded="false" role="button" href="{{ route('users.listToClientAdmim') }}">
+                                <i class="fa fa-user"></i>
+                                <span class="nav-label">users</span>
+                            </a>
+                        </li>
+                    @endif
+
+
                     <li>
                         <a aria-expanded="false" role="button" href="{{ route('tickets.index') }}">
                             <i class="fa fa-dashboard"></i>

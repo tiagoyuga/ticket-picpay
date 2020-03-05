@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\TicketFile;
+use App\Models\Type;
 use App\Models\User;
 use App\Services\DevSkillCategoryService;
 use App\Services\GroupService;
@@ -22,6 +23,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use JsValidator;
@@ -191,5 +193,29 @@ class UserController extends ApiBaseController
 
             return $this->sendError('Server Error.', $exception);
         }
+    }
+
+    public function listToClientAdmim()
+    {
+        if(!Auth::user()->isClientAdmim()) {
+            abort('404');
+        }
+
+        return view('panel.users.index-client-admim');
+    }
+
+    public function changeUserPrivileges(UserService $userService)
+    {
+        if(!Auth::user()->isClientAdmim()) {
+            abort('404');
+        }
+
+        $userService->changeUserPrivileges((int)request()->get('user_id'));
+
+        return redirect()->route('users.listToClientAdmim')
+            ->with([
+                'message' => 'Successfully updated',
+                'messageType' => 's',
+            ]);
     }
 }

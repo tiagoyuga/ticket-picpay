@@ -156,9 +156,7 @@
 
     <script>
         $().ready(function () {
-            $("#click-me").click(function () {
-                alert('Clicked');
-            });
+
 
             $("#select_company").change(function () {
 
@@ -166,8 +164,6 @@
                     $(".div_company_users").hide();
                     return;
                 }
-
-                alert($(this).val());
 
                 $("#client_user_" + $(this).val()).show();
             });

@@ -17,6 +17,7 @@ use App\Models\Group;
 use App\Models\Qualification;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\UserType;
 use App\Rlustosa\GenericUpload;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -134,9 +135,9 @@ class UserService
 
     public function updateSkills(array $data, User $model): User
     {
-        if(!empty($data['skill'])) {
+        if (!empty($data['skill'])) {
 
-            foreach($data['skill'] as $id=>$value) {
+            foreach ($data['skill'] as $id => $value) {
 
                 Qualification::updateOrCreate(
                     ['skill_id' => intval($id), 'user_id' => intval($model->id)],
@@ -194,31 +195,31 @@ class UserService
     private function saveBankAccount($data, $user_id)
     {
 
-        foreach($data['bank'] as $bank) {
+        foreach ($data['bank'] as $bank) {
 
-            if(!empty($bank['id']) && isset($bank['remove'])) {
+            if (!empty($bank['id']) && isset($bank['remove'])) {
 
                 BankAccount::destroy($bank['id']);
 
-            }else if (isset($bank['country'])){
+            } else if (isset($bank['country'])) {
 
-                if(($bank['country'] == 'brazil'
-                    && !empty($bank['agency'])
-                    && !empty($bank['cpf'])
-                    && !empty($bank['number'])
-                 )||
-                ($bank['country'] == 'usa'
-                    && !empty($bank['name_usa'])
-                    && !empty($bank['routing'])
-                    && !empty($bank['number_usa'])
-                ) ||
-                (
-                    $bank['country'] == 'paypal'
-                    && !empty($bank['email'])
-                    && !empty($bank['description'])
-                )){
+                if (($bank['country'] == 'brazil'
+                        && !empty($bank['agency'])
+                        && !empty($bank['cpf'])
+                        && !empty($bank['number'])
+                    ) ||
+                    ($bank['country'] == 'usa'
+                        && !empty($bank['name_usa'])
+                        && !empty($bank['routing'])
+                        && !empty($bank['number_usa'])
+                    ) ||
+                    (
+                        $bank['country'] == 'paypal'
+                        && !empty($bank['email'])
+                        && !empty($bank['description'])
+                    )) {
 
-                    if($bank['country'] == 'usa'){
+                    if ($bank['country'] == 'usa') {
                         $bank['name'] = $bank['name_usa'];
                         $bank['number'] = $bank['number_usa'];
                     }
@@ -263,7 +264,7 @@ class UserService
                 $this->updateSkills($data, $model);
             }
 
-            if(!empty($data['resume'])){
+            if (!empty($data['resume'])) {
                 $path = GenericUpload::store(request()->file('resume'), 'users');
                 $attach = new TicketFile();
                 $attach->file = $path;
@@ -281,9 +282,9 @@ class UserService
     public function storeResume()
     {
 
-        return DB::transaction(function ()  {
+        return DB::transaction(function () {
 
-            if(!empty(request()->file('resume'))){
+            if (!empty(request()->file('resume'))) {
 
                 $path = GenericUpload::store(request()->file('resume'), 'users');
                 $attach = new TicketFile();
@@ -302,6 +303,26 @@ class UserService
         return User::join('client_user', 'client_user.user_id', 'users.id')
             ->where('client_user.client_id', $client_id)
             ->get();
+    }
+
+    public function changeUserPrivileges($user_id)
+    {
+        $user = $this->find($user_id);
+
+        #$userType = $user->userTypes()->where('type_id', Type::ADMIN)->first();
+        $userType = $user->userTypes()->first();
+
+        if (!$userType) {
+            $userType = UserType::create([
+                'user_id' => $user_id,
+                'type_id' => Type::CLIENT,
+            ]);
+        }
+
+        $userType->type_id = ($userType->type_id == Type::ADMIN) ? Type::CLIENT : Type::ADMIN;
+
+        $userType->save();
+
     }
 
 }

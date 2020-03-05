@@ -32,6 +32,10 @@ Route::namespace('Panel')
         $panel->get('users/{user}/skills', 'UserController@skills')->name('users.skills');
         $panel->put('users/{user}/update-skills', 'UserController@updateSkills')->name('users.updateSkills');
         $panel->get('users/attachments/{attachment}/download', 'UserController@download')->name('users.download');
+
+        $panel->get('users/list-to-client-admim', 'UserController@listToClientAdmim')->name('users.listToClientAdmim');
+        $panel->post('users/change-user-privileges', 'UserController@changeUserPrivileges')->name('users.changeUserPrivileges');
+
         $panel->resource('users', UserController::class);
 
         /* panel/clients */
