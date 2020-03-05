@@ -32,139 +32,125 @@
                             </div>
                         @endif
 
-                        @if(Auth::user()->clientUser->count())
-                            <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
-                                  enctype="multipart/form-data"
-                                  action="{{ isset($item) ? route('tickets.update', $item->id) : route('tickets.store') }}">
-                            {{ method_field(isset($item) ? 'PUT' : 'POST') }}
-                            {{ csrf_field() }}
+                        <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
+                              enctype="multipart/form-data"
+                              action="{{ isset($item) ? route('tickets.update', $item->id) : route('tickets.store') }}">
+                        {{ method_field(isset($item) ? 'PUT' : 'POST') }}
+                        {{ csrf_field() }}
 
-                            <!-- inicio dos campos -->
+                        <!-- inicio dos campos -->
 
+                            <div class="form-row">
+                                <div
+                                    class="form-group col-md-3 @if ($errors->has('client_id')) has-error @endif">
+                                    <label for="priority">Company</label>
 
-                                @if(Auth::user()->clientUser->count() > 1)
+                                    @if(!isset($item))
 
-                                    <div class="form-row">
-                                        <div
-                                            class="form-group col-md-3 @if ($errors->has('client_id')) has-error @endif">
-                                            <label for="priority">Company</label>
-
-                                            @if(!isset($item))
-
-                                                <select name="client_id" id="client_id" class="form-control">
-                                                    @foreach(\Auth::user()->clients as $client)
-                                                        <option
-                                                            value="{{ $client->id }}" {{ old('client_id', (isset($item) ? $item->client_id : '')) == $client->id ? 'selected' : '' }}>{{ $client->company_name }} </option>
-                                                    @endforeach
-                                                </select>
-
-                                                {!! $errors->first('client_id','<span class="help-block m-b-none">:message</span>') !!}
-
-                                            @else
-                                                <p>
-                                                    <strong>{{ $item->client->company_name }}</strong>
-                                                </p>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                @else
-                                    <input type="hidden" name="client_id"
-                                           value="{{ \Auth::user()->clients->first()->id }}">
-                                @endif
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
-                                        <label for="subject">Subject</label>
-                                        <input type="text" name="subject" id="subject" class="form-control"
-                                               value="{{ old('subject', (isset($item) ? $item->subject : '')) }}">
-                                        {!! $errors->first('subject','<span class="help-block m-b-none">:message</span>') !!}
-                                    </div>
-
-                                    <div class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                        <label for="content">Content</label>
-                                        <textarea rows="14" cols="50" name="content" id="content"
-                                                  class="ckeditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
-                                        {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
-                                        <label for="priority">Priority</label>
-
-                                        <select name="priority" id="priority" class="form-control">
-                                            @foreach(config('enums.priorities') as $i => $v)
+                                        <select name="client_id" id="client_id" class="form-control">
+                                            @foreach(\Auth::user()->clients as $client)
                                                 <option
-                                                    value="{{ $i }}" {{ old('priority', (isset($item) ? $item->priority : '1')) == $i ? 'selected' : '' }}>{{ $v }} </option>
+                                                    value="{{ $client->id }}" {{ old('client_id', (isset($item) ? $item->client_id : '')) == $client->id ? 'selected' : '' }}>{{ $client->company_name }} </option>
                                             @endforeach
                                         </select>
 
-                                        {!! $errors->first('priority','<span class="help-block m-b-none">:message</span>') !!}
+                                        {!! $errors->first('client_id','<span class="help-block m-b-none">:message</span>') !!}
 
-                                    </div>
+                                    @else
+                                        <p>
+                                            <strong>{{ $item->client->company_name }}</strong>
+                                        </p>
+                                    @endif
                                 </div>
-
-                                <div class="form-row">
-
-                                    <div class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
-                                        <label for="image">File</label>
-                                        <input id="file" name="file" type="file"
-                                               class="form-control required"
-                                               accept="image/gif, image/jpeg, image/png, application/pdf"
-                                        >
-                                    </div>
-
-                                </div>
-
-                                @if(isset($item))
-                                    <hr>
-                                    <div class="form-group row">
-
-                                        <div class="col-sm-10">
-                                            @if($item->ticket_status_id == \App\Models\TicketStatus::COMPLETED)
-                                                <div><label>Reopen ticket <br><br><input type="checkbox" name="reopen"
-                                                                                         value="reopen">
-                                                        I confirm the ticket opening again </label></div>
-
-                                            @else
-                                                <div><label>Set Ticket as completed <br><br><input type="checkbox"
-                                                                                                   name="completed"
-                                                                                                   value="completed"> I
-                                                        confirm that the task has been solved</label></div>
-
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                    <hr>
-                                @endif
-                            <!-- fim dos campos -->
-
-                                <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
-                                <button class="btn btn-primary" id="bt_salvar" type="submit">
-                                    <i class="fa fa-save"></i>
-                                    {{ isset($item) ? 'Save editions' : 'Save' }}
-                                </button>
-
-                                @if(!isset($item))
-                                    <button class="btn btn-default" id="bt_salvar_adicionar" type="submit">
-                                        <i class="fa fa-save"></i>
-                                        Save and add new
-                                    </button>
-                                @else
-                                    <a class="btn btn-default" id="ln_listar_form" href="{{ route('tickets.index') }}">
-                                        <i class="fa fa-list-ul"></i>
-                                        List
-                                    </a>
-                            @endif
-                            <!-- FIM -->
-                            </form>
-                        @else
-                            <div class="alert alert-info">
-                                <p>You need to be associated with a company to create tickets.</p>
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12 @if ($errors->has('subject')) has-error @endif">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" name="subject" id="subject" class="form-control"
+                                           value="{{ old('subject', (isset($item) ? $item->subject : '')) }}">
+                                    {!! $errors->first('subject','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
+
+                                <div class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
+                                    <label for="content">Content</label>
+                                    <textarea rows="14" cols="50" name="content" id="content"
+                                              class="ckeditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
+                                    {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 @if ($errors->has('priority')) has-error @endif">
+                                    <label for="priority">Priority</label>
+
+                                    <select name="priority" id="priority" class="form-control">
+                                        @foreach(config('enums.priorities') as $i => $v)
+                                            <option
+                                                value="{{ $i }}" {{ old('priority', (isset($item) ? $item->priority : '1')) == $i ? 'selected' : '' }}>{{ $v }} </option>
+                                        @endforeach
+                                    </select>
+
+                                    {!! $errors->first('priority','<span class="help-block m-b-none">:message</span>') !!}
+
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-3 @if ($errors->has('file')) has-error @endif">
+                                    <label for="image">File</label>
+                                    <input id="file" name="file" type="file"
+                                           class="form-control required"
+                                           accept="image/gif, image/jpeg, image/png, application/pdf"
+                                    >
+                                </div>
+
+                            </div>
+
+                            @if(isset($item))
+                                <hr>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-10">
+                                        @if($item->ticket_status_id == \App\Models\TicketStatus::COMPLETED)
+                                            <div><label>Reopen ticket <br><br><input type="checkbox" name="reopen"
+                                                                                     value="reopen">
+                                                    I confirm the ticket opening again </label></div>
+
+                                        @else
+                                            <div><label>Set Ticket as completed <br><br><input type="checkbox"
+                                                                                               name="completed"
+                                                                                               value="completed"> I
+                                                    confirm that the task has been solved</label></div>
+
+                                        @endif
+                                    </div>
+
+                                </div>
+                                <hr>
+                            @endif
+                        <!-- fim dos campos -->
+
+                            <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
+                            <button class="btn btn-primary" id="bt_salvar" type="submit">
+                                <i class="fa fa-save"></i>
+                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                            </button>
+
+                            @if(!isset($item))
+                                <button class="btn btn-default" id="bt_salvar_adicionar" type="submit">
+                                    <i class="fa fa-save"></i>
+                                    Save and add new
+                                </button>
+                            @else
+                                <a class="btn btn-default" id="ln_listar_form" href="{{ route('tickets.index') }}">
+                                    <i class="fa fa-list-ul"></i>
+                                    List
+                                </a>
                         @endif
+                        <!-- FIM -->
+                        </form>
 
                     </div>
                 </div>
