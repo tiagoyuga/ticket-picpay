@@ -297,4 +297,11 @@ class UserService
 
     }
 
+    public function listUsersOfCompany($client_id)
+    {
+        return User::join('client_user', 'client_user.user_id', 'users.id')
+            ->where('client_user.client_id', $client_id)
+            ->get();
+    }
+
 }

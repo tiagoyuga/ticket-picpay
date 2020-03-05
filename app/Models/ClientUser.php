@@ -92,9 +92,9 @@ class ClientUser extends Model
 
     # Relationships
 
-    function user()
+    function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'client_id');
     }
 
     function client()

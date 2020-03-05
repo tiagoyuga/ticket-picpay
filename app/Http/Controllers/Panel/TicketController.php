@@ -23,6 +23,7 @@ use App\Traits\LogActivity;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use JsValidator;
 
@@ -63,7 +64,18 @@ class TicketController extends ApiBaseController
 
         }
 
-        $data = $this->service->paginate(20);
+        #$data = false;
+        if(Auth::user()->getIsClientAttribute()) {
+
+            if(Auth::user()->isClientAdmim()) {
+                $data = $this->service->paginateTicketsForClientAdmin(20);
+            } else {
+                $data = $this->service->paginateTicketsForClient(20);
+            }
+        } else {
+
+            $data = $this->service->paginate(20);
+        }
 
         return view($url)
             ->with([

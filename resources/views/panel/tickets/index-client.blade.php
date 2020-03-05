@@ -7,8 +7,7 @@
     @include('panel.tickets.nav')
 
     @php
-
-        //$_placeholder_ = "Localize por ''";
+        $isClientAdmim = (Auth::user()->getIsClientAttribute() && Auth::user()->isClientAdmim());
     @endphp
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -42,8 +41,14 @@
                             <div class="tabs-container">
                                 <ul class="nav nav-tabs">
                                     <li><a class="nav-link active" data-toggle="tab" href="#tab-1">All</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">Ready for review ({{$data->where('ticket_status_id', \App\Models\TicketStatus::CLIENT_REVIEW)->count()}})</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">Ready for review
+                                            ({{$data->where('ticket_status_id', \App\Models\TicketStatus::CLIENT_REVIEW)->count()}}
+                                            )</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed</a></li>
+
+                                    @if($isClientAdmim)
+                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>
+                                    @endif
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -54,8 +59,10 @@
                                                 @include('panel._assets.paginate-ticket')
                                             @else
                                                 <div class="alert alert-danger">
-                                                    We have nothing to display. If you have performed a search, you can perform
-                                                    a new one with other terms or <a class="alert-link" href="{{ route('tickets.index') }}">
+                                                    We have nothing to display. If you have performed a search, you can
+                                                    perform
+                                                    a new one with other terms or <a class="alert-link"
+                                                                                     href="{{ route('tickets.index') }}">
                                                         clear your search.
                                                     </a>
                                                 </div>
@@ -72,8 +79,10 @@
 
                                             @else
                                                 <div class="alert alert-danger">
-                                                    We have nothing to display. If you have performed a search, you can perform
-                                                    a new one with other terms or <a class="alert-link" href="{{ route('tickets.index') }}">
+                                                    We have nothing to display. If you have performed a search, you can
+                                                    perform
+                                                    a new one with other terms or <a class="alert-link"
+                                                                                     href="{{ route('tickets.index') }}">
                                                         clear your search.
                                                     </a>
                                                 </div>
@@ -87,17 +96,49 @@
                                                 @include('panel.tickets.ticket-by-status', ['data' => $data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED)])
                                             @else
                                                 <div class="alert alert-danger">
-                                                    We have nothing to display. If you have performed a search, you can perform
-                                                    a new one with other terms or <a class="alert-link" href="{{ route('tickets.index') }}">
+                                                    We have nothing to display. If you have performed a search, you can
+                                                    perform
+                                                    a new one with other terms or <a class="alert-link"
+                                                                                     href="{{ route('tickets.index') }}">
                                                         clear your search.
                                                     </a>
                                                 </div>
                                             @endif
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
+                                    @if($isClientAdmim)
+
+                                        <div id="tab-4" class="tab-pane">
+                                            <div class="panel-body">
+
+                                                @if (Auth::user()->clientUser->count() == 1)
+
+                                                    <table class="table table-striped table-bordered table-hover">
+
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Users</th>
+                                                        </tr>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>{{ Auth::user()->clientUser->first()->users->name }}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                @else
+
+                                                    @include('panel.tickets.tab-company-users')
+
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
@@ -112,5 +153,26 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        $().ready(function () {
+            $("#click-me").click(function () {
+                alert('Clicked');
+            });
+
+            $("#select_company").change(function () {
+
+                if ($(this).val().length == 0) {
+                    $(".div_company_users").hide();
+                    return;
+                }
+
+                alert($(this).val());
+
+                $("#client_user_" + $(this).val()).show();
+            });
+        });
+    </script>
+
 
 @endsection

@@ -139,7 +139,7 @@ class User extends Authenticatable
 
     public function checkCanSharePublicRegisterLink()
     {
-        if ($this->getIsClientAttribute()) {
+        if ($this->getIsClientAttribute() && $this->isClientAdmim()) {
 
             return ($this->clientUser());
         }

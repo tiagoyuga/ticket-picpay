@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TicketService
@@ -222,5 +223,20 @@ class TicketService
         $hours = floor($time / 60);
         $minutes = ($time % 60);
         return sprintf($format, $hours, $minutes);
+    }
+
+    public function paginateTicketsForClientAdmin(int $limit): LengthAwarePaginator
+    {
+        return $this->buildQuery()
+            ->whereIn('tickets.client_id', Auth::user()->clientUser->pluck('client_id'))
+            ->orderBy('id','desc')->paginate($limit);
+    }
+
+    public function paginateTicketsForClient(int $limit): LengthAwarePaginator
+    {
+        return $this->buildQuery()
+            ->whereIn('tickets.client_id', Auth::user()->clientUser->pluck('client_id'))
+            ->where('tickets.user_id', Auth::id())
+            ->orderBy('id','desc')->paginate($limit);
     }
 }
