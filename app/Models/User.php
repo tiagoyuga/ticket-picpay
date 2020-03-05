@@ -21,13 +21,14 @@ class User extends Authenticatable
         'name',
         'group_id',
         'email',
+        'additional_email',
         'phone1',
+        'phone2',
         'skype',
         'whatsapp',
         'hangout',
         'job_title',
         'branch_location',
-        'phone2',
     ];
 
     /**

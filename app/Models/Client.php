@@ -44,6 +44,11 @@ class Client extends Model
        // 'status',
         'email',
         'cto_amount',
+
+        'additional_email',
+        'address',
+        'zip_code',
+        'state',
     ];
 
     /**

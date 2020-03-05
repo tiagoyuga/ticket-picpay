@@ -35,6 +35,11 @@ class ClientRule
         'email' => 'nullable|email',
         'credit_amount' => 'required',
         'text_credit_history' => 'nullable',
+
+        'additional_email' => 'nullable',
+        'address'=> 'nullable',
+        'zip_code'=> 'nullable',
+        'state'=> 'nullable',
 	];
 
     /**
@@ -51,6 +56,11 @@ class ClientRule
             'cell_phone' => self::$rules['cell_phone'],
             'additional_phone' => self::$rules['additional_phone'],
             'email' => self::$rules['email'],
+
+            'additional_email' => self::$rules['additional_email'],
+            'address' => self::$rules['address'],
+            'zip_code' => self::$rules['zip_code'],
+            'state' => self::$rules['state'],
         ];
     }
 

@@ -12,13 +12,18 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Requests\ClientStoreRequest;
 use App\Http\Requests\ClientUpdateRequest;
+use App\Http\Requests\PublicUserRegistrationRequest;
 use App\Models\Client;
+use App\Models\Group;
 use App\Services\ClientService;
+use App\Services\ClientUserService;
 use App\Services\UserService;
 use App\Traits\LogActivity;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use JsValidator;
 
@@ -73,16 +78,41 @@ class ClientController extends ApiBaseController
             ]);
     }
 
-    public function store(ClientStoreRequest $clientStoreRequest)
+    public function store(ClientStoreRequest $clientStoreRequest, UserService $userService, ClientUserService $clientUserService)
     {
+        try {
 
-        $this->service->create($clientStoreRequest->all());
+            $data = request()->all();
 
-        return redirect()->route('clients.' . request('routeTo'))
-            ->with([
-                'message' => 'Successfully created',
-                'messageType' => 's',
-            ]);
+            $data['email'] = $data['email_user'];
+            $data['additional_email'] = $data['additional_email_user'];
+            $data['name'] = $data['first_name'].' '.$data['last_name'];
+            $data['group_id'] = Group::CLIENT;
+
+            $rules = (new PublicUserRegistrationRequest())->rules();
+            $rules['client_id'] = '';
+
+            $this->validate(new Request($data), $rules);
+
+            $newClient = $this->service->create($clientStoreRequest->all());
+
+            $newUser = $userService->create($data);
+
+            $data['user_id'] = $newUser->id;
+            $data['client_id'] = $newClient->id;
+
+            $newClientuser = $clientUserService->create($data);
+
+            return redirect()->route('clients.' . request('routeTo'))
+                ->with([
+                    'message' => 'Successfully created',
+                    'messageType' => 's',
+                ]);
+
+        } catch (ValidationException $e) {
+
+            return redirect()->back()->withInput($clientStoreRequest->all())->withErrors($e->errors());
+        }
     }
 
     public function edit(Client $client, UserService $userService): View
