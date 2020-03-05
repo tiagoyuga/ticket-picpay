@@ -22,9 +22,10 @@
                         @if(Auth::user()->checkCanSharePublicRegisterLink())
 
                             @if (Auth::user()->clientUser->count() == 1)
+
                                 <br>
                                 <a class="btn btn-primary" id="ln_adicionar" title="add users to client"
-                                   href="{{ route('public_users.new', base64_encode(Auth::user()->clientUser->first()->id))}} ">
+                                   href="{{ route('public_users.new', base64_encode(Auth::user()->clientUser->first()->client_id))}} ">
                                     <i class="fa fa-plus-circle"></i> Add new user
                                 </a>
                             @else
@@ -39,7 +40,7 @@
 
                                             @foreach(Auth::user()->clientUser as $clientUser)
                                                 <option
-                                                    value="{{ route('public_users.new', base64_encode($clientUser->client->id)) }}">
+                                                    value="{{ route('public_users.new', base64_encode($clientUser->client->client_id)) }}">
                                                     {{ $clientUser->client->company_name }}
                                                 </option>
                                             @endforeach
