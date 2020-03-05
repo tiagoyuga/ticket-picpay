@@ -51,6 +51,11 @@ class UsersTableSeeder extends Seeder
         foreach ($users as $item) {
             $item['password'] = $password;
             $user = User::create($item);
+
+            \App\Models\UserType::create([
+                'user_id' => $user->id,
+                'type_id' => Type::ADMIN,
+            ]);
         }
     }
 }

@@ -19,7 +19,7 @@
                             </div>
                         </div>
 
-                        @if(Auth::user()->checkCanSharePublicRegisterLink())
+                        @if(Auth::user()->checkCanSharePublicRegisterLink() && Auth::user()->clientUser->count())
 
                             @if (Auth::user()->clientUser->count() == 1)
 

@@ -29,6 +29,10 @@ class PublicController extends Controller
     {
         $client = $clientService->find(base64_decode($client_id));
 
+        if (!$client) {
+            abort('404');
+        }
+
         return view('public-users.form')
             ->with([
                 'client' => $client,

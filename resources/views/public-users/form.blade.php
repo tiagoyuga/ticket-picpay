@@ -141,7 +141,7 @@
 
                             <hr>
 
-                            @if(Auth::user())
+                            @if(Auth::user() && Auth::user()->checkCanSharePublicRegisterLink() && Auth::user()->clientUser->count())
 
                                 <label class="radio-inline">
                                     <strong>Privileges setup</strong>

@@ -302,14 +302,13 @@ class UserService
     {
         return User::join('client_user', 'client_user.user_id', 'users.id')
             ->where('client_user.client_id', $client_id)
-            ->get();
+            ->get('users.*', 'client_user.client_id');
     }
 
     public function changeUserPrivileges($user_id)
     {
         $user = $this->find($user_id);
 
-        #$userType = $user->userTypes()->where('type_id', Type::ADMIN)->first();
         $userType = $user->userTypes()->first();
 
         if (!$userType) {

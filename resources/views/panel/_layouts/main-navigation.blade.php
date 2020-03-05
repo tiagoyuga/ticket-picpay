@@ -52,7 +52,7 @@
                         </li>
                     @endif
 
-                    @if(\Auth::user()->isClientAdmim())
+                    @if(Auth::user()->checkCanSharePublicRegisterLink() && Auth::user()->clientUser->count())
                         <li>
                             <a aria-expanded="false" role="button" href="{{ route('users.listToClientAdmim') }}">
                                 <i class="fa fa-user"></i>

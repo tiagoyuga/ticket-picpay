@@ -51,7 +51,7 @@
                                 @foreach(Auth::user()->clientUser as $clientUser)
 
                                     <div id="client_user_{{ $clientUser->client_id }}"
-                                         style="display: none;" class="div_company_users">
+                                         style="display: block;" class="div_company_users">
 
                                         <table class="table table-striped table-bordered table-hover">
 
@@ -64,6 +64,7 @@
 
                                             @php
                                                 $users = $userService->listUsersOfCompany($clientUser->client_id);
+
                                             @endphp
 
                                             @foreach($users as $user)

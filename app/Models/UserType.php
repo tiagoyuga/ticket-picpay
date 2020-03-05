@@ -45,7 +45,8 @@ class UserType extends Authenticatable
 
     function user()
     {
-        return $this->belongsToMany(user::class);
+        #return $this->belongsToMany(user::class);
+        return $this->belongsTo(user::class);
     }
 
     function type()
