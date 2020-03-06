@@ -192,6 +192,7 @@
                                                 <option value="">Select</option>
 
 
+
                                             </select>
                                             {!! $errors->first('state','<span class="help-block m-b-none">:message</span>') !!}
                                         </div>
@@ -366,7 +367,7 @@
             data: '',
             success: function (data) {
 
-                $("#state").select2({
+                var select2 = $("#state").select2({
                     //multiple: true,
                     data:
                         $.map(data.data, function (item) {
@@ -376,6 +377,9 @@
                             }
                         })
                 });
+                @isset($item->state)
+                $("#state").val('{{  $item->state }}').change()
+                @endisset
             },
             error: function (error) {
                 /*jsonValue = jQuery.parseJSON(error.responseText);
