@@ -84,7 +84,7 @@ class ClientController extends ApiBaseController
 
             $data = request()->all();
 
-            $data['email'] = $data['email_user'];
+            #$data['email'] = $data['email_user'];
             $data['additional_email'] = $data['additional_email_user'];
             $data['name'] = $data['first_name'].' '.$data['last_name'];
             $data['group_id'] = Group::CLIENT;

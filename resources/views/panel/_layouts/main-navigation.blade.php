@@ -22,7 +22,7 @@
                     <li class="{{ isActiveRoute('dashboard') }}">
                         <a aria-expanded="false" role="button" href="{{ route('dashboard') }}">
                             <i class="fa fa-home"></i>
-                            <span class="nav-label">Início</span>
+                            <span class="nav-label">Home</span>
                         </a>
                     </li>
 
@@ -40,7 +40,7 @@
                             <a aria-expanded="false" role="button" href="#" class="dropdown-toggle"
                                data-toggle="dropdown">
                                 <i class="fa fa-gears"></i>
-                                Configurations
+                                Settings
                             </a>
                             <ul role="menu" class="dropdown-menu">
 

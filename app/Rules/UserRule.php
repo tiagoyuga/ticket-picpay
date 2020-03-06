@@ -147,7 +147,8 @@ class UserRule
             'branch_location' => '',#$rules['branch_location'],
             'phone1' => self::$rules['phone1'],
             'phone2' => self::$rules['phone2'],
-            'email' => self::$rules['email'],
+            #'email' => self::$rules['email'],
+            'email_user' => self::$rules['email'],
             'password' => 'nullable|'.self::$rules['password'],
         ];
     }

@@ -30,7 +30,7 @@
             forceParse: true,
             calendarWeeks: true,
             autoclose: true,
-            format: "yyyy/mm/dd",
+            format: "mm/dd/yyyy",
             language: "en"
         });
     });

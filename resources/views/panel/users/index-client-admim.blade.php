@@ -1,6 +1,6 @@
 @extends('panel._layouts.panel')
 
-@section('_titulo_pagina_', 'List of Users')
+@section('_titulo_pagina_', 'Users List')
 
 @section('content')
 
@@ -26,7 +26,7 @@
                         <div class="form-row">
 
                             <div class="form-group col-md-12 ">
-                                <label for="group_id">Select the Company to show the users</label>
+                                <label for="group_id">Choose the Company to display the users list</label>
 
                                 <select class="form-control form-control-lg"
                                         style="width: 100%"
@@ -140,7 +140,7 @@
 
         function changePrivilegies(id) {
 
-            if(confirm('Do you confirm to change user privileges ?')) {
+            if(confirm('Are you sure ?')) {
 
                 $("#user_id").val(id);
 

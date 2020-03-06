@@ -15,7 +15,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
-                                Bem vindo {{ \Auth::user()->name }}
+                                Welcome {{ \Auth::user()->name }}
                             </div>
                         </div>
 
@@ -32,7 +32,7 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 ">
-                                        <label for="group_id">Select the Company to share the register link</label>
+                                        <label for="group_id">Choose the Company to add new user</label>
                                         <select class="form-control form-control-lg" style="width: 100%"
                                                 name=""
                                                 id="select_company">
@@ -64,7 +64,7 @@
 
                                     <div class="form-row">
                                         <p class="text-info">
-                                            Or share the link:
+                                            Or share the registration link:
                                             <a href="{{ url()->current() }}" target="_blank" id="link_to_share"></a>
                                         </p>
                                     </div>

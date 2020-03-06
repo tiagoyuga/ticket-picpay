@@ -1,6 +1,6 @@
 @extends('panel._layouts.panel')
 
-@section('_titulo_pagina_', (isset($item) ? 'Edit' : 'Create') . ' '.$label)
+@section('_titulo_pagina_', (isset($item) ? '' : 'Create') . ' '.$label)
 
 @section('content')
 
@@ -49,8 +49,10 @@
 
                                         <select name="client_id" id="client_id" class="form-control">
                                             @foreach(\Auth::user()->clients as $client)
-                                                <option
-                                                    value="{{ $client->id }}" {{ old('client_id', (isset($item) ? $item->client_id : '')) == $client->id ? 'selected' : '' }}>{{ $client->company_name }} </option>
+                                                <option class=""
+                                                        value="{{ $client->id }}" {{ old('client_id', (isset($item) ? $item->client_id : '')) == $client->id ? 'selected' : '' }}>
+                                                    {{ $client->company_name }}
+                                                </option>
                                             @endforeach
                                         </select>
 
@@ -73,7 +75,7 @@
                                 </div>
 
                                 <div class="form-group col-md-12 @if ($errors->has('content')) has-error @endif">
-                                    <label for="content">Content</label>
+                                    <label for="content">Ticket description</label>
                                     <textarea rows="14" cols="50" name="content" id="content"
                                               class="ckeditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
                                     {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
@@ -85,9 +87,17 @@
                                     <label for="priority">Priority</label>
 
                                     <select name="priority" id="priority" class="form-control">
+
                                         @foreach(config('enums.priorities') as $i => $v)
-                                            <option
-                                                value="{{ $i }}" {{ old('priority', (isset($item) ? $item->priority : '1')) == $i ? 'selected' : '' }}>{{ $v }} </option>
+
+                                            @php
+                                                $color = ($i == 'low') ? 'blue' : ($i == 'medium' ? 'orange' : 'red');
+                                            @endphp
+
+                                            <option style="color:{{ $color }};font: bold;size: A3"
+                                                value="{{ $i }}" {{ old('priority', (isset($item) ? $item->priority : '1')) == $i ? 'selected' : '' }}>
+                                                {{ $v }}
+                                            </option>
                                         @endforeach
                                     </select>
 
@@ -119,10 +129,13 @@
                                                     I confirm the ticket opening again </label></div>
 
                                         @else
-                                            <div><label>Set Ticket as completed <br><br><input type="checkbox"
-                                                                                               name="completed"
-                                                                                               value="completed"> I
-                                                    confirm that the task has been solved</label></div>
+                                            <div>
+                                                <label>
+                                                    <input type="checkbox" name="completed"
+                                                                                               value="completed">
+                                                    Set Ticket as completed
+                                                </label>
+                                            </div>
 
                                         @endif
                                     </div>

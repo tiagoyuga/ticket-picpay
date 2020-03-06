@@ -2,7 +2,7 @@ try {
 
     $(function () {
 
-        $('.mask_date_usa').mask('0000/00/00', {clearIfNotMatch: true, placeholder: "____/__/__"});
+        $('.mask_date_usa').mask('00/00/0000', {clearIfNotMatch: true, placeholder: "__/__/____"});
 
         $('.mask_date').mask('00/00/0000', {clearIfNotMatch: true, placeholder: "__/__/____"});
         $('.mask_time').mask('00:00:00', {clearIfNotMatch: true});

@@ -21,6 +21,7 @@
                         <input type="text" class="form-control mask_date_usa datepicker_usa"
                                name="start_date"
                                id="start_date"
+                               placeholder="__/__/____"
                                {{--value="{{ request('start_date') ? \Carbon\Carbon::parse(request('start_date'))->format('Y-m-d') : '' }}"--}}
                             value="{{ request('start_date') }}"
 
@@ -31,7 +32,7 @@
                         <input type="text" class="form-control mask_date_usa datepicker_usa"
                                name="end_date"
                                id="end_date" value="{{ request('end_date') }}"
-                               placeholder="____/__/__"
+                               placeholder="__/__/____"
                         >
                     </div>
 
@@ -42,7 +43,7 @@
             <div class="form-group col-sm-2 text-right">
                 <label>&nbsp;</label>
                 <button type="submit" class="btn btn-primary form-control" id="btn_search">
-                    <i class="fa fa-search"></i> Pesquisar
+                    <i class="fa fa-search"></i> Search
                 </button>
             </div>
 

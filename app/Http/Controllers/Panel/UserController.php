@@ -197,18 +197,18 @@ class UserController extends ApiBaseController
 
     public function listToClientAdmim()
     {
-        if(!Auth::user()->isClientAdmim()) {
+        /*if(!Auth::user()->isClientAdmim()) {
             abort('404');
-        }
+        }*/
 
         return view('panel.users.index-client-admim');
     }
 
     public function changeUserPrivileges(UserService $userService)
     {
-        if(!Auth::user()->isClientAdmim()) {
+        /*if(!Auth::user()->isClientAdmim()) {
             abort('404');
-        }
+        }*/
 
         $userService->changeUserPrivileges((int)request()->get('user_id'));
 

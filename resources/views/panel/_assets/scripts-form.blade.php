@@ -5,7 +5,7 @@
         @if (count($errors) > 0)
         showMessage(
             'e',
-            '{{ count($errors)==1 ? 'Existe um erro de validação' : 'Existem '.count($errors).' erros de validação' }}',
+            '{{ count($errors)==1 ? 'Validation error' : 'Exists '.count($errors).' validation errors' }}',
             8
         );
         @endif
