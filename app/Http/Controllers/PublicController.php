@@ -65,9 +65,6 @@ class PublicController extends Controller
                 ]);
             }
 
-
-            dd($user);
-
             return redirect()->back()
                 ->with([
                     'message' => 'Successfully created',
