@@ -152,12 +152,9 @@
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('payment_status')) has-error @endif">
                                                     <label for="payment_status">Payment Status</label>
-                                                    {{--<input type="text" name="payment_status" id="dev_hour_spent" class="form-control mask_hour payment_status"
-                                                           value="{{ old('payment_status', (isset($item) ? $item->payment_status : '')) }}">--}}
                                                     <select class="form-control" name="payment_status"
                                                             id="payment_status">
 
-                                                        {{--@foreach(app('constants.payment_status') as $status)--}}
                                                         @foreach(['Not Paid', 'Paid'] as $payment_status)
                                                             <option value="{{ $payment_status }}"
                                                                 {{ old('payment_status', (isset($item) ? $item->payment_status : '')) == $payment_status ? 'selected' : '' }}
@@ -167,19 +164,21 @@
                                                     {!! $errors->first('payment_status','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
 
-                                                <div class="form-group col-md-1 " id="payment_calendar">
-                                                    <div
-                                                        class="form-group col-md-4 @if ($errors->has('payment_date')) has-error @endif">
-                                                        <label for="name">Payment Date</label>
-                                                        <input type="text" name="payment_date" id="payment_date"
-                                                               class="form-control mask_date datepicker"
-                                                               value="{{ old('payment_date', (isset($item) ? $item->payment_date : '')) }}">
-                                                        {!! $errors->first('payment_date','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
-                                                </div>
-
                                             </div>
 
+                                            <div class="form-row" id="payment_calendar" style="display: {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'block' : 'none' }};">
+
+                                                <div
+                                                    class="form-group col-md-4 @if ($errors->has('payment_date')) has-error @endif">
+                                                    <label for="name">Payment Date</label>
+                                                    <input type="text" name="payment_date" id="payment_date"
+                                                           class="form-control mask_date_usa datepicker_usa"
+                                                           value="{{ old('payment_date', (isset($item) ? $item->payment_date : '')) }}">
+                                                    {!! $errors->first('payment_date','<span class="help-block m-b-none">:message</span>') !!}
+                                                </div>
+
+
+                                            </div>
 
                                             <div class="form-row">
 
@@ -218,7 +217,7 @@
                                                         class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">
                                                         <label for="work_date">Date</label>
                                                         <input type="text" name="work_date" id="add_work_hours"
-                                                               class="form-control mask_date datepicker"
+                                                               class="form-control mask_date_usa datepicker_usa"
                                                                value="{{ old('work_date') }}">
                                                         {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}
                                                     </div>
@@ -322,12 +321,6 @@
                 $("#payment_calendar").hide();
             }
         });
-
-        @if (isset($item) && $item->payment_status == strtolower('paid'))
-        $("#payment_calendar").show();
-        @else
-        $("#payment_calendar").hide();
-        @endif
 
     </script>
 @endsection

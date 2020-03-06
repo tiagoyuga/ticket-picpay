@@ -23,5 +23,15 @@
             format: "dd/mm/yyyy",
             language: "pt-BR"
         });
+
+        $('.datepicker_usa').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: true,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "yyyy/mm/dd",
+            language: "en"
+        });
     });
 </script>

@@ -1,6 +1,9 @@
 try {
 
     $(function () {
+
+        $('.mask_date_usa').mask('____/__/__', {clearIfNotMatch: true, placeholder: "____/__/__"});
+
         $('.mask_date').mask('00/00/0000', {clearIfNotMatch: true, placeholder: "__/__/____"});
         $('.mask_time').mask('00:00:00', {clearIfNotMatch: true});
         $('.mask_hour').mask('#0:00', {clearIfNotMatch: true,reverse: true, placeholder: "__:__"});
