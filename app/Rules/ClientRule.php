@@ -35,11 +35,10 @@ class ClientRule
         'email' => 'nullable|email',
         'credit_amount' => 'required',
         'text_credit_history' => 'nullable',
-
-        'additional_email' => 'nullable',
+        'additional_email' => 'nullable|email',
         'address'=> 'nullable',
         'zip_code'=> 'nullable',
-        'state'=> 'nullable',
+        'state'=> 'required',
 	];
 
     /**

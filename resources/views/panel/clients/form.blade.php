@@ -216,7 +216,7 @@
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('name')) has-error @endif">
                                                 <label for="name">First Name <i class="text-danger">*</i></label>
-                                                <input type="text" name="first_name" id="name" class="form-control"
+                                                <input required type="text" name="first_name" id="name" class="form-control"
                                                        value="{{ old('first_name', (isset($item) ? $item->name : '')) }}">
                                                 {!! $errors->first('name','<span class="help-block m-b-none">:message</span>') !!}
                                             </div>
@@ -224,7 +224,7 @@
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('name')) has-error @endif">
                                                 <label for="name">Last Name <i class="text-danger">*</i></label>
-                                                <input type="text" name="last_name" id="name" class="form-control"
+                                                <input required type="text" name="last_name" id="name" class="form-control"
                                                        value="{{ old('last_name', (isset($item) ? $item->name : '')) }}">
                                                 {!! $errors->first('name','<span class="help-block m-b-none">:message</span>') !!}
                                             </div>
@@ -236,7 +236,7 @@
                                             <div
                                                 class="form-group col-md-8 @if ($errors->has('job_title')) has-error @endif">
                                                 <label for="name">Job Title <i class="text-danger">*</i></label>
-                                                <input type="text" name="job_title" id="job_title" class="form-control"
+                                                <input required type="text" name="job_title" id="job_title" class="form-control"
                                                        value="{{ old('job_title', (isset($item) ? $item->name : '')) }}">
                                                 {!! $errors->first('job_title','<span class="help-block m-b-none">:message</span>') !!}
                                             </div>
@@ -247,7 +247,7 @@
 
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('phone1')) has-error @endif">
-                                                <label for="name">Phone Number <i class="text-danger">*</i></label>
+                                                <label for="name">Phone Number </label>
                                                 <input type="text" name="phone1" id="phone1"
                                                        class="form-control mask_phone_with_ddd_usa"
                                                        value="{{ old('phone1', (isset($item) ? $item->name : '')) }}">
@@ -256,7 +256,7 @@
 
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('phone2')) has-error @endif">
-                                                <label for="name">Cell Phone <i class="text-danger">*</i></label>
+                                                <label for="name">Cell Phone </label>
                                                 <input type="text" name="phone2" id="phone2"
                                                        class="form-control mask_phone_with_ddd_usa"
                                                        value="{{ old('phone2', (isset($item) ? $item->name : '')) }}">
@@ -268,8 +268,8 @@
                                         <div class="form-row">
 
                                             <div class="form-group col-md-4 @if ($errors->has('email_user')) has-error @endif">
-                                                <label for="email_user">Staff e-mail</label>
-                                                <input type="email" name="email_user" id="email_user" class="form-control"
+                                                <label for="email_user">Staff e-mail<i class="text-danger">*</i></label>
+                                                <input required type="email" name="email_user" id="email_user" class="form-control"
                                                        value="{{ old('email_user', (isset($item) ? $item->email : '')) }}">
                                                 {!! $errors->first('email_user','<span class="help-block m-b-none">:message</span>') !!}
                                             </div>
@@ -277,7 +277,7 @@
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('additional_email_user')) has-error @endif">
                                                 <label for="additional_email_user">Additional e-mail</label>
-                                                <input type="email" name="additional_email_user" id="additional_email_user"
+                                                <input  type="email" name="additional_email_user" id="additional_email_user"
                                                        class="form-control"
                                                        value="{{ old('additional_email_user', (isset($item) ? $item->additional_email : '')) }}">
                                                 {!! $errors->first('additional_email_user','<span class="help-block m-b-none">:message</span>') !!}
@@ -290,7 +290,7 @@
                                             <div
                                                 class="form-group col-md-4 @if ($errors->has('password')) has-error @endif">
                                                 <label for="password">Password <i class="text-danger">*</i></label>
-                                                <input type="password" name="password" id="password"
+                                                <input required type="password" name="password" id="password"
                                                        class="form-control"
                                                        value="{{ old('password', (isset($item) ? $item->name : '')) }}">
                                                 {!! $errors->first('password','<span class="help-block m-b-none">:message</span>') !!}
@@ -300,7 +300,7 @@
                                                 class="form-group col-md-4 @if ($errors->has('password_confirmation')) has-error @endif">
                                                 <label for="password_confirmation">Confirm Password <i
                                                         class="text-danger">*</i></label>
-                                                <input type="password" name="password_confirmation"
+                                                <input required type="password" name="password_confirmation"
                                                        id="password_confirmation"
                                                        class="form-control"
                                                        value="{{ old('password_confirmation', (isset($item) ? $item->name : '')) }}">
@@ -309,28 +309,6 @@
 
                                         </div>
 
-                                        <br>
-
-                                        <label class="radio-inline">
-                                            <strong>Privileges setup</strong>
-                                        </label>
-
-                                        <div class="form">
-
-                                            <label class="radio-inline">
-                                                <input type="radio" name="type" value="1">Admin
-                                            </label>
-
-                                            <span class="mt-2"></span>
-                                            <br>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="type" value="2" checked>Regular User
-                                            </label>
-
-                                            <br>
-                                            <br>
-
-                                        </div>
 
                                     </div>
                                 </div>
@@ -339,7 +317,7 @@
 
                             <hr>
                         <!-- fim dos campos -->
-
+                            <input type="hidden" name="type" value="1">
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
