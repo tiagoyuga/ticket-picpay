@@ -72,7 +72,7 @@
                     <td>{{$item->dev_hrs_client }}</td>
 
                     <td>
-                        <span class="{{ strtolower($item->payment_status) == 'paid' ? 'text-success' : 'text-danger' }}">
+                        <span class="{{ strtolower($item->payment_status) == 'paid' ? 'alert-success' : 'alert-danger' }}">
                             {{ $item->payment_status }}
                         </span>
 

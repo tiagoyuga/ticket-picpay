@@ -173,7 +173,7 @@
                                                     <label for="name">Payment Date</label>
                                                     <input type="text" name="payment_date" id="payment_date"
                                                            class="form-control mask_date_usa datepicker_usa"
-                                                           value="{{ old('payment_date', (isset($item) ? $item->payment_date : '')) }}">
+                                                           value="{{ old('payment_date', (isset($item) ? $item->payment_date->format('m-d-Y') : '')) }}">
                                                     {!! $errors->first('payment_date','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
 
