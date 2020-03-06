@@ -134,6 +134,28 @@ class TicketService
         }
     }
 
+    public function setWorkHoursToDev($hour, $model, $type = 'add')
+    {
+        $partes = explode(":", $hour);
+        $minutes = $partes[0]*60+$partes[1];
+
+        $partes = explode(":", $model->dev_hour_spent);
+        $minutesNew = $partes[0]*60+$partes[1];
+
+        if ($type == 'add') {
+            $totalMinutes = $minutes + $minutesNew;
+        } else {
+            $totalMinutes = $minutes - $minutesNew;
+            $totalMinutes = ($totalMinutes < 0) ? $totalMinutes * -1 : $totalMinutes;
+        }
+
+        $dev_hour_spent = $this->hoursandmins($totalMinutes);
+        $cto_hours =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $totalMinutes * $model->client->cto_amount ) : $totalMinutes);
+
+        $model->dev_hour_spent = $dev_hour_spent;
+        $model->cto_hours = $cto_hours;
+        $model->save();
+    }
 
     public function update(array $data, Ticket $model): Ticket
     {
@@ -153,43 +175,18 @@ class TicketService
         }
         else if(isset($data['add_work_hour']) || isset($data['remove_work_hour'])) {
 
-            if (!empty($data['add_work_hour'])) {
-                $workHour = true;
-                $partes = explode(":", $data['add_work_hour']);
-                $minutes = $partes[0]*60+$partes[1];
+            if (Auth::user()->getIsDevAttribute()) {
 
-                $partes = explode(":", $model->dev_hour_spent);
-                $minutesNew = $partes[0]*60+$partes[1];
+                if (!empty($data['add_work_hour'])) {
 
-                $totalMinutes = $minutes+$minutesNew;
+                    $workHour = true;
+                    $this->setWorkHoursToDev($data['add_work_hour'], $model);
+                }
 
-                $data['dev_hour_spent'] = $this->hoursandmins($totalMinutes);
-
-                $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $totalMinutes * $model->client->cto_amount ) : $totalMinutes);
-
-                $model->fill($data);
-                $model_after = $model->toArray();
-                $model->save();
-            }
-
-            if (!empty($data['remove_work_hour'])) {
-                $workHour = true;
-                $partes = explode(":", $data['remove_work_hour']);
-                $minutes = $partes[0]*60+$partes[1];
-
-                $partes = explode(":", $model->dev_hour_spent);
-                $minutesNew = $partes[0]*60+$partes[1];
-
-                $totalMinutes = $minutes - $minutesNew;
-                $totalMinutes = ($totalMinutes < 0) ? $totalMinutes * -1 : $totalMinutes;
-
-                $data['dev_hour_spent'] = $this->hoursandmins($totalMinutes);
-
-                $data['cto_hours'] =  $this->hoursandmins( isset($model->client->cto_amount) ? ( $totalMinutes * $model->client->cto_amount ) : $totalMinutes);
-
-                $model->fill($data);
-                $model_after = $model->toArray();
-                $model->save();
+                if (!empty($data['remove_work_hour'])) {
+                    $workHour = true;
+                    $this->setWorkHoursToDev($data['remove_work_hour'], $model, 'remove');
+                }
             }
         }
 

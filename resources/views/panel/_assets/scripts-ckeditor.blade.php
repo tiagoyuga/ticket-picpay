@@ -1,4 +1,8 @@
+
+{{--<script src="https://cdn.ckeditor.com/4.14.0/basic/ckeditor.js"></script>--}}
+{{--<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>--}}
 <script src="https://cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+{{--<script src="https://cdn.ckeditor.com/4.14.0/customize/ckeditor.js"></script>--}}
 
 <script>
 
@@ -6,7 +10,7 @@
 
         CKEDITOR.replace(element,
             toolbarGroups = [
-                /*{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },*/
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                 {name: 'clipboard', groups: ['clipboard', 'undo']},
                 {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
                 {name: 'forms', groups: ['forms']},

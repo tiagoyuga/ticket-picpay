@@ -109,10 +109,18 @@
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
                                                     <label for="name">Developer Spent Hrs</label>
-                                                    <input type="text" name="dev_hour_spent" id="dev_hour_spent"
-                                                           class="form-control mask_hour hour_change"
-                                                           value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
-                                                    {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                    @if(\Auth::user()->getIsDevAttribute())
+                                                        <input type="text"
+                                                               class="form-control-plaintext mask_hour"
+                                                               disabled
+                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
+                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                    @else
+                                                        <input type="text" name="dev_hour_spent" id="dev_hour_spent"
+                                                               class="form-control mask_hour hour_change"
+                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
+                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                    @endif
                                                 </div>
                                             </div>
 
