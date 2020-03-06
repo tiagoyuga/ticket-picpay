@@ -303,7 +303,7 @@ class UserService
             ->get('users.*', 'client_user.client_id');
     }
 
-    public function changeUserPrivileges($user_id)
+    public function changeUserPrivileges($user_id) : UserType
     {
         $user = $this->find($user_id);
 
@@ -320,6 +320,7 @@ class UserService
 
         $userType->save();
 
+        return $userType;
     }
 
 }

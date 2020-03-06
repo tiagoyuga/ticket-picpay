@@ -84,15 +84,17 @@
                                                     <td>{{ $user->job_title }} </td>
                                                     <td style="width: 20%">
 
-                                                        <button type="button"
+                                                        <button id="btn_admin_{{ $user->id }}"
+                                                                type="button"
                                                                 class="btn btn-{{ $user->isClientAdmim() ? 'primary' : 'default'}}"
-                                                                @if(!$user->isClientAdmim()) onclick="changePrivilegies('{{ $user->id }}');" @endif
+                                                                onclick="changePrivilegies('{{ $user->id }}');"
                                                         >Admin
                                                         </button>
 
-                                                        <button type="button"
+                                                        <button id="btn_regular_{{ $user->id }}"
+                                                                type="button"
                                                                 class="btn btn-{{ $user->isClientAdmim() ? 'default' : 'primary'}}"
-                                                                @if($user->isClientAdmim()) onclick="changePrivilegies('{{ $user->id }}');" @endif
+                                                                onclick="changePrivilegies('{{ $user->id }}');"
                                                         >Regular user
                                                         </button>
 
@@ -119,15 +121,6 @@
             </div>
         </div>
     </div>
-
-    <form method="post" class="form-horizontal" id="frm_save" autocomplete="off"
-          action="{{ route('users.changeUserPrivileges') }}">
-    {{ method_field('POST') }}
-    {{ csrf_field() }}
-
-        <input type="hidden" name="user_id" value="" id="user_id">
-
-    </form>
 
 @endsection
 
@@ -157,9 +150,31 @@
 
             if(confirm('Are you sure ?')) {
 
-                $("#user_id").val(id);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('users.changeUserPrivileges') }}",
+                    data: {'user_id' : id},
+                    success: function (data) {
+                        console.log(data);
+                        showMessage('s', 'Privilege changed with success');
 
-                $("#frm_save").submit();
+                        $("#btn_admin_"+id).removeClass('btn btn-primary btn-default');
+                        $("#btn_regular_"+id).removeClass('btn btn-primary btn-default');
+
+                        if (data.data.type_id == 1) {
+                            $("#btn_admin_"+id).addClass('btn btn-primary');
+                            $("#btn_regular_"+id).addClass('btn btn-default');
+                        } else {
+                            $("#btn_regular_"+id).addClass('btn btn-primary');
+                            $("#btn_admin_"+id).addClass('btn btn-default');
+                        }
+
+                    },
+                    error: function () {
+                        console.log(data);
+                        showMessage('e', 'Error is not authorized', 2);
+                    }
+                });
             }
         }
 
