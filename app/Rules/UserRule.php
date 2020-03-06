@@ -153,6 +153,22 @@ class UserRule
         ];
     }
 
+    public static function publicRegistrationModificada()
+    {
+
+        return [
+            'first_name' => self::$rules['name'],
+            'last_name' => self::$rules['name'],
+            'job_title' => 'required',
+            'branch_location' => 'required',
+            'phone1' => self::$rules['phone1'],
+            'phone2' => self::$rules['phone2'],
+            #'email' => self::$rules['email'],
+            'email' => self::$rules['email'],
+            'password' => 'nullable|'.self::$rules['password'],
+        ];
+    }
+
 
 
     /**

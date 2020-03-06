@@ -78,10 +78,6 @@ class UserService
                 $model->password = Hash::make($data["password"]);
             }
 
-            if (!empty($data["commission_percent"])) {
-                $model->commission_percent = floatval(str_replace(',', '.', $data["commission_percent"]));
-            }
-
             $model->save();
 
             #$types = Type::find(array_merge([$data["type"]], [Type::CLIENT]));

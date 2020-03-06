@@ -90,7 +90,7 @@
                             <div class="form-row">
 
                                 <div class="form-group col-md-4 @if ($errors->has('phone1')) has-error @endif">
-                                    <label for="name">Phone Number <i class="text-danger">*</i></label>
+                                    <label for="name">Phone Number </label>
                                     <input type="text" name="phone1" id="phone1"
                                            class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('phone1', (isset($item) ? $item->name : '')) }}">
@@ -98,7 +98,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4 @if ($errors->has('phone2')) has-error @endif">
-                                    <label for="name">Cell Phone <i class="text-danger">*</i></label>
+                                    <label for="name">Cell Phone </label>
                                     <input type="text" name="phone2" id="phone2"
                                            class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('phone2', (isset($item) ? $item->name : '')) }}">
@@ -112,7 +112,7 @@
                                 <div class="form-group col-md-8 @if ($errors->has('email')) has-error @endif">
                                     <label for="email">Email <i class="text-danger">*</i></label>
                                     <input type="email" name="email" id="email" class="form-control"
-                                           value="{{ old('name', (isset($item) ? $item->email : '')) }}">
+                                           value="{{ old('email', (isset($item) ? $item->email : '')) }}">
                                     {!! $errors->first('email','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
 
@@ -197,7 +197,7 @@
     @include('panel._assets.scripts-form')
     @include('panel._assets.scripts-select2')
     <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
-    {{--{!! $validator->selector('#frm_save') !!}--}}
+    {!! $validator->selector('#frm_save') !!}
 
     <script>
 

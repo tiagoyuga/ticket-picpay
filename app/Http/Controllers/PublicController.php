@@ -27,6 +27,7 @@ class PublicController extends Controller
 
     public function registerPublic($client_id, ClientService $clientService )
     {
+        $validator = \JsValidator::make((new PublicUserRegistrationRequest())->rulesModificada(), (new PublicUserRegistrationRequest())->messages());
         $client = $clientService->find(base64_decode($client_id));
 
         if (!$client) {
@@ -36,6 +37,7 @@ class PublicController extends Controller
         return view('public-users.form')
             ->with([
                 'client' => $client,
+                'validator' => $validator,
             ]);
     }
 
@@ -47,13 +49,24 @@ class PublicController extends Controller
 
             $request->request->set('group_id', Group::CLIENT);
 
-            $this->validate($request, (new PublicUserRegistrationRequest())->rules());
+            $this->validate($request, (new PublicUserRegistrationRequest())->rulesModificada());
 
             $newUser = $userService->create($request->all());
 
             $request->request->set('user_id', $newUser->id);
 
             $clientUserService->create($request->all());
+
+            if(!\Auth::id()){
+                Auth::login($newUser);
+                return redirect('/panel/tickets')->with([
+                    'message' => 'Successfully',
+                    'messageType' => 's',
+                ]);
+            }
+
+
+            dd($user);
 
             return redirect()->back()
                 ->with([

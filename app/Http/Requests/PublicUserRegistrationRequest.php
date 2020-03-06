@@ -31,6 +31,11 @@ class PublicUserRegistrationRequest extends FormRequest
         return $rules;
     }
 
+    public function rulesModificada()
+    {
+        $rules = UserRule::publicRegistrationModificada();
+        return $rules;
+    }
 
     public function messages()
     {

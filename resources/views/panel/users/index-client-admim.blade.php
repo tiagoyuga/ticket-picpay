@@ -16,7 +16,14 @@
                         <h5>@yield('_titulo_pagina_')</h5>
 
                         <div class="ibox-tools">
+                            @if (Auth::user()->clientUser->count() == 1)
 
+                                <a class="btn btn-primary" id="ln_adicionar" title="add users to client"
+                                   href="{{ route('public_users.new', base64_encode(Auth::user()->clientUser->first()->client_id))}} ">
+                                    <i class="fa fa-plus-circle"></i> Add new user
+                                </a>
+
+                            @endif
                         </div>
                     </div>
 
@@ -58,6 +65,8 @@
                                             <thead>
                                             <tr>
                                                 <th>Users from {{ $clientUser->client->company_name }}</th>
+                                                <th>Email</th>
+                                                <th>Job</th>
                                                 <th>Privileges setup</th>
                                             </tr>
                                             <tbody>
@@ -67,8 +76,12 @@
                                             @endphp
 
                                             @foreach($users as $user)
+
                                                 <tr>
-                                                    <td>{{ $user->name }}</td>
+
+                                                    <td>{{ $user->name }} </td>
+                                                    <td>{{ $user->email }} </td>
+                                                    <td>{{ $user->job_title }} </td>
                                                     <td style="width: 20%">
 
                                                         <button type="button"
@@ -84,7 +97,9 @@
                                                         </button>
 
                                                     </td>
+
                                                 </tr>
+
                                             @endforeach
 
                                             </tbody>
