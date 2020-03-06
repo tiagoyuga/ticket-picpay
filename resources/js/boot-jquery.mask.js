@@ -16,7 +16,7 @@ try {
                 }
             };
 
-        $(".mask_phone_with_ddd_usa").mask("(999)999-9999");
+        $(".mask_phone_with_ddd_usa").mask("(999) 999-9999");
 
         $('.mask_phone_with_ddd').mask(maskBehavior, options);
         $('.mask_ip_address').mask('099.099.099.099', {clearIfNotMatch: true});
