@@ -96,6 +96,10 @@ class ClientController extends ApiBaseController
 
             $newClient = $this->service->create($clientStoreRequest->all());
 
+
+            $data['email'] = $data['email_user'];
+            $data['additional_email'] = $data['additional_email_user'];
+
             $newUser = $userService->create($data);
 
             $data['user_id'] = $newUser->id;
