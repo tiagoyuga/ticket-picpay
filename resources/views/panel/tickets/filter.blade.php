@@ -14,19 +14,25 @@
 
                 <div class="form-group">
 
-                    <label class="control-label">Created between dates</label>
+                    <label class="control-label">From</label>
 
                     <div class="input-group date_calendar">
 
-                        <input type="text" class="form-control mask_date datepicker"
+                        <input type="text" class="form-control mask_date_usa datepicker_usa"
                                name="start_date"
-                               id="start_date" value="{{ request('start_date') }}">
+                               id="start_date"
+                               {{--value="{{ request('start_date') ? \Carbon\Carbon::parse(request('start_date'))->format('Y-m-d') : '' }}"--}}
+                            value="{{ request('start_date') }}"
 
-                        <span class="input-group-addon">and</span>
+                        >
 
-                        <input type="text" class="form-control mask_date datepicker"
+                        <span class="input-group-addon">to</span>
+
+                        <input type="text" class="form-control mask_date_usa datepicker_usa"
                                name="end_date"
-                               id="end_date" value="{{ request('end_date') }}">
+                               id="end_date" value="{{ request('end_date') }}"
+                               placeholder="____/__/__"
+                        >
                     </div>
 
                 </div>
@@ -47,4 +53,10 @@
 
 @section('scripts')
     @include('panel._assets.scripts-datepicker')
+
+    <script>
+        @if(request('start_date'))
+            $("#start_date").val('{{ request('start_date') }}');
+            @endif
+    </script>
 @endsection

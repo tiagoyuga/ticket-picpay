@@ -49,7 +49,7 @@ class TicketService
         $query->when(request('start_date'), function ($query, $start_date) {
 
             $startDate = request('start_date');
-            $startDate = Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d');
+            $startDate = Carbon::parse($startDate)->format('Y-m-d');
 
             return $query->where('tickets.created_at', '>=', $startDate . ' 00:00:00');
         });
@@ -57,7 +57,7 @@ class TicketService
         $query->when(request('end_date'), function ($query, $end_date) {
 
             $endDate = request('end_date');
-            $endDate = Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d');
+            $endDate = Carbon::parse($endDate)->format('Y-m-d');
 
             return $query->where('tickets.created_at', '<=', $endDate . ' 23:59:59');
         });
