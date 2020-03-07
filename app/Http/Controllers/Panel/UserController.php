@@ -195,27 +195,44 @@ class UserController extends ApiBaseController
         }
     }
 
-    public function listToClientAdmim()
+    public function listToClientAdmim() : View
     {
-        /*if(!Auth::user()->isClientAdmim()) {
+        if(!Auth::user()->isClientAdmim()) {
             abort('404');
-        }*/
+        }
 
         return view('panel.users.index-client-admim');
     }
 
-    public function changeUserPrivileges(UserService $userService)
+    public function changeUserPrivileges(UserService $userService) : JsonResponse
     {
-        /*if(!Auth::user()->isClientAdmim()) {
-            abort('404');
-        }*/
+        try {
+            if (!Auth::user()->isClientAdmim()) {
+                abort('404');
+            }
 
-        $userService->changeUserPrivileges((int)request()->get('user_id'));
+            $userType = $userService->changeUserPrivileges((int)request()->get('user_id'));
 
-        return redirect()->route('users.listToClientAdmim')
-            ->with([
-                'message' => 'Successfully updated',
-                'messageType' => 's',
-            ]);
+            $data = [
+                'error' => false,
+                'data' => $userType,
+            ];
+
+            return response()->json($data, 200, [], JSON_PRETTY_PRINT);
+
+            /*return redirect()->route('users.listToClientAdmim')
+                ->with([
+                    'message' => 'Successfully updated',
+                    'messageType' => 's',
+                ]);*/
+
+        } catch (Exception $e) {
+
+            $data = [
+                'error' => true,
+            ];
+
+            return response()->json($data, 500, [], JSON_PRETTY_PRINT);
+        }
     }
 }

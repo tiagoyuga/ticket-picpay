@@ -64,7 +64,6 @@ class TicketController extends ApiBaseController
 
         }
 
-        #$data = false;
         if(Auth::user()->getIsClientAttribute()) {
 
             if(Auth::user()->isClientAdmim()) {

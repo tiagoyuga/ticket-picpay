@@ -40,7 +40,7 @@
 
                                             @foreach(Auth::user()->clientUser as $clientUser)
                                                 <option
-                                                    value="{{ route('public_users.new', base64_encode($clientUser->client->client_id)) }}">
+                                                    value="{{ route('public_users.new', base64_encode($clientUser->client_id)) }}">
                                                     {{ $clientUser->client->company_name }}
                                                 </option>
                                             @endforeach
@@ -65,7 +65,7 @@
                                     <div class="form-row">
                                         <p class="text-info">
                                             Or share the registration link:
-                                            <a href="{{ url()->current() }}" target="_blank" id="link_to_share"></a>
+                                            <a href="" target="_blank" id="link_to_share"></a>
                                         </p>
                                     </div>
 

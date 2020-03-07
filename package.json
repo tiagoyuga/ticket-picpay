@@ -29,6 +29,7 @@
     "@ttskch/select2-bootstrap4-theme": "^1.3.2",
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.9.0",
+    "ckeditor4": "^4.14.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "jquery": "^3.4.1",
     "jquery-blockui": "^2.7.0",
@@ -40,6 +41,6 @@
     "select2": "^4.0.11",
     "toastr": "^2.1.4",
     "v-money": "^0.8.1",
-    "vue-select": "^3.4.0"
+    "vue-select": "^3.6.0"
   }
 }

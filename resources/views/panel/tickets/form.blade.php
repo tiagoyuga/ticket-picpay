@@ -80,6 +80,7 @@
                                               class="ckeditor form-control">{{ old('content', (isset($item) ? $item->content : '')) }}</textarea>
                                     {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
+
                             </div>
 
                             <div class="form-row">
@@ -181,48 +182,12 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
-    <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+    @include('panel._assets.scripts-ckeditor')
+
     <script>
-        ClassicEditor
-            .create(document.querySelector('#content'), {
 
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'bold',
-                        'italic',
-                        'link',
-                        'bulletedList',
-                        'numberedList',
-                        '|',
-                        'indent',
-                        'outdent',
-                        '|',
-                        'blockQuote',
-                        'insertTable',
-                        'undo',
-                        'redo'
-                    ]
-                },
-                language: 'en',
-                height: 300,
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells'
-                    ]
-                },
-                licenseKey: '',
+        setCkeditor('content');
 
-            })
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
     </script>
     {!! $validator->selector('#frm_save') !!}
 @endsection
