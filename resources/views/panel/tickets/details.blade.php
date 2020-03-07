@@ -292,8 +292,7 @@
                                                                         <option value="all">All</option>
                                                                         <option value="admin">Admin</option>
                                                                         <option value="cto">Cto</option>
-                                                                        <option value="dev">Dev</option>
-
+{{--                                                                        <option value="dev">Dev</option>--}}
                                                                     @else
 
                                                                         @cannot('userCanChat', $item->client)
