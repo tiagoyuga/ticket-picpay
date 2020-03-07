@@ -333,7 +333,7 @@
                                                                 <label for="content"><h3>Message</h3></label>
                                                                 <textarea rows="14" cols="50" name="content"
                                                                           id="content"
-                                                                          class="froalaEditor form-control"
+                                                                          class="form-control"
                                                                           placeholder="Write your message here"
                                                                 >{{ old('content') }}</textarea>
                                                                 {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}

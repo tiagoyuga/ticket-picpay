@@ -103,7 +103,7 @@
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
-                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                                {{ isset($item) ? 'Save' : 'Save' }}
                             </button>
 
                             @if(!isset($item))
