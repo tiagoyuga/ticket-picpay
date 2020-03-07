@@ -190,7 +190,9 @@ class TicketService
             }
         }
 
-        $data['payment_date'] = (isset($data['payment_date']) && !empty($data['payment_date'])) ? Carbon::parse($data['payment_date'])->format('Y-m-d') : '';
+        if(isset($data['payment_date'])){
+            $data['payment_date'] = (isset($data['payment_date']) && !empty($data['payment_date'])) ? Carbon::parse($data['payment_date'])->format('Y-m-d') : '';
+        }
 
         $model->fill($data);
         $model_after = $model->toArray();
