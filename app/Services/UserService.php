@@ -33,6 +33,10 @@ class UserService
 
         $query = User::orderByDesc('id');
 
+        if(\Auth::user()->group_id == Group::CLIENT){
+            $query->whereGroupId(Group::CLIENT);
+        }
+
         $query->when(request('id'), function ($query, $id) {
 
             return $query->whereId($id);
@@ -300,6 +304,7 @@ class UserService
     {
         return User::join('client_user', 'client_user.user_id', 'users.id')
             ->where('client_user.client_id', $client_id)
+            ->where('users.group_id', Group::CLIENT)
             ->get('users.*', 'client_user.client_id');
     }
 

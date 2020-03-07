@@ -235,4 +235,21 @@ class TicketController extends ApiBaseController
             return $this->sendError('Server Error.', $exception);
         }
     }
+
+    public function flag(Ticket $ticket)
+    {
+
+        $this->log(__METHOD__);
+        $this->authorize('update', $ticket);
+
+        $ticket->flag = !$ticket->flag;
+        $ticket->save();
+
+
+        return redirect()->route('tickets.index')
+            ->with([
+                'message' => 'Successfully updated',
+                'messageType' => 's',
+            ]);
+    }
 }

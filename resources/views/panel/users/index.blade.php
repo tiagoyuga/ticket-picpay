@@ -46,6 +46,7 @@
                                         <th>Name</th>
                                         <th>E-mail</th>
                                         <th>Group</th>
+                                        <th>Privileges setup</th>
                                         <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
                                         <th style="width: 290px; text-align: center">Actions</th>
                                     </tr>
@@ -59,6 +60,26 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
+                                                <td style="width: 20%">
+
+                                                    @if($item->group_id == \App\Models\Group::CLIENT)
+                                                        <button id="btn_admin_{{ $item->id }}"
+                                                                type="button"
+                                                                class="btn btn-{{ $item->isClientAdmim() ? 'primary' : 'default'}}"
+                                                                onclick="changePrivilegies('{{ $item->id }}');"
+                                                        >Admin
+                                                        </button>
+
+                                                        <button id="btn_regular_{{ $item->id }}"
+                                                                type="button"
+                                                                class="btn btn-{{ $item->isClientAdmim() ? 'default' : 'primary'}}"
+                                                                onclick="changePrivilegies('{{ $item->id }}');"
+                                                        >Regular user
+                                                        </button>
+                                                    @else
+                                                        -/-
+                                                    @endif
+                                                </td>
 
                                                 <td class="hidden-xs hidden-sm">{{ $item->created_at->format('m-d-Y g:i A') }}</td>
 
@@ -125,5 +146,53 @@ a new one with other terms or <a class="alert-link" href="{{ route('users.index'
 @endsection
 
 @section('scripts')
+    <script>
+        $().ready(function () {
+
+            $("#select_company").change(function () {
+
+                $(".div_company_users").hide();
+
+                if ($(this).val().length == 0) {
+                    return;
+                }
+
+                $("#client_user_" + $(this).val()).show();
+            });
+        });
+
+        function changePrivilegies(id) {
+
+            if(confirm('Are you sure ?')) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('users.changeUserPrivileges') }}",
+                    data: {'user_id' : id},
+                    success: function (data) {
+                        console.log(data);
+                        showMessage('s', 'Privilege changed with success');
+
+                        $("#btn_admin_"+id).removeClass('btn btn-primary btn-default');
+                        $("#btn_regular_"+id).removeClass('btn btn-primary btn-default');
+
+                        if (data.data.type_id == 1) {
+                            $("#btn_admin_"+id).addClass('btn btn-primary');
+                            $("#btn_regular_"+id).addClass('btn btn-default');
+                        } else {
+                            $("#btn_regular_"+id).addClass('btn btn-primary');
+                            $("#btn_admin_"+id).addClass('btn btn-default');
+                        }
+
+                    },
+                    error: function () {
+                        console.log(data);
+                        showMessage('e', 'Error is not authorized', 2);
+                    }
+                });
+            }
+        }
+
+    </script>
 
 @endsection

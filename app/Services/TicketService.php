@@ -283,7 +283,8 @@ class TicketService
     {
         return $this->buildQuery()
             ->whereIn('tickets.client_id', Auth::user()->clientUser->pluck('client_id'))
-            ->orderBy('id','desc')->paginate($limit);
+            ->orderBy('flag', 'desc')->orderBy('id', 'desc')
+            ->paginate($limit);
     }
 
     public function paginateTicketsForClient(int $limit): LengthAwarePaginator

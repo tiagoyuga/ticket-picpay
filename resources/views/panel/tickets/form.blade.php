@@ -183,11 +183,11 @@
 @section('scripts')
     @include('panel._assets.scripts-form')
     @include('panel._assets.scripts-ckeditor')
-
+    {!! $validator->selector('#frm_save') !!}
     <script>
 
         setCkeditor('content');
 
     </script>
-    {!! $validator->selector('#frm_save') !!}
+
 @endsection

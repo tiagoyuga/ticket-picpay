@@ -56,7 +56,7 @@
                         <li>
                             <a aria-expanded="false" role="button" href="{{ route('users.listToClientAdmim') }}">
                                 <i class="fa fa-user"></i>
-                                <span class="nav-label">users</span>
+                                <span class="nav-label">Users</span>
                             </a>
                         </li>
                     @endif

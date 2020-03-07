@@ -87,6 +87,15 @@
 
                 <td style="text-align: center">
 
+                    @if($is_client && \Auth::user()->isClientAdmim())
+
+                        <a class="btn btn-sm btn-default" title="{{ $item->flag ? 'Unflag':'Flag' }}"
+                           href="{{ route('tickets.flag', [$item->id]) }}"><i
+                                class="fa fa-flag {{ $item->flag ? 'text-danger':'text-success' }}"></i>
+                        </a>
+
+                    @endif
+
                     @can('update', $item)
                         <a class="btn btn-sm btn-default" title="Edit ticket"
                            href="{{ route('tickets.edit', [$item->id]) }}"><i
@@ -105,6 +114,9 @@
                        href="{{ route('tickets.detail', [$item->id]) }}"><i
                             class="fa fa-history"></i>
                     </a>
+
+
+
 
                 </td>
 
