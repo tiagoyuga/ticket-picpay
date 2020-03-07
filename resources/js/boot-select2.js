@@ -1,7 +1,7 @@
 $(function () {
     $.fn.select2.defaults.set("theme", "bootstrap4");
 
-    let placeholder = "Selecione";
+    let placeholder = "Choose";
 
     $('.select2').select2({
         placeholder: placeholder,
@@ -22,7 +22,7 @@ function performRemoteSearch(options) {
 
     $(options.element).select2({
         allowClear: true,
-        placeholder: 'Selecione',
+        placeholder: 'Choose',
         minimumInputLength: options.hasOwnProperty('min') ? options.min : 3,
         containerCssClass: options.hasOwnProperty('containerCssClass') ? options.containerCssClass : ':all:',
         width: 'resolve',
