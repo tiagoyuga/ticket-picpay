@@ -26,6 +26,9 @@
                 {name: 'others', groups: ['others']},
             ]
         );
+
+        config['placeholder'] = 'Write your message here';
+        CKEDITOR.replace(element, config );
     }
 
     {{--<script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>--}}
