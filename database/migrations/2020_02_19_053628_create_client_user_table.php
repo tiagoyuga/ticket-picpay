@@ -29,6 +29,7 @@ class CreateClientUserTable extends Migration {
                 ->onDelete('restrict');
 
             $table->boolean('is_client')->default(true);
+            $table->boolean('is_admin')->default(false);
             $table->boolean('chat')->default(false);
 
             $table->timestamps();

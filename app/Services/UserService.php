@@ -31,7 +31,7 @@ class UserService
     private function buildQuery(): Builder
     {
 
-        $query = User::orderByDesc('id');
+        $query = User::select('users.*')->orderByDesc('users.id');
 
         if(\Auth::user()->group_id == Group::CLIENT){
             $query->whereGroupId(Group::CLIENT);
@@ -40,6 +40,12 @@ class UserService
         $query->when(request('id'), function ($query, $id) {
 
             return $query->whereId($id);
+        });
+
+        $query->when(request('client_id'), function ($query, $client_id) {
+
+            return $query->join('client_user', 'user_id', '=', 'users.id')
+                ->where('client_user.client_id', $client_id);
         });
 
         $query->when(request('search'), function ($query, $search) {
@@ -308,24 +314,13 @@ class UserService
             ->get('users.*', 'client_user.client_id');
     }
 
-    public function changeUserPrivileges($user_id) : UserType
+    public function changeUserPrivileges($user_id, $client_id)
     {
-        $user = $this->find($user_id);
+        $userCompany = ClientUser::where('user_id', $user_id)->where('client_id', $client_id)->first();
+        $userCompany->is_admin = !$userCompany->is_admin;
+        $userCompany->save();
+        return $userCompany;
 
-        $userType = $user->userTypes()->first();
-
-        if (!$userType) {
-            $userType = UserType::create([
-                'user_id' => $user_id,
-                'type_id' => Type::CLIENT,
-            ]);
-        }
-
-        $userType->type_id = ($userType->type_id == Type::ADMIN) ? Type::CLIENT : Type::ADMIN;
-
-        $userType->save();
-
-        return $userType;
     }
 
 }

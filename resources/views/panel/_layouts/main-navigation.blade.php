@@ -52,14 +52,14 @@
                         </li>
                     @endif
 
-                    @if(Auth::user()->checkCanSharePublicRegisterLink() && Auth::user()->clientUser->count())
-                        <li>
-                            <a aria-expanded="false" role="button" href="{{ route('users.listToClientAdmim') }}">
-                                <i class="fa fa-user"></i>
-                                <span class="nav-label">Users</span>
-                            </a>
-                        </li>
-                    @endif
+
+                    <li>
+                        <a aria-expanded="false" role="button" href="{{ route('users.index') }}">
+                            <i class="fa fa-user"></i>
+                            <span class="nav-label">Users</span>
+                        </a>
+                    </li>
+
 
 
                     <li>

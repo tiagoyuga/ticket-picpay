@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
         //$this->call(CityDevSeeder::class);
         $this->call(TypeSeeder::class);
         $this->call(GroupSeeder::class);
-        $this->call(UsersTableSeeder::class);
-       // $this->call(DevSkillCategorySeeder::class);
-       // $this->call(DevSkillOptionSeeder::class);
+        // $this->call(DevSkillCategorySeeder::class);
+        // $this->call(DevSkillOptionSeeder::class);
         $this->call(ClientSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->call(TicketStatusSeeder::class);
     }
 }

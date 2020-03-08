@@ -14,6 +14,7 @@ use App\Http\Requests\ClientStoreRequest;
 use App\Http\Requests\ClientUpdateRequest;
 use App\Http\Requests\PublicUserRegistrationRequest;
 use App\Models\Client;
+use App\Models\ClientUser;
 use App\Models\Group;
 use App\Services\ClientService;
 use App\Services\ClientUserService;
@@ -102,10 +103,13 @@ class ClientController extends ApiBaseController
 
             $newUser = $userService->create($data);
 
-            $data['user_id'] = $newUser->id;
-            $data['client_id'] = $newClient->id;
+            $clientUser = new ClientUser();
+            $clientUser->user_id = $newUser->id;
+            $clientUser->client_id =  $newClient->id;
+            $clientUser->is_client = true;
+            $clientUser->is_admin  = true;
+            $clientUser->save();
 
-            $newClientuser = $clientUserService->create($data);
 
             return redirect()->route('clients.' . request('routeTo'))
                 ->with([

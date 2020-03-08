@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Group;
 use App\Models\TicketFile;
 use App\Models\Type;
 use App\Models\User;
@@ -49,7 +50,26 @@ class UserController extends ApiBaseController
 
         $this->authorize('viewAny', User::class);
 
-        $data = $this->service->paginate(20);
+        $users_by_client = [];
+        $user = \Auth::user();
+
+        if($user->group_id == Group::CLIENT) {
+
+            foreach($user->usersTypeClient as $client) {
+                \request()->request->add(['client_id' => $client->id]);
+                \request()->request->add(['group_id' => Group::CLIENT]);
+
+                $data[$client->id]['name'] = $client->company_name;
+                $data[$client->id]['data'] = $this->service->paginate(20);
+
+            }
+
+
+        }else if($user->group_id == Group::ADMIN) {
+            $data = $this->service->paginate(20);
+        }else{
+            abort('404', 'forbidden');
+        }
 
         return view('panel.users.index')
             ->with([
@@ -206,16 +226,16 @@ class UserController extends ApiBaseController
 
     public function changeUserPrivileges(UserService $userService) : JsonResponse
     {
+
         try {
-            if (!Auth::user()->isClientAdmim()) {
+            if (!Auth::user()->isAdmin && !Auth::user()->isClientAdmim()) {
                 abort('404');
             }
 
-            $userType = $userService->changeUserPrivileges((int)request()->get('user_id'));
-
+            $userCompany = $userService->changeUserPrivileges((int)request()->get('user_id'), (int)request()->get('client_id'));
             $data = [
                 'error' => false,
-                'data' => $userType,
+                'data' => $userCompany->is_admin,
             ];
 
             return response()->json($data, 200, [], JSON_PRETTY_PRINT);
@@ -230,6 +250,7 @@ class UserController extends ApiBaseController
 
             $data = [
                 'error' => true,
+                'mensage' => $e->getMessage()
             ];
 
             return response()->json($data, 500, [], JSON_PRETTY_PRINT);

@@ -59,6 +59,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Client::class, 'client_user');
     }
 
+
+    public function usersTypeClient()
+    {
+        return $this->belongsToMany(Client::class, 'client_user')
+            ->withPivotValue('is_client',true);
+    }
+
     function group()
     {
         return $this->belongsTo(Group::class);
@@ -146,16 +153,6 @@ class User extends Authenticatable
     public function clientUser()
     {
         return $this->hasMany(ClientUser::class, 'user_id');
-    }
-
-    public function checkCanSharePublicRegisterLink()
-    {
-        if ($this->getIsClientAttribute() && $this->isClientAdmim()) {
-
-            return ($this->clientUser());
-        }
-
-        return false;
     }
 
 }

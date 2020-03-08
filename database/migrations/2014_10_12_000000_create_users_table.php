@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->bigInteger('group_id')->unsigned();
             $table->foreign('group_id')->references('id')->on('groups')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->string('email')->nullable();
+            $table->string('email')->unique();
             $table->string('additional_email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
