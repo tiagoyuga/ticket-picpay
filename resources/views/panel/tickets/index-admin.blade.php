@@ -8,7 +8,7 @@
 
     @php
 
-        //$_placeholder_ = "Localize por ''";
+                //$_placeholder_ = "Localize por ''";
     @endphp
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -53,7 +53,7 @@
                                             @if($data->count())
 
                                                 @php
-                                                $isAdmim = true;
+                                                    $isAdmim = true;
                                                 @endphp
                                                 @include('panel.tickets.ticket-by-status', [$data])
                                                 {{--@include('panel._assets.paginate')--}}
@@ -88,6 +88,8 @@
 
 
                         </div>
+
+
                     </div>
                 </div>
             </div>

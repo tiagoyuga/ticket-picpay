@@ -164,10 +164,20 @@ class UserService
     {
         //return Cache::remember('User_lists', config('cache.cache_time'), function () {
 
-        return User::orderBy('name')
+        $users =  User::orderBy('name')
+            ->join('groups', 'groups.id', '=', 'group_id')
             ->where('group_id', "!=", Group::CLIENT)
-            ->pluck('name', 'id')
-            ->toArray();
+            ->get(['users.name', 'users.id', 'groups.name as group_name'])
+            ;
+
+        $users_formated = [];
+
+        foreach($users as $user) {
+            $users_formated[$user->id] = $user->name .' - ( '.$user->group_name.' )' ;
+        }
+
+        return $users_formated;
+
         //});
     }
 

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -88,6 +89,7 @@
         }
     </style>
 
+    <script src="//code.jivosite.com/widget/ZJaoWhJIhs" async></script>
 
 </head>
 <body class="top-navigation skin-1">
@@ -97,6 +99,7 @@
         <div id="page-wrapper" class="gray-bg">
 
         @if(!request()->has('iframe'))
+
             @include('panel._layouts.main-navigation')
         @endif
         <!-- Main view  -->

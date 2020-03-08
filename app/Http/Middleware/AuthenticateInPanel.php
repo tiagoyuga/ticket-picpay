@@ -23,6 +23,7 @@ class AuthenticateInPanel extends Middleware
     {
         $this->authenticate($request, $guards);
 
+
         if (!$this->auth->user()->canAuthInPanel()->count()) {
 
             $this->auth->guard()->logout();

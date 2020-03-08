@@ -105,24 +105,24 @@
 
                                             </div>
 
-                                            <div class="form-row">
-                                                <div
-                                                    class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
-                                                    <label for="name">Developer Spent Hrs</label>
-                                                    @if(\Auth::user()->getIsDevAttribute())
-                                                        <input type="text"
-                                                               class="form-control-plaintext mask_hour"
-                                                               disabled
-                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
-                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
-                                                    @else
-                                                        <input type="text" name="dev_hour_spent" id="dev_hour_spent"
-                                                               class="form-control mask_hour hour_change"
-                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
-                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
-                                                    @endif
-                                                </div>
-                                            </div>
+{{--                                            <div class="form-row">--}}
+{{--                                                <div--}}
+{{--                                                    class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">--}}
+{{--                                                    <label for="name">Developer Spent Hrs</label>--}}
+{{--                                                    @if(\Auth::user()->getIsDevAttribute())--}}
+{{--                                                        <input type="text"--}}
+{{--                                                               class="form-control-plaintext mask_hour"--}}
+{{--                                                               disabled--}}
+{{--                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">--}}
+{{--                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    @else--}}
+{{--                                                        <input type="text" name="dev_hour_spent" id="dev_hour_spent"--}}
+{{--                                                               class="form-control mask_hour hour_change"--}}
+{{--                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">--}}
+{{--                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    @endif--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 
                                             @if(\Auth::user()->is_admin)
 
@@ -198,7 +198,7 @@
                                                     <label for="name">Payment Date</label>
                                                     <input type="text" name="payment_date" id="payment_date"
                                                            class="form-control mask_date_usa datepicker_usa"
-                                                           value="{{ old('payment_date', (isset($item) ? $item->payment_date->format('m-d-Y') : '')) }}">
+                                                           value="{{ old('payment_date', (isset($item->payment_date) ? $item->payment_date->format('m-d-Y') : '')) }}">
                                                     {!! $errors->first('payment_date','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
 
@@ -311,17 +311,20 @@
     <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
     <script>
 
-        setCkeditor('review');
 
-        $(".hour_change").keyup(function () {
+        $(".hour_change").on("change", function () {
 
             let original_seconds = timestamp_to_seconds($(this).val());
+            console.log(original_seconds)
             let minutes = (original_seconds / 60);
 
             let cto_hours = secondsToTime((minutes * ( {{ $item->client->cto_amount }} )) * 60)
             $("#cto_hours").val(cto_hours)
 
         })
+
+
+        setCkeditor('review');
 
         function timestamp_to_seconds(timestamp) {
             var [hours, minutes] = timestamp.split(':').map((t) => parseInt(t, 10));

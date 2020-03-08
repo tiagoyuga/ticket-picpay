@@ -1,6 +1,10 @@
 @php
     $is_client = \Auth::user()->group_id == \App\Models\Group::CLIENT;
     $isClientAdmim = \Auth::user()->isClientAdmin;
+
+    $is_admin = \Auth::user()->group_id == \App\Models\Group::ADMIN;
+    $is_cto = \Auth::user()->group_id == \App\Models\Group::CTO;
+
 @endphp
 
 <table class="table table-striped table-bordered table-hover">
@@ -92,7 +96,7 @@
                     @endphp
 
 
-                    @if($is_client && isset($is_admin_from_client) && ($is_admin_from_client->is_admin))
+                    @if(($is_admin || $is_cto) || $is_client && isset($is_admin_from_client) && ($is_admin_from_client->is_admin))
 
                         <a class="btn btn-sm btn-default" title="{{ $item->flag ? 'Unflag':'Flag' }}"
                            href="{{ route('tickets.flag', [$item->id]) }}"><i

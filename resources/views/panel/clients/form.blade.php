@@ -74,7 +74,8 @@
 
                                                 @foreach($usersList as $key=>$value)
                                                     <option
-                                                        value="{{ $key }}" {{ isset($item) && $item->usersTypeUser->contains($key) ? 'selected' : ''}}>
+                                                        value="{{ $key }}" {{ isset($item) ? ($item->usersTypeUser->contains($key) ? 'selected' : '') :
+                                                                    'selected' }}>
                                                         {{ $value }}
                                                     </option>
                                                 @endforeach
