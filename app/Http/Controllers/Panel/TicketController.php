@@ -66,7 +66,7 @@ class TicketController extends ApiBaseController
 
         if(Auth::user()->getIsClientAttribute()) {
 
-            if(Auth::user()->isClientAdmim()) {
+            if(Auth::user()->isClientAdmin) {
                 $data = $this->service->paginateTicketsForClientAdmin(20);
             } else {
                 $data = $this->service->paginateTicketsForClient(20);

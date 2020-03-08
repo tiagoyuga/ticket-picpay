@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Api\ApiBaseController;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\ClientUser;
 use App\Models\Group;
 use App\Models\TicketFile;
 use App\Models\Type;
@@ -50,7 +51,6 @@ class UserController extends ApiBaseController
 
         $this->authorize('viewAny', User::class);
 
-        $users_by_client = [];
         $user = \Auth::user();
 
         if($user->group_id == Group::CLIENT) {
@@ -58,6 +58,10 @@ class UserController extends ApiBaseController
             foreach($user->usersTypeClient as $client) {
                 \request()->request->add(['client_id' => $client->id]);
                 \request()->request->add(['group_id' => Group::CLIENT]);
+
+                $client_type = ClientUser::where('client_id', $client->id)->where('user_id', $user->id)->first();
+                if($client_type->is_admin != 1)
+                    continue;
 
                 $data[$client->id]['name'] = $client->company_name;
                 $data[$client->id]['data'] = $this->service->paginate(20);
@@ -217,7 +221,7 @@ class UserController extends ApiBaseController
 
     public function listToClientAdmim() : View
     {
-        if(!Auth::user()->isClientAdmim()) {
+        if(!Auth::user()->isClientAdmin) {
             abort('404');
         }
 
@@ -228,7 +232,7 @@ class UserController extends ApiBaseController
     {
 
         try {
-            if (!Auth::user()->isAdmin && !Auth::user()->isClientAdmim()) {
+            if (!Auth::user()->isAdmin && !Auth::user()->isClientAdmin) {
                 abort('404');
             }
 

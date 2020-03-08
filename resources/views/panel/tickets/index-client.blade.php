@@ -7,7 +7,7 @@
     @include('panel.tickets.nav')
 
     @php
-        $isClientAdmim = (Auth::user()->getIsClientAttribute() && Auth::user()->isClientAdmim());
+        $isClientAdmin = \Auth::user()->isClientAdmin;
     @endphp
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -46,7 +46,7 @@
                                             )</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed</a></li>
 
-                                    @if($isClientAdmim)
+                                    @if($isClientAdmin)
                                         <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>
                                     @endif
                                 </ul>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
 
-                                    @if($isClientAdmim)
+                                    @if($isClientAdmin)
 
                                         <div id="tab-4" class="tab-pane">
                                             <div class="panel-body">

@@ -45,7 +45,7 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->isClientAdmim() ? 'Admim' : 'Regular User' }}</td>
+                            <td>{{ $user->isClientAdmin? 'Admim' : 'Regular User' }}</td>
                         </tr>
                     @endforeach
 

@@ -1,5 +1,10 @@
 <div class="table-responsive">
 
+    <a target="_blank" class="btn btn-primary mb-3 pull-right" id="ln_adicionar" title="add users to client"
+       href="{{ route('public_users.new', base64_encode($client_id)) }} ">
+        <i class="fa fa-plus-circle"></i> Add new user to {{ $client_name }}
+    </a>
+
     @if($data->count())
 
         <table class="table table-striped table-bordered table-hover">
@@ -8,10 +13,9 @@
             <tr>
                 <th>Name</th>
                 <th>E-mail</th>
-                <th>Group</th>
                 <th>Privileges setup</th>
                 <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
-                <th style="width: 290px; text-align: center">Actions</th>
+
             </tr>
             </thead>
             <tbody>
@@ -20,13 +24,10 @@
 
                 @foreach($data as $item)
 
-
-
                     <tr id="tr-{{ $item->id }}">
 
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
-                        <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
                         <td style="width: 20%">
 
                             @if($item->group_id == \App\Models\Group::CLIENT)
@@ -63,19 +64,6 @@
                         <td class="hidden-xs hidden-sm">{{ isset($item->created_at) ?
         $item->created_at->format('m-d-Y g:i A') : '' }}</td>
 
-                        <td style="text-align: center">
-
-                            <a class="btn btn-sm btn-default" title="Edit"
-                               href="{{ route('users.edit', [$item->id]) }}"><i
-                                    class="fa fa-pencil"></i>
-                            </a>
-
-                            <link-destroy-component
-                                line-id="{{ 'tr-'.$item->id }}"
-                                link="{{ route('users.destroy', [$item->id]) }}">
-                            </link-destroy-component>
-
-                        </td>
 
                     </tr>
                 @endforeach

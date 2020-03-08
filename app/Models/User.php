@@ -129,24 +129,19 @@ class User extends Authenticatable
         return $this->hasMany(UserType::class, 'user_id');
     }
 
-    public function isClientAdmim()
+    public function getIsClientAdminAttribute()
     {
-        $userTypes = $this->userTypes();
-        #dd($this->id, $userTypes->pluck('type_id')->toArray());
-        if($userTypes) {
-            return (in_array(Type::ADMIN, $userTypes->pluck('type_id')->toArray()));
+
+        if($this->group_id == Group::CLIENT){
+
+            $user_company = ClientUser::where('user_id', $this->id)->where('is_admin', true)->first();
+            if($user_company){
+                return true;
+            }
+
         }
 
         return false;
-
-       /* $userTypes = UserType::where('user_id', $this->id)->get();
-        #dd($this->id, $userTypes->pluck('type_id')->toArray());
-        if($userTypes) {
-            return (in_array(Type::ADMIN, $userTypes->pluck('type_id')->toArray()));
-        }
-
-        return false;*/
-
 
     }
 
@@ -154,5 +149,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(ClientUser::class, 'user_id');
     }
+
+
 
 }

@@ -43,7 +43,7 @@
 
                         <!-- inicio dos campos -->
 
-                            <input type="hidden" name="client_id" value="{{ $client->id }}">
+                            <input type="hidden" name="client_id" value="{{ $client_id }}">
 
                             <div class="form-row">
 
@@ -141,32 +141,6 @@
 
                             <hr>
 
-                            @if(Auth::user() && Auth::user()->checkCanSharePublicRegisterLink() && Auth::user()->clientUser->count())
-
-                                <label class="radio-inline">
-                                    <strong>Privileges setup</strong>
-                                </label>
-                                <div class="form">
-
-                                    <label class="radio-inline">
-                                        <input type="radio" name="type" value="1">Admin
-                                    </label>
-
-                                    <span class="mt-2"></span>
-                                    <br>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="type" value="2" checked>Regular User
-                                    </label>
-
-                                    <br>
-                                    <br>
-
-                                </div>
-
-                            @else
-                                <input type="hidden" name="type" value="2">
-
-                        @endif
 
                         <!-- fim dos campos -->
 

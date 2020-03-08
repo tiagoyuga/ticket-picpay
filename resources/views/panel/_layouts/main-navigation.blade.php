@@ -19,13 +19,6 @@
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="nav navbar-nav mr-auto">
 
-                    <li class="{{ isActiveRoute('dashboard') }}">
-                        <a aria-expanded="false" role="button" href="{{ route('dashboard') }}">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">Home</span>
-                        </a>
-                    </li>
-
                     {{--                <li>--}}
                     {{--                    <a aria-expanded="false" role="button" href="{{ route('dashboard.dashboard') }}">--}}
                     {{--                        <i class="fa fa-dashboard"></i>--}}
@@ -52,23 +45,21 @@
                         </li>
                     @endif
 
-
+                    @if(\Auth::user()->is_admin || \Auth::user()->isClientAdmin)
                     <li>
                         <a aria-expanded="false" role="button" href="{{ route('users.index') }}">
                             <i class="fa fa-user"></i>
                             <span class="nav-label">Users</span>
                         </a>
                     </li>
+                    @endif
 
-
-
-                    <li>
+                    <li class=" {{ isActiveRoute(['dashboard', 'tickets.*']) }}">
                         <a aria-expanded="false" role="button" href="{{ route('tickets.index') }}">
                             <i class="fa fa-dashboard"></i>
                             <span class="nav-label">Tickets</span>
                         </a>
                     </li>
-
 
                 </ul>
 

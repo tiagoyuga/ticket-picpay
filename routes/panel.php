@@ -5,7 +5,7 @@ Route::namespace('Panel')
     ->prefix('panel')
     ->group(function ($panel) {
 
-        $panel->get('/', 'DashboardController@index')->name("dashboard");
+        $panel->get('/', 'TicketController@index')->name("dashboard");
         $panel->get('/dashboard', 'DashboardController@dashboard')->name("dashboard.dashboard");
         $panel->get('/report/users/registrations-day', 'DashboardController@reportUserRegistrationByDay')->name("report.users.userRegistration");
 

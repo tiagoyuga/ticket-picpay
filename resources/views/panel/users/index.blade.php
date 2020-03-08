@@ -4,17 +4,13 @@
 
 @section('content')
 
-    @include('panel.users.nav')
-
-    @php
-
-        //$_placeholder_ = "Localize por ''";
-    @endphp
+    @if(\Auth::user()->is_admin)
+        @include('panel.users.nav')
+    @endif
 
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-
 
             <div class="col-lg-12">
 
@@ -48,16 +44,16 @@
                                 <div class="tabs-container">
                                     <ul class="nav nav-tabs" role="tablist">
                                         @foreach($data as $company_id => $value)
-                                        <li><a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tab-{{$loop->index}}">{{$value['name']}}</a></li>
+                                        <li><a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tab-{{$loop->index+1}}">{{$value['name']}}</a></li>
                                         @endforeach
                                     </ul>
                                     <div class="tab-content">
 
                                         @foreach($data as $company_id => $value)
 
-                                            <div role="tabpanel" id="tab-{{$loop->index}}" class="tab-pane active">
+                                            <div role="tabpanel" id="tab-{{$loop->index+1}}" class="tab-pane {{ $loop->first ? 'active' : '' }}">
                                                 <div class="panel-body">
-                                                     @include('panel.users.list-users-table', ['data' => $value['data'], 'client_id' => $company_id])
+                                                     @include('panel.users.list-users-table', ['data' => $value['data'], 'client_id' => $company_id, 'client_name' =>$value['name'] ])
                                                 </div>
                                             </div>
 
