@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="password">Senha</label>
+                <label for="password">Password</label>
                 <input id="password" type="password"
                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"
                        value="12345678" required>
@@ -39,7 +39,7 @@
                 @endif
 
             </div>
-            <button type="submit" class="btn btn-black">Entrar</button>
+            <button type="submit" class="btn btn-black">Login</button>
 
             @if (Route::has('password.request'))
                 {{--<a class="btn btn-link" href="{{ route('password.request') }}">
