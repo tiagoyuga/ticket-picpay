@@ -91,7 +91,7 @@
 
                                                 <div
                                                     class="form-group col-md-1 @if ($errors->has('cto_hours')) has-error @endif">
-                                                    <label for="name">CTO hrs</label>
+                                                    <label for="name">CTO Hrs</label>
                                                     <input type="text" name="cto_hours" id="cto_hours"
                                                            class="form-control mask_hour"
                                                            value="{{ old('cto_hours', (isset($item) ? $item->cto_hours : '')) }}">
@@ -108,7 +108,7 @@
                                             <div class="form-row">
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
-                                                    <label for="name">Developer hrs spent </label>
+                                                    <label for="name">Developer Hrs spent </label>
                                                     @if(\Auth::user()->is_dev)
                                                         <input type="text"
                                                                class="form-control-plaintext mask_hour"
@@ -154,7 +154,7 @@
 
                                                             <div
                                                                 class="form-group col-md-2 @if ($errors->has('dev_hrs_client')) has-error @endif">
-                                                                <label for="name">Dev Hrs</label>
+                                                                <label for="name">Hrs Spent</label>
                                                                 <input type="text" name="dev_hrs_client"
                                                                        id="dev_hrs_client"
                                                                        class="form-control mask_hour"
