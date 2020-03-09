@@ -8,7 +8,6 @@
             <tr>
                 <th>Name</th>
                 <th>E-mail</th>
-                <th>Client</th>
                 <th>Group</th>
                 <th>Privileges setup</th>
                 <th class="hidden-xs hidden-sm" style="width: 150px;">Created at</th>
@@ -23,7 +22,6 @@
 
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
-                        <td>{{ $item->client }}</td>
                         <td>{{ isset($item->group_id) ? $item->group->name : ''}}</td>
                         <td style="width: 20%">
 
