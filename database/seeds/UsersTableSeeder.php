@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
             $item['password'] = $password;
             $user = User::create($item);
 
-            $company->usersTypeClient()->attach($user->id);
+            //$company->usersTypeClient()->attach($user->id);
         }
     }
 }

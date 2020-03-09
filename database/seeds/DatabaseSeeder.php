@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupSeeder::class);
         // $this->call(DevSkillCategorySeeder::class);
         // $this->call(DevSkillOptionSeeder::class);
-        $this->call(ClientSeeder::class);
+       // $this->call(ClientSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(TicketStatusSeeder::class);
+       // $this->call(TicketStatusSeeder::class);
     }
 }

@@ -1,6 +1,6 @@
 @extends('panel._layouts.panel')
 
-@section('_titulo_pagina_', (isset($item) ? 'Edit' : 'Create') . ' of '.$label)
+@section('_titulo_pagina_', $label . (isset($item) ? ' Edit' : ' Create') )
 
 @section('content')
 
