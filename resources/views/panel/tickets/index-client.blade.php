@@ -46,9 +46,9 @@
                                             )</a></li>
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed</a></li>
 
-                                    @if($isClientAdmin)
-                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>
-                                    @endif
+{{--                                    @if($isClientAdmin)--}}
+{{--                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>--}}
+{{--                                    @endif--}}
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -109,32 +109,32 @@
 
                                     @if($isClientAdmin)
 
-                                        <div id="tab-4" class="tab-pane">
-                                            <div class="panel-body">
+{{--                                        <div id="tab-4" class="tab-pane">--}}
+{{--                                            <div class="panel-body">--}}
 
-                                                @if (Auth::user()->clientUser->count() == 1)
+{{--                                                @if (Auth::user()->clientUser->count() == 1)--}}
 
-                                                    <table class="table table-striped table-bordered table-hover">
+{{--                                                    <table class="table table-striped table-bordered table-hover">--}}
 
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Users</th>
-                                                        </tr>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>{{ Auth::user()->clientUser->first()->users->name }}</td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+{{--                                                        <thead>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <th>Users</th>--}}
+{{--                                                        </tr>--}}
+{{--                                                        <tbody>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td>{{ Auth::user()->clientUser->first()->users->name }}</td>--}}
+{{--                                                        </tr>--}}
+{{--                                                        </tbody>--}}
+{{--                                                    </table>--}}
 
-                                                @else
+{{--                                                @else--}}
 
-                                                    @include('panel.tickets.tab-company-users')
+{{--                                                    @include('panel.tickets.tab-company-users')--}}
 
-                                                @endif
+{{--                                                @endif--}}
 
-                                            </div>
-                                        </div>
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     @endif
                                 </div>
 
