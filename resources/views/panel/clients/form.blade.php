@@ -40,8 +40,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-8 @if ($errors->has('clients')) has-error @endif">
-                                            <label for="group_id">CEO / Manager <i
-                                                    class="text-danger">*</i></label>
+                                            <label for="group_id">CEO / Manager </label>
                                             <select class="select2 form-control form-control-lg" style="width: 100%"
                                                     name="clients[]"
                                                     multiple
