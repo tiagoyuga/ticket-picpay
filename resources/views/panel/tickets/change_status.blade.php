@@ -190,8 +190,8 @@
 
                                             </div>
 
-                                            <div class="form-row" id="payment_calendar"
-                                                 style="display: {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'block' : 'none' }};">
+                                            <div class="form-row {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'd-block' : 'd-none' }}" id="payment_calendar"
+                                                 >
 
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('payment_date')) has-error @endif">
@@ -313,10 +313,11 @@
     <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
     <script>
         $("#payment_status").on('change', function () {
+
             if($(this).val() == 'Paid'){
-                $("#payment_calendar").removeClass('none')
+                $("#payment_calendar").removeClass('d-none')
             }else{
-                $("#payment_calendar").removeClass('block')
+                $("#payment_calendar").removeClass('d-block')
             }
         })
 
