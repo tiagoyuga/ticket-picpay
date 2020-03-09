@@ -109,7 +109,7 @@
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
                                                     <label for="name">Developer Spent Hrs</label>
-                                                    @if(\Auth::user()->getIsDevAttribute())
+                                                    @if(\Auth::user()->is_dev)
                                                         <input type="text"
                                                                class="form-control-plaintext mask_hour"
                                                                disabled
