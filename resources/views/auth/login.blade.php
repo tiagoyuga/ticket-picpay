@@ -47,43 +47,6 @@
                 </a>--}}
             @endif
 
-            <hr>
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('admin@gmail.com');$('#loginForm').submit();">
-                    ADMIN
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('cto@gmail.com');$('#loginForm').submit();">
-                    CTO
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('client@gmail.com');$('#loginForm').submit();">
-                    CLIENT
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('DEV@gmail.com');$('#loginForm').submit();">
-                    DEV
-                </a>
-                <br/>
-            </p>
-
 
         </form>
     </div>
