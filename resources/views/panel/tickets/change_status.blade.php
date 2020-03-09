@@ -312,7 +312,13 @@
 
     <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
     <script>
-
+        $("#payment_status").on('change', function () {
+            if($(this).val() == 'Paid'){
+                $("#payment_calendar").removeClass('none')
+            }else{
+                $("#payment_calendar").removeClass('block')
+            }
+        })
 
         $(".hour_change").on("change", function () {
 
