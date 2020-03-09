@@ -124,7 +124,12 @@
                             class="fa fa-history"></i>
                     </a>
 
-
+                    @if($is_client || $is_admin)
+                        <link-destroy-component
+                            line-id="{{ 'tr-'.$item->id }}"
+                            link="{{ route('tickets.destroy', [$item->id]) }}">
+                        </link-destroy-component>
+                    @endif
 
 
                 </td>
