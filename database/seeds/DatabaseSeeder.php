@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
         //$this->call(RegionSeeder::class);
         //$this->call(StateSeeder::class);
         //$this->call(CityDevSeeder::class);
-        $this->call(TypeSeeder::class);
-        $this->call(GroupSeeder::class);
+       // $this->call(TypeSeeder::class);
+       // $this->call(GroupSeeder::class);
         // $this->call(DevSkillCategorySeeder::class);
         // $this->call(DevSkillOptionSeeder::class);
        // $this->call(ClientSeeder::class);
-        $this->call(UsersTableSeeder::class);
+       // $this->call(UsersTableSeeder::class);
         $this->call(TicketStatusSeeder::class);
     }
 }
