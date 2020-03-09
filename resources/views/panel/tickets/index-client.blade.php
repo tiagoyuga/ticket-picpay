@@ -44,7 +44,8 @@
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-2">Ready for review
                                             ({{$data->where('ticket_status_id', \App\Models\TicketStatus::CLIENT_REVIEW)->count()}}
                                             )</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed  ({{$data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED)->count()}}
+                                            )</a></li>
 
 {{--                                    @if($isClientAdmin)--}}
 {{--                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>--}}
