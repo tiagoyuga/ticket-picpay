@@ -23,7 +23,7 @@ class UserRule
         'client_id' => 'nullable|integer|exists:clients,id,deleted_at,NULL',
         'project_manager_id' => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'name' => 'required|min:2|max:255',
-        'email' => 'required|email|unique:users,email,deleted_at,NULL',
+        'email' => 'required|email|unique:users,email',
         'email_verified_at' => 'nullable|date_format:m/d/Y g:i A',
         'password' => 'string|min:6|confirmed',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3072',
