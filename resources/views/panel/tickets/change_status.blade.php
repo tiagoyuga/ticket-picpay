@@ -170,7 +170,7 @@
                                                 <br>
                                             @endif
 
-
+                                            @if(\Auth::user()->is_admin)
                                             <div class="form-row">
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('payment_status')) has-error @endif">
@@ -189,7 +189,7 @@
                                                 </div>
 
                                             </div>
-
+                                            @endif
                                             <div class="form-row" id="payment_calendar"
                                                  style="display: {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'block' : 'none' }};">
 
