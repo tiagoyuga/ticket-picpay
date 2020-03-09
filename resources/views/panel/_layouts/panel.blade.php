@@ -89,7 +89,7 @@
         }
     </style>
 
-    <script src="//code.jivosite.com/widget/ZJaoWhJIhs" async></script>
+{{--    <script src="//code.jivosite.com/widget/ZJaoWhJIhs" async></script>--}}
 
 </head>
 <body class="top-navigation skin-1">
