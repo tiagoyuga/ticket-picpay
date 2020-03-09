@@ -189,7 +189,7 @@
                                                 </div>
 
                                             </div>
-                                            @endif
+
                                             <div class="form-row" id="payment_calendar"
                                                  style="display: {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'block' : 'none' }};">
 
@@ -204,6 +204,8 @@
 
 
                                             </div>
+
+                                            @endif
 
                                             <div class="form-row">
 
