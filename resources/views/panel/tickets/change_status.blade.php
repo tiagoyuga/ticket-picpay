@@ -232,7 +232,7 @@
 
                                             </div>
 
-                                            @if(isset($item) && Auth::user()->getIsDevAttribute())
+                                            @if(isset($item) && (Auth::user()->is_cto || Auth::user()->getIsDevAttribute()) )
                                                 {{--add work hour--}}
                                                 <hr>
                                                 <label for="add_work_hours">Add or remove work hours</label>
