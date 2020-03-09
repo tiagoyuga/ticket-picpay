@@ -82,7 +82,7 @@
 
                         @if(strtolower($item->payment_status) == 'paid')
                             <br>
-                            <span>Paid at: {{ $item->payment_date->format('m-d-y') }}</span>
+                            <span>Paid at: {{ $item->created_at->format('m-d-y') }}</span>
                         @endif
                     </td>
 
