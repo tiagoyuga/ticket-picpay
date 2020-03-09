@@ -105,24 +105,24 @@
 
                                             </div>
 
-{{--                                            <div class="form-row">--}}
-{{--                                                <div--}}
-{{--                                                    class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">--}}
-{{--                                                    <label for="name">Developer Spent Hrs</label>--}}
-{{--                                                    @if(\Auth::user()->getIsDevAttribute())--}}
-{{--                                                        <input type="text"--}}
-{{--                                                               class="form-control-plaintext mask_hour"--}}
-{{--                                                               disabled--}}
-{{--                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">--}}
-{{--                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}--}}
-{{--                                                    @else--}}
-{{--                                                        <input type="text" name="dev_hour_spent" id="dev_hour_spent"--}}
-{{--                                                               class="form-control mask_hour hour_change"--}}
-{{--                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">--}}
-{{--                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}--}}
-{{--                                                    @endif--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="form-row">
+                                                <div
+                                                    class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
+                                                    <label for="name">Developer Spent Hrs</label>
+                                                    @if(\Auth::user()->getIsDevAttribute())
+                                                        <input type="text"
+                                                               class="form-control-plaintext mask_hour"
+                                                               disabled
+                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
+                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                    @else
+                                                        <input type="text" name="dev_hour_spent" id="dev_hour_spent"
+                                                               class="form-control mask_hour hour_change"
+                                                               value="{{ old('dev_hour_spent', (isset($item) ? $item->dev_hour_spent : '')) }}">
+                                                        {!! $errors->first('dev_hour_spent','<span class="help-block m-b-none">:message</span>') !!}
+                                                    @endif
+                                                </div>
+                                            </div>
 
                                             @if(\Auth::user()->is_admin)
 
@@ -232,45 +232,45 @@
 
                                             </div>
 
-                                            @if(isset($item) && (Auth::user()->is_cto || Auth::user()->getIsDevAttribute()) )
-                                                {{--add work hour--}}
-                                                <hr>
-                                                <label for="add_work_hours">Add or remove work hours</label>
-                                                <div class="form-row">
+{{--                                            @if(isset($item) && (Auth::user()->is_cto || Auth::user()->getIsDevAttribute()) )--}}
+{{--                                                --}}{{--add work hour--}}
+{{--                                                <hr>--}}
+{{--                                                <label for="add_work_hours">Add or remove work hours</label>--}}
+{{--                                                <div class="form-row">--}}
 
-                                                    <div
-                                                        class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">
-                                                        <label for="work_date">Date</label>
-                                                        <input type="text" name="work_date" id="add_work_hours"
-                                                               class="form-control mask_date_usa datepicker_usa"
-                                                               value="{{ old('work_date') }}">
-                                                        {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">--}}
+{{--                                                        <label for="work_date">Date</label>--}}
+{{--                                                        <input type="text" name="work_date" id="add_work_hours"--}}
+{{--                                                               class="form-control mask_date_usa datepicker_usa"--}}
+{{--                                                               value="{{ old('work_date') }}">--}}
+{{--                                                        {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                    <div
-                                                        class="form-group col-md-1 @if ($errors->has('add_work_hour')) has-error @endif">
-                                                        <label for="add_work_hour">Add Hours</label>
-                                                        <input type="text" name="add_work_hour" id="add_work_hour"
-                                                               class="form-control mask_hour"
-                                                               value="{{ old('add_work_hour') }}"
-                                                               maxlength="5"
-                                                        >
-                                                        {!! $errors->first('add_work_hour','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-1 @if ($errors->has('add_work_hour')) has-error @endif">--}}
+{{--                                                        <label for="add_work_hour">Add Hours</label>--}}
+{{--                                                        <input type="text" name="add_work_hour" id="add_work_hour"--}}
+{{--                                                               class="form-control mask_hour"--}}
+{{--                                                               value="{{ old('add_work_hour') }}"--}}
+{{--                                                               maxlength="5"--}}
+{{--                                                        >--}}
+{{--                                                        {!! $errors->first('add_work_hour','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                    <div
-                                                        class="form-group col-md-1 @if ($errors->has('remove_work_hour')) has-error @endif">
-                                                        <label for="remove_work_hour">Remove Hours</label>
-                                                        <input type="text" name="remove_work_hour" id="remove_work_hour"
-                                                               class="form-control mask_hour"
-                                                               value="{{ old('remove_work_hour') }}"
-                                                               maxlength="5"
-                                                        >
-                                                        {!! $errors->first('work_hour','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-1 @if ($errors->has('remove_work_hour')) has-error @endif">--}}
+{{--                                                        <label for="remove_work_hour">Remove Hours</label>--}}
+{{--                                                        <input type="text" name="remove_work_hour" id="remove_work_hour"--}}
+{{--                                                               class="form-control mask_hour"--}}
+{{--                                                               value="{{ old('remove_work_hour') }}"--}}
+{{--                                                               maxlength="5"--}}
+{{--                                                        >--}}
+{{--                                                        {!! $errors->first('work_hour','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                </div>
-                                            @endif
+{{--                                                </div>--}}
+{{--                                            @endif--}}
                                             <br>
 
                                             <button class="btn btn-primary" id="" type="submit">
