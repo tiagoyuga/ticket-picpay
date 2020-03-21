@@ -292,8 +292,7 @@
                                                                         <option value="all">All</option>
                                                                         <option value="admin">Admin</option>
                                                                         <option value="cto">Cto</option>
-                                                                        <option value="dev">Dev</option>
-
+{{--                                                                        <option value="dev">Dev</option>--}}
                                                                     @else
 
                                                                         @cannot('userCanChat', $item->client)
@@ -334,7 +333,7 @@
                                                                 <label for="content"><h3>Message</h3></label>
                                                                 <textarea rows="14" cols="50" name="content"
                                                                           id="content"
-                                                                          class="froalaEditor form-control"
+                                                                          class="form-control"
                                                                           placeholder="Write your message here"
                                                                 >{{ old('content') }}</textarea>
                                                                 {!! $errors->first('content','<span class="help-block m-b-none">:message</span>') !!}
@@ -559,47 +558,11 @@
 
 @section('scripts')
     @include('panel._assets.scripts-form')
-    <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+    @include('panel._assets.scripts-ckeditor')
+
     <script>
-        ClassicEditor
-            .create(document.querySelector('#content'), {
 
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'bold',
-                        'italic',
-                        'link',
-                        'bulletedList',
-                        'numberedList',
-                        '|',
-                        'indent',
-                        'outdent',
-                        '|',
-                        'blockQuote',
-                        'insertTable',
-                        'undo',
-                        'redo'
-                    ]
-                },
-                language: 'en',
-                height: 300,
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells'
-                    ]
-                },
-                licenseKey: '',
+        setCkeditor('content');
 
-            })
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
     </script>
 @endsection

@@ -91,7 +91,7 @@
 
                                                 <div
                                                     class="form-group col-md-1 @if ($errors->has('cto_hours')) has-error @endif">
-                                                    <label for="name">CTO hrs</label>
+                                                    <label for="name">CTO Hrs</label>
                                                     <input type="text" name="cto_hours" id="cto_hours"
                                                            class="form-control mask_hour"
                                                            value="{{ old('cto_hours', (isset($item) ? $item->cto_hours : '')) }}">
@@ -108,8 +108,8 @@
                                             <div class="form-row">
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('dev_hour_spent')) has-error @endif">
-                                                    <label for="name">Developer Spent Hrs</label>
-                                                    @if(\Auth::user()->getIsDevAttribute())
+                                                    <label for="name">Developer Hrs spent </label>
+                                                    @if(\Auth::user()->is_dev)
                                                         <input type="text"
                                                                class="form-control-plaintext mask_hour"
                                                                disabled
@@ -154,7 +154,7 @@
 
                                                             <div
                                                                 class="form-group col-md-2 @if ($errors->has('dev_hrs_client')) has-error @endif">
-                                                                <label for="name">Dev Hrs</label>
+                                                                <label for="name">Hrs Spent</label>
                                                                 <input type="text" name="dev_hrs_client"
                                                                        id="dev_hrs_client"
                                                                        class="form-control mask_hour"
@@ -170,7 +170,7 @@
                                                 <br>
                                             @endif
 
-
+                                            @if(\Auth::user()->is_admin)
                                             <div class="form-row">
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('payment_status')) has-error @endif">
@@ -190,20 +190,22 @@
 
                                             </div>
 
-                                            <div class="form-row" id="payment_calendar"
-                                                 style="display: {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'block' : 'none' }};">
+                                            <div class="form-row {{ (isset($item) && strtolower($item->payment_status) == 'paid') ? 'd-block' : 'd-none' }}" id="payment_calendar"
+                                                 >
 
                                                 <div
                                                     class="form-group col-md-4 @if ($errors->has('payment_date')) has-error @endif">
                                                     <label for="name">Payment Date</label>
                                                     <input type="text" name="payment_date" id="payment_date"
                                                            class="form-control mask_date_usa datepicker_usa"
-                                                           value="{{ old('payment_date', (isset($item) ? $item->payment_date->format('m-d-Y') : '')) }}">
+                                                           value="{{ old('payment_date', (isset($item->payment_date) ? $item->payment_date->format('m-d-Y') : '')) }}">
                                                     {!! $errors->first('payment_date','<span class="help-block m-b-none">:message</span>') !!}
                                                 </div>
 
 
                                             </div>
+
+                                            @endif
 
                                             <div class="form-row">
 
@@ -232,45 +234,45 @@
 
                                             </div>
 
-                                            @if(isset($item) && Auth::user()->getIsDevAttribute())
-                                                {{--add work hour--}}
-                                                <hr>
-                                                <label for="add_work_hours">Add or remove work hours</label>
-                                                <div class="form-row">
+{{--                                            @if(isset($item) && (Auth::user()->is_cto || Auth::user()->getIsDevAttribute()) )--}}
+{{--                                                --}}{{--add work hour--}}
+{{--                                                <hr>--}}
+{{--                                                <label for="add_work_hours">Add or remove work hours</label>--}}
+{{--                                                <div class="form-row">--}}
 
-                                                    <div
-                                                        class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">
-                                                        <label for="work_date">Date</label>
-                                                        <input type="text" name="work_date" id="add_work_hours"
-                                                               class="form-control mask_date_usa datepicker_usa"
-                                                               value="{{ old('work_date') }}">
-                                                        {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-2 @if ($errors->has('work_date')) has-error @endif">--}}
+{{--                                                        <label for="work_date">Date</label>--}}
+{{--                                                        <input type="text" name="work_date" id="add_work_hours"--}}
+{{--                                                               class="form-control mask_date_usa datepicker_usa"--}}
+{{--                                                               value="{{ old('work_date') }}">--}}
+{{--                                                        {!! $errors->first('work_date','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                    <div
-                                                        class="form-group col-md-1 @if ($errors->has('add_work_hour')) has-error @endif">
-                                                        <label for="add_work_hour">Add Hours</label>
-                                                        <input type="text" name="add_work_hour" id="add_work_hour"
-                                                               class="form-control mask_hour"
-                                                               value="{{ old('add_work_hour') }}"
-                                                               maxlength="5"
-                                                        >
-                                                        {!! $errors->first('add_work_hour','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-1 @if ($errors->has('add_work_hour')) has-error @endif">--}}
+{{--                                                        <label for="add_work_hour">Add Hours</label>--}}
+{{--                                                        <input type="text" name="add_work_hour" id="add_work_hour"--}}
+{{--                                                               class="form-control mask_hour"--}}
+{{--                                                               value="{{ old('add_work_hour') }}"--}}
+{{--                                                               maxlength="5"--}}
+{{--                                                        >--}}
+{{--                                                        {!! $errors->first('add_work_hour','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                    <div
-                                                        class="form-group col-md-1 @if ($errors->has('remove_work_hour')) has-error @endif">
-                                                        <label for="remove_work_hour">Remove Hours</label>
-                                                        <input type="text" name="remove_work_hour" id="remove_work_hour"
-                                                               class="form-control mask_hour"
-                                                               value="{{ old('remove_work_hour') }}"
-                                                               maxlength="5"
-                                                        >
-                                                        {!! $errors->first('work_hour','<span class="help-block m-b-none">:message</span>') !!}
-                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        class="form-group col-md-1 @if ($errors->has('remove_work_hour')) has-error @endif">--}}
+{{--                                                        <label for="remove_work_hour">Remove Hours</label>--}}
+{{--                                                        <input type="text" name="remove_work_hour" id="remove_work_hour"--}}
+{{--                                                               class="form-control mask_hour"--}}
+{{--                                                               value="{{ old('remove_work_hour') }}"--}}
+{{--                                                               maxlength="5"--}}
+{{--                                                        >--}}
+{{--                                                        {!! $errors->first('work_hour','<span class="help-block m-b-none">:message</span>') !!}--}}
+{{--                                                    </div>--}}
 
-                                                </div>
-                                            @endif
+{{--                                                </div>--}}
+{{--                                            @endif--}}
                                             <br>
 
                                             <button class="btn btn-primary" id="" type="submit">
@@ -310,18 +312,28 @@
 
     <script type="text/javascript" src="{{ asset('js/custom-masks.js')}}"></script>
     <script>
+        $("#payment_status").on('change', function () {
 
-        setCkeditor('review');
+            if($(this).val() == 'Paid'){
+                $("#payment_calendar").removeClass('d-none')
+            }else{
+                $("#payment_calendar").removeClass('d-block')
+            }
+        })
 
-        $(".hour_change").keyup(function () {
+        $(".hour_change").on("change", function () {
 
             let original_seconds = timestamp_to_seconds($(this).val());
+            console.log(original_seconds)
             let minutes = (original_seconds / 60);
 
             let cto_hours = secondsToTime((minutes * ( {{ $item->client->cto_amount }} )) * 60)
             $("#cto_hours").val(cto_hours)
 
         })
+
+
+        setCkeditor('review');
 
         function timestamp_to_seconds(timestamp) {
             var [hours, minutes] = timestamp.split(':').map((t) => parseInt(t, 10));

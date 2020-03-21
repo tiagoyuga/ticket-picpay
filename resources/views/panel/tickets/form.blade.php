@@ -149,7 +149,7 @@
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
-                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                                {{ isset($item) ? 'Save' : 'Save' }}
                             </button>
 
                             @if(!isset($item))
@@ -183,11 +183,11 @@
 @section('scripts')
     @include('panel._assets.scripts-form')
     @include('panel._assets.scripts-ckeditor')
-
+    {!! $validator->selector('#frm_save') !!}
     <script>
 
         setCkeditor('content');
 
     </script>
-    {!! $validator->selector('#frm_save') !!}
+
 @endsection

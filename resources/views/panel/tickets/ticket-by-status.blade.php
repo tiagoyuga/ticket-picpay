@@ -1,6 +1,10 @@
 @php
     $is_client = \Auth::user()->group_id == \App\Models\Group::CLIENT;
-    $isClientAdmim = \Auth::user()->isClientAdmim();
+    $isClientAdmim = \Auth::user()->isClientAdmin;
+
+    $is_admin = \Auth::user()->group_id == \App\Models\Group::ADMIN;
+    $is_cto = \Auth::user()->group_id == \App\Models\Group::CTO;
+
 @endphp
 
 <table class="table table-striped table-bordered table-hover">
@@ -78,7 +82,7 @@
 
                         @if(strtolower($item->payment_status) == 'paid')
                             <br>
-                            <span>Paid at: {{ $item->payment_date->format('m-d-y') }}</span>
+                            <span>Paid at: {{ isset($item->payment_date) ? $item->payment_date->format('m-d-y') : '' }}</span>
                         @endif
                     </td>
 
@@ -86,6 +90,20 @@
                 @endif
 
                 <td style="text-align: center">
+
+                    @php
+                        $is_admin_from_client = \App\Models\ClientUser::isClientInThisCompany($item->client_id)->first();
+                    @endphp
+
+
+                    @if(($is_admin || $is_cto) || $is_client && isset($is_admin_from_client) && ($is_admin_from_client->is_admin))
+
+                        <a class="btn btn-sm btn-default" title="{{ $item->flag ? 'Unflag':'Flag' }}"
+                           href="{{ route('tickets.flag', [$item->id]) }}"><i
+                                class="fa fa-flag {{ $item->flag ? 'text-danger':'text-success' }}"></i>
+                        </a>
+
+                    @endif
 
                     @can('update', $item)
                         <a class="btn btn-sm btn-default" title="Edit ticket"
@@ -105,6 +123,14 @@
                        href="{{ route('tickets.detail', [$item->id]) }}"><i
                             class="fa fa-history"></i>
                     </a>
+
+                    @if($is_client || $is_admin)
+                        <link-destroy-component
+                            line-id="{{ 'tr-'.$item->id }}"
+                            link="{{ route('tickets.destroy', [$item->id]) }}">
+                        </link-destroy-component>
+                    @endif
+
 
                 </td>
 

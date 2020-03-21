@@ -74,7 +74,7 @@
 
                                 <div class="form-group col-md-4 @if ($errors->has('phone1')) has-error @endif">
                                     <label for="phone1">Phone</label>
-                                    <input type="text" name="phone1" id="phone1" class="form-control"
+                                    <input type="text" name="phone1" id="phone1" class="form-control mask_phone_with_ddd_usa"
                                            value="{{ old('phone1', (isset($item) ? $item->phone1 : '')) }}">
                                     {!! $errors->first('phone1','<span class="help-block m-b-none">:message</span>') !!}
                                 </div>
@@ -103,7 +103,7 @@
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
-                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                                {{ isset($item) ? 'Save' : 'Save' }}
                             </button>
 
                             @if(!isset($item))

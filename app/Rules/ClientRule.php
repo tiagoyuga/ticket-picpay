@@ -32,7 +32,7 @@ class ClientRule
         'status' => 'required|integer',
         'lead_status' => 'required|integer',
         'priority' => 'required|integer',
-        'email' => 'nullable|email',
+        'email' => 'nullable|email|unique:clients,email',
         'credit_amount' => 'required',
         'text_credit_history' => 'nullable',
         'additional_email' => 'nullable|email',

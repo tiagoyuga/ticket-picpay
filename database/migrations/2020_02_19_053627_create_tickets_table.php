@@ -61,7 +61,7 @@ class CreateTicketsTable extends Migration {
             $table->enum('payment_status', ['Paid', 'Not paid'])->default('Not paid');
             #$table->enum('payment_status', config('constants.payment_status'))->default(config('constants.payment_status')[0]);
             $table->date('payment_date')->nullable();
-
+            $table->boolean('flag')->default(false);
             $table->timestamps();
             $table->softDeletes();
 		});

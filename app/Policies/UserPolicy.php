@@ -25,7 +25,7 @@ class UserPolicy
      */
     public function viewAny(AuthUser $authUser)
     {
-
+        if($authUser->is_admin || $authUser->isClientAdmin)
         return true;
     }
 
@@ -51,6 +51,9 @@ class UserPolicy
     public function update(AuthUser $authUser, User $user)
     {
 
+        if($authUser->is_client)
+            return false;
+
         return true;
     }
 
@@ -63,7 +66,8 @@ class UserPolicy
      */
     public function delete(AuthUser $authUser, User $user)
     {
-
+        if($authUser->is_client)
+            return false;
         return true;
     }
 

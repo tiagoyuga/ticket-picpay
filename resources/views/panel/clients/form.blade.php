@@ -1,6 +1,6 @@
 @extends('panel._layouts.panel')
 
-@section('_titulo_pagina_', (isset($item) ? 'Edit' : 'Create') . ' of '.$label)
+@section('_titulo_pagina_', $label . (isset($item) ? ' Edit' : ' Create') )
 
 @section('content')
 
@@ -40,8 +40,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-8 @if ($errors->has('clients')) has-error @endif">
-                                            <label for="group_id">CEO / Manager <i
-                                                    class="text-danger">*</i></label>
+                                            <label for="group_id">CEO / Manager </label>
                                             <select class="select2 form-control form-control-lg" style="width: 100%"
                                                     name="clients[]"
                                                     multiple
@@ -74,7 +73,8 @@
 
                                                 @foreach($usersList as $key=>$value)
                                                     <option
-                                                        value="{{ $key }}" {{ isset($item) && $item->usersTypeUser->contains($key) ? 'selected' : ''}}>
+                                                        value="{{ $key }}" {{ isset($item) ? ($item->usersTypeUser->contains($key) ? 'selected' : '') :
+                                                                    'selected' }}>
                                                         {{ $value }}
                                                     </option>
                                                 @endforeach
@@ -322,7 +322,7 @@
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
-                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                                {{ isset($item) ? 'Save' : 'Save' }}
                             </button>
 
                             @if(!isset($item))

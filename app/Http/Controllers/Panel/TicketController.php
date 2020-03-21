@@ -66,7 +66,7 @@ class TicketController extends ApiBaseController
 
         if(Auth::user()->getIsClientAttribute()) {
 
-            if(Auth::user()->isClientAdmim()) {
+            if(Auth::user()->isClientAdmin) {
                 $data = $this->service->paginateTicketsForClientAdmin(20);
             } else {
                 $data = $this->service->paginateTicketsForClient(20);
@@ -234,5 +234,22 @@ class TicketController extends ApiBaseController
 
             return $this->sendError('Server Error.', $exception);
         }
+    }
+
+    public function flag(Ticket $ticket)
+    {
+
+        $this->log(__METHOD__);
+        $this->authorize('update', $ticket);
+
+        $ticket->flag = !$ticket->flag;
+        $ticket->save();
+
+
+        return redirect()->route('tickets.index')
+            ->with([
+                'message' => 'Successfully updated',
+                'messageType' => 's',
+            ]);
     }
 }

@@ -23,7 +23,7 @@
                 console.log("this.link = " + link);
                 console.log("this.lineId = " + lineId);
 
-                if (confirm('Confirma a remoção desse registro?')) {
+                if (confirm('Confirms removal of this record??')) {
 
                     axios.delete(link)
                         .then(function (response) {

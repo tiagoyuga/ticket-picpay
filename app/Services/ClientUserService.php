@@ -72,7 +72,6 @@ class ClientUserService
 
             $model = new Clientuser();
             $model->fill($data);
-
             $model->save();
 
             return $model;

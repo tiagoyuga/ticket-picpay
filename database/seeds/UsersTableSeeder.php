@@ -17,45 +17,32 @@ class UsersTableSeeder extends Seeder
             array(
                 "is_dev" => true,
                 "name" => "Desenvolvedor",
-                "email" => "dev@gmail.com",
+                "email" => "dev@webholdingusa.com",
                 "group_id" => 5
             ),
             array(
                 "is_dev" => true,
                 "name" => "Dyego CTO",
-                "email" => "cto@gmail.com",
+                "email" => "dyego@webholdingusa.com",
                 "group_id" => 4
             ),
             array(
                 "is_dev" => true,
                 "name" => "Gio ADM",
-                "email" => "admin@gmail.com",
+                "email" => "gio@webholdingusa.com",
                 "group_id" => 1
             ),
-            array(
-                "is_dev" => false,
-                "name" => "Fulano Client",
-                "email" => "client@gmail.com",
-                "group_id" => 3
-            ),
-            array(
-                "is_dev" => false,
-                "name" => "Ciclano Client",
-                "email" => "client@gmail.com",
-                "group_id" => 3
-            )
         );
 
-        $password = Hash::make('12345678');
+        $password = Hash::make('111111');
+        $company = \App\Models\Client::first();
+
 
         foreach ($users as $item) {
             $item['password'] = $password;
             $user = User::create($item);
 
-            \App\Models\UserType::create([
-                'user_id' => $user->id,
-                'type_id' => Type::ADMIN,
-            ]);
+            //$company->usersTypeClient()->attach($user->id);
         }
     }
 }

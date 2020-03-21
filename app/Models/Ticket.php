@@ -41,6 +41,7 @@ class Ticket extends Model
         'user_id',
         'cto_id',
         'dev_id',
+        'flag',
         'ticket_status_id',
         'subject',
         'content',
@@ -92,6 +93,10 @@ class Ticket extends Model
      * @var array
      */
     protected $dates = ['payment_date'];
+
+    protected $casts = [
+        'flag' => 'boolean'
+    ];
 
     # Query Scopes
 

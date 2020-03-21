@@ -31,7 +31,7 @@
                         {{ csrf_field() }}
 
                         <!-- inicio dos campos -->
-                        
+
                             <div class="form-row">
                                 <div class="form-group col-md-3 @if ($errors->has('name')) has-error @endif">
                                     <label for="name">Name</label>
@@ -68,13 +68,13 @@
 
                             <div class="form-row">
                             </div>
-                            
+
                         <!-- fim dos campos -->
 
                             <input id="routeTo" name="routeTo" type="hidden" value="{{ old('routeTo', 'index') }}">
                             <button class="btn btn-primary" id="bt_salvar" type="submit">
                                 <i class="fa fa-save"></i>
-                                {{ isset($item) ? 'Save editions' : 'Save' }}
+                                {{ isset($item) ? 'Save' : 'Save' }}
                             </button>
 
                             @if(!isset($item))

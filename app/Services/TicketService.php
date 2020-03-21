@@ -40,6 +40,10 @@ class TicketService
             return $query->where('dev_id', '=', $id);
         });
 
+//        $query->when(\Auth()->user()->group_id == Group::CTO, function ($query, $id) {
+//            return $query->where('cto_id', '=', $id);
+//        });
+
         $query->when(request('search'), function ($query, $search) {
 
             return $query->where('subject', 'LIKE', '%' . $search . '%')
@@ -190,11 +194,14 @@ class TicketService
             }
         }
 
-        $data['payment_date'] = (isset($data['payment_date']) && !empty($data['payment_date'])) ? Carbon::parse($data['payment_date'])->format('Y-m-d') : '';
+        if(isset($data['payment_date'])){
+            $data['payment_date'] = (isset($data['payment_date']) && !empty($data['payment_date'])) ? Carbon::parse($data['payment_date'])->format('Y-m-d') : '';
+        }
 
         $model->fill($data);
         $model_after = $model->toArray();
         $model->save();
+
 
         if(isset($data['completed'])){
 
@@ -218,10 +225,10 @@ class TicketService
 
         if($model_before != $model_after){
 
-            $content = "Updated at ". \Carbon\Carbon::parse($model->created_at)->format('m-d-Y H:i:s');
+            $content = "Updated at ". \Carbon\Carbon::parse($model->updated_at)->format('m-d-Y H:i:s');
 
             if(in_array(\Auth::user()->group_id, [Group::CTO, Group::CLIENT, Group::ADMIN]) && $model_before['ticket_status_id'] != $model_after['ticket_status_id'] ) {
-                $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . ($data['review'] ? $data['review'] : $data['content']);
+                $content = 'Status anternancy to: <strong>' . $model->status->name . "</strong>. <br>  Review: <br> " . ($data['review'] ? $data['review'] : '');
             }
 
             if ($workHour) {
@@ -233,7 +240,6 @@ class TicketService
                     $content .= " - User has removed {$data['add_work_hour']} work hours to {$data['work_date']}";
                 }
             }
-
             $activity = new TicketActivity();
             $activity->user_id = \Auth::id();
             $activity->ticket_id = $model->id;
@@ -241,6 +247,7 @@ class TicketService
             $activity->before = json_encode($model_before);
             $activity->after = json_encode($model_after);
             $activity->save();
+
         }
 
         $this->upload($model);
@@ -281,7 +288,8 @@ class TicketService
     {
         return $this->buildQuery()
             ->whereIn('tickets.client_id', Auth::user()->clientUser->pluck('client_id'))
-            ->orderBy('id','desc')->paginate($limit);
+            ->orderBy('flag', 'desc')->orderBy('id', 'desc')
+            ->paginate($limit);
     }
 
     public function paginateTicketsForClient(int $limit): LengthAwarePaginator

@@ -7,7 +7,7 @@
     @include('panel.tickets.nav')
 
     @php
-        $isClientAdmim = (Auth::user()->getIsClientAttribute() && Auth::user()->isClientAdmim());
+        $isClientAdmin = \Auth::user()->isClientAdmin;
     @endphp
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -44,11 +44,12 @@
                                     <li><a class="nav-link" data-toggle="tab" href="#tab-2">Ready for review
                                             ({{$data->where('ticket_status_id', \App\Models\TicketStatus::CLIENT_REVIEW)->count()}}
                                             )</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#tab-3">Completed  ({{$data->where('ticket_status_id', \App\Models\TicketStatus::COMPLETED)->count()}}
+                                            )</a></li>
 
-                                    @if($isClientAdmim)
-                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>
-                                    @endif
+{{--                                    @if($isClientAdmin)--}}
+{{--                                        <li><a class="nav-link" data-toggle="tab" href="#tab-4">Company users</a></li>--}}
+{{--                                    @endif--}}
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -107,34 +108,34 @@
                                         </div>
                                     </div>
 
-                                    @if($isClientAdmim)
+                                    @if($isClientAdmin)
 
-                                        <div id="tab-4" class="tab-pane">
-                                            <div class="panel-body">
+{{--                                        <div id="tab-4" class="tab-pane">--}}
+{{--                                            <div class="panel-body">--}}
 
-                                                @if (Auth::user()->clientUser->count() == 1)
+{{--                                                @if (Auth::user()->clientUser->count() == 1)--}}
 
-                                                    <table class="table table-striped table-bordered table-hover">
+{{--                                                    <table class="table table-striped table-bordered table-hover">--}}
 
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Users</th>
-                                                        </tr>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>{{ Auth::user()->clientUser->first()->users->name }}</td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+{{--                                                        <thead>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <th>Users</th>--}}
+{{--                                                        </tr>--}}
+{{--                                                        <tbody>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td>{{ Auth::user()->clientUser->first()->users->name }}</td>--}}
+{{--                                                        </tr>--}}
+{{--                                                        </tbody>--}}
+{{--                                                    </table>--}}
 
-                                                @else
+{{--                                                @else--}}
 
-                                                    @include('panel.tickets.tab-company-users')
+{{--                                                    @include('panel.tickets.tab-company-users')--}}
 
-                                                @endif
+{{--                                                @endif--}}
 
-                                            </div>
-                                        </div>
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     @endif
                                 </div>
 

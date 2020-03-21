@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                       name="email" value="{{ old('email', 'admin@gmail.com') }}" required autofocus>
+                       name="email" value="{{ old('email') }}" required autofocus>
 
                 @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="password">Senha</label>
+                <label for="password">Password</label>
                 <input id="password" type="password"
                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"
                        value="12345678" required>
@@ -39,50 +39,13 @@
                 @endif
 
             </div>
-            <button type="submit" class="btn btn-black">Entrar</button>
+            <button type="submit" class="btn btn-black">Login</button>
 
             @if (Route::has('password.request'))
                 {{--<a class="btn btn-link" href="{{ route('password.request') }}">
                     Esqueceu sua senha?
                 </a>--}}
             @endif
-
-            <hr>
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('admin@gmail.com');$('#loginForm').submit();">
-                    ADMIN
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('cto@gmail.com');$('#loginForm').submit();">
-                    CTO
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('client@gmail.com');$('#loginForm').submit();">
-                    CLIENT
-                </a>
-                <br/>
-            </p>
-
-            <p>
-
-                <a href="javascript:"
-                   onclick="$('#email').val('DEV@gmail.com');$('#loginForm').submit();">
-                    DEV
-                </a>
-                <br/>
-            </p>
 
 
         </form>

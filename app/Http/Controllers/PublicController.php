@@ -38,10 +38,14 @@ class PublicController extends Controller
             ->with([
                 'client' => $client,
                 'validator' => $validator,
+                'client_id' => $client_id,
             ]);
     }
 
-    public function registerPublicUserStore(Request $request, UserService $userService, ClientUserService $clientUserService)
+    public function registerPublicUserStore(Request $request,
+                                            UserService $userService,
+                                            ClientUserService $clientUserService,
+                                            ClientService $clientService)
     {
         try {
 
@@ -50,12 +54,11 @@ class PublicController extends Controller
             $request->request->set('group_id', Group::CLIENT);
 
             $this->validate($request, (new PublicUserRegistrationRequest())->rulesModificada());
-
             $newUser = $userService->create($request->all());
 
-            $request->request->set('user_id', $newUser->id);
+            $client = $clientService->find(base64_decode(\request()->get('client_id')));
+            $client->usersTypeClient()->attach($newUser->id);
 
-            $clientUserService->create($request->all());
 
             if(!\Auth::id()){
                 Auth::login($newUser);

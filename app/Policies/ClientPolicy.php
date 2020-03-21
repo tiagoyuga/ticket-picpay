@@ -70,7 +70,8 @@ class ClientPolicy
 
     public function userCanChat(User $user, Client $client)
     {
-
+        if(\Auth::user()->is_admin || \Auth::user()->is_cto)
+            return true;
         return ($client->usersTypeUser->contains($user->id));
     }
 }

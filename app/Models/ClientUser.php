@@ -102,5 +102,13 @@ class ClientUser extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function scopeIsClientInThisCompany($query, $client_id)
+    {
+        return $query->select('client_user.*')
+            ->where('client_user.client_id','=', $client_id)
+            ->where('client_user.user_id','=', \Auth::id())
+            ->get();
+    }
+
     # Accessors & Mutators
 }
