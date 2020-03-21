@@ -125,22 +125,12 @@ class User extends Authenticatable
     public function isClientAdmim()
     {
         $userTypes = $this->userTypes();
-        #dd($this->id, $userTypes->pluck('type_id')->toArray());
+
         if($userTypes) {
             return (in_array(Type::ADMIN, $userTypes->pluck('type_id')->toArray()));
         }
 
         return false;
-
-       /* $userTypes = UserType::where('user_id', $this->id)->get();
-        #dd($this->id, $userTypes->pluck('type_id')->toArray());
-        if($userTypes) {
-            return (in_array(Type::ADMIN, $userTypes->pluck('type_id')->toArray()));
-        }
-
-        return false;*/
-
-
     }
 
     public function clientUser()
